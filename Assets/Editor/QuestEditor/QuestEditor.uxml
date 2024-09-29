@@ -1,0 +1,67 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <ui:VisualElement name="Root" style="flex-grow: 1; flex-direction: column; border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); -unity-text-outline-color: rgb(0, 0, 0); width: 1000px; height: 1000px; background-color: rgba(255, 254, 0, 0); min-width: 100%; min-height: 100%;">
+        <ui:VisualElement name="AllContentContainer" style="flex-grow: 1;">
+            <ui:VisualElement name="SceneQuestTaskInfoContainer" style="flex-grow: 1; flex-direction: row; height: 100%; align-items: flex-start;">
+                <ui:VisualElement name="SceneInfoContainer" style="width: 50%; -unity-text-outline-width: 0; -unity-text-outline-color: rgb(0, 0, 0); border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); height: 100%;">
+                    <uie:Toolbar name="StoryToolbar" style="justify-content: flex-start;">
+                        <uie:ToolbarButton text="Reload" parse-escape-sequences="true" display-tooltip-when-elided="true" name="toolbarButtonReload" />
+                        <uie:ToolbarButton text="Save" parse-escape-sequences="true" display-tooltip-when-elided="true" name="toolbarButtonSave" />
+                    </uie:Toolbar>
+                    <ui:Label tabindex="-1" text="Scene Info and Quests" parse-escape-sequences="true" display-tooltip-when-elided="true" style="-unity-text-outline-color: rgb(0, 0, 0); -unity-text-outline-width: 0; -unity-font-style: bold;" />
+                    <ui:VisualElement style="flex-grow: 0; flex-direction: row;">
+                        <ui:TextField picking-mode="Ignore" label="Scene State" name="txtSceneState" style="flex-grow: 1;" />
+                        <ui:Button text="Choose ..." parse-escape-sequences="true" display-tooltip-when-elided="true" name="buttonChooseSceneState" />
+                    </ui:VisualElement>
+                    <ui:VisualElement style="flex-grow: 0; flex-direction: row;">
+                        <ui:TextField picking-mode="Ignore" label="Completion Event" name="txtSceneCompletionEvent" style="flex-grow: 1;" />
+                        <ui:Button text="Choose ..." parse-escape-sequences="true" display-tooltip-when-elided="true" name="buttonChooseSceneCompletionEvent" />
+                    </ui:VisualElement>
+                    <ui:TextField picking-mode="Ignore" label="Title" name="txtSceneTitle" />
+                    <ui:TextField picking-mode="Ignore" label="Short Description" name="txtSceneShortDescription" multiline="true" style="align-items: flex-start; justify-content: space-between; height: 10%; -unity-text-align: upper-left; flex-wrap: nowrap; white-space: normal; text-overflow: ellipsis;" />
+                    <ui:TextField picking-mode="Ignore" label="Long&#x9; Description" name="txtSceneLongDescription" multiline="true" style="align-items: flex-start; justify-content: space-between; height: 25%; -unity-text-align: upper-left; flex-wrap: nowrap; white-space: normal; text-overflow: ellipsis;" />
+                    <ui:ListView name="listviewSceneQuests" show-border="false" virtualization-method="FixedHeight" reorderable="true" horizontal-scrolling="false" show-add-remove-footer="false" header-title="Quests" show-foldout-header="true" reorder-mode="Animated" style="max-height: none; min-height: auto;" />
+                </ui:VisualElement>
+                <ui:VisualElement name="QuestInfoContainer" style="flex-grow: 1; background-color: rgba(0, 0, 255, 0); width: 50%; border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-top-left-radius: 0; border-top-right-radius: 0; border-bottom-right-radius: 0; border-bottom-left-radius: 0; height: 100%; justify-content: flex-start;">
+                    <uie:Toolbar name="QuestToolbar" style="justify-content: flex-start;">
+                        <uie:ToolbarButton text="New Quest" parse-escape-sequences="true" display-tooltip-when-elided="true" name="toolbarButtonNewQuest" />
+                        <uie:ToolbarButton text="Save Quest" parse-escape-sequences="true" display-tooltip-when-elided="true" name="toolbarButtonSaveQuest" />
+                        <uie:ToolbarButton text="Delete Quest" parse-escape-sequences="true" display-tooltip-when-elided="true" name="toolbarButtonDeleteQuest" />
+                    </uie:Toolbar>
+                    <ui:Label tabindex="-1" text="Quest Info and Tasks" parse-escape-sequences="true" display-tooltip-when-elided="true" style="-unity-font-style: bold;" />
+                    <ui:VisualElement style="flex-grow: 0; flex-direction: row;">
+                        <ui:TextField picking-mode="Ignore" label="Quest State" name="txtQuestState" style="flex-grow: 1;" />
+                        <ui:Button text="Choose ..." parse-escape-sequences="true" display-tooltip-when-elided="true" name="buttonChooseQuestState" />
+                    </ui:VisualElement>
+                    <ui:VisualElement style="flex-grow: 0; flex-direction: row;">
+                        <ui:TextField picking-mode="Ignore" label="Completion Event" name="txtQuestCompletionEvent" style="flex-grow: 1;" />
+                        <ui:Button text="Choose ..." parse-escape-sequences="true" display-tooltip-when-elided="true" name="buttonChooseQuestCompletionEvent" />
+                    </ui:VisualElement>
+                    <ui:TextField picking-mode="Ignore" label="Title" name="txtQuestTitle" style="align-items: flex-start; justify-content: space-between;" />
+                    <ui:TextField picking-mode="Ignore" label="Short Description" name="txtQuestShortDescription" multiline="true" style="align-items: flex-start; justify-content: space-between; height: 10%; -unity-text-align: upper-left; flex-wrap: nowrap; white-space: normal; text-overflow: ellipsis;" />
+                    <ui:TextField picking-mode="Ignore" label="Long&#x9; Description" name="txtQuestLongDescription" multiline="true" style="align-items: flex-start; justify-content: space-between; height: 25%; -unity-text-align: upper-left; flex-wrap: nowrap; white-space: normal; text-overflow: ellipsis;" />
+                    <ui:ListView name="listviewQuestTasks" show-border="false" virtualization-method="FixedHeight" reorderable="true" horizontal-scrolling="false" show-add-remove-footer="false" header-title="Tasks" show-foldout-header="true" reorder-mode="Animated" style="max-height: none; min-height: auto;" />
+                </ui:VisualElement>
+                <ui:VisualElement name="TaskInfoContainer" style="flex-grow: 1; background-color: rgba(0, 0, 255, 0); width: 50%; border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-top-left-radius: 0; border-top-right-radius: 0; border-bottom-right-radius: 0; border-bottom-left-radius: 0; height: 100%; justify-content: flex-start;">
+                    <uie:Toolbar name="TaskToolbar" style="justify-content: flex-start;">
+                        <uie:ToolbarButton text="New Task" parse-escape-sequences="true" display-tooltip-when-elided="true" name="toolbarButtonNewTask" />
+                        <uie:ToolbarButton text="Delete Task" parse-escape-sequences="true" display-tooltip-when-elided="true" name="toolbarButtonDeleteTask" />
+                        <uie:ToolbarButton text="Choose Task ..." parse-escape-sequences="true" display-tooltip-when-elided="true" name="toolbarButtonChooseTask" />
+                        <uie:ToolbarButton text="Add to Quest(s)" parse-escape-sequences="true" display-tooltip-when-elided="true" name="toolbarButtonAddTaskToQuests" />
+                    </uie:Toolbar>
+                    <ui:Label tabindex="-1" text="Task Info" parse-escape-sequences="true" display-tooltip-when-elided="true" style="-unity-font-style: bold;" />
+                    <ui:VisualElement style="flex-grow: 0; flex-direction: row;">
+                        <ui:TextField picking-mode="Ignore" label="Task State" name="txtTaskState" style="flex-grow: 1;" />
+                        <ui:Button text="Choose ..." parse-escape-sequences="true" display-tooltip-when-elided="true" name="buttonChooseTaskState" />
+                    </ui:VisualElement>
+                    <ui:VisualElement style="flex-grow: 0; flex-direction: row;">
+                        <ui:TextField picking-mode="Ignore" label="Completion Event" name="txtTaskCompletionEvent" style="flex-grow: 1;" />
+                        <ui:Button text="Choose ..." parse-escape-sequences="true" display-tooltip-when-elided="true" name="buttonChooseTaskCompletionEvent" />
+                    </ui:VisualElement>
+                    <ui:TextField picking-mode="Ignore" label="Title" name="txtTaskTitle" style="align-items: flex-start; justify-content: space-between;" />
+                    <ui:TextField picking-mode="Ignore" label="Short Description" name="txtTaskShortDescription" multiline="true" style="align-items: flex-start; justify-content: space-between; height: 10%; -unity-text-align: upper-left; flex-wrap: nowrap; white-space: normal; text-overflow: ellipsis;" />
+                    <ui:TextField picking-mode="Ignore" label="Long&#x9; Description" name="txtTaskLongDescription" multiline="true" style="align-items: flex-start; justify-content: space-between; height: 25%; -unity-text-align: upper-left; flex-wrap: nowrap; white-space: normal; text-overflow: ellipsis;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
