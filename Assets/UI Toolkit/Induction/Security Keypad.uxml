@@ -1,0 +1,30 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/Induction/keypad.uss?fileID=7433441132597879392&amp;guid=c52d4739a1917c04fa1829e6cfbd8891&amp;type=3#keypad" />
+    <ui:VisualElement name="RootFrame" style="background-image: url(&apos;project://database/Assets/Textures/User%20Interface/Security%20Keypad.gif?fileID=2800000&amp;guid=524102a3c2043664584324041f813856&amp;type=3#Security Keypad&apos;); width: 50%; height: 100%; align-items: center; flex-grow: initial; flex-direction: column; justify-content: flex-start; min-width: auto; min-height: auto; flex-basis: auto; left: auto; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; -unity-text-align: upper-left; background-color: rgba(255, 32, 32, 0); border-top-left-radius: 0; border-bottom-left-radius: 0; border-top-right-radius: 0; border-bottom-right-radius: 0; border-left-color: rgba(30, 66, 207, 0); border-right-color: rgba(30, 66, 207, 0); border-top-color: rgba(30, 66, 207, 0); border-bottom-color: rgba(30, 66, 207, 0); border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; align-self: center; -unity-background-scale-mode: scale-to-fit;">
+        <ui:Label tabindex="-1" text="Label" parse-escape-sequences="true" display-tooltip-when-elided="true" name="KeypadReadout" style="background-color: rgba(229, 27, 27, 0); width: 65%; margin-top: 24%; height: 10%; -unity-text-align: middle-center; font-size: 32px; margin-right: 4%; margin-bottom: 0; margin-left: 6%; padding-top: 1%; padding-right: 1%; padding-bottom: 1%; padding-left: 1%;" />
+        <ui:GroupBox name="StatusIcon-Keypad-Group" style="flex-direction: row; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; width: 77%; height: 44%; border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; border-left-color: rgb(255, 255, 0); border-right-color: rgb(255, 255, 0); border-top-color: rgb(255, 255, 0); border-bottom-color: rgb(255, 255, 0); top: -9%; border-top-left-radius: 0; border-bottom-left-radius: 0; border-top-right-radius: 0; border-bottom-right-radius: 0; color: rgba(0, 0, 0, 0);">
+            <ui:GroupBox name="Keypad-Group" style="padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; margin-left: 7%; margin-right: 9%; margin-top: 18%; margin-bottom: -4%; width: auto; height: auto; border-left-width: 4px; border-right-width: 4px; border-top-width: 4px; border-bottom-width: 4px; border-top-left-radius: 10px; border-bottom-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-left-color: rgba(255, 27, 27, 0); border-right-color: rgba(255, 27, 27, 0); border-top-color: rgba(255, 27, 27, 0); border-bottom-color: rgba(255, 27, 27, 0); top: 0; bottom: 0; flex-shrink: 1; flex-grow: 1;">
+                <ui:GroupBox name="KeypadRow1-Group" class="keypadRow">
+                    <ui:Button text="1" display-tooltip-when-elided="true" name="Key-1" class="keypadButton" style="background-color: rgba(188, 188, 188, 0);" />
+                    <ui:Button text="2" display-tooltip-when-elided="true" name="Key-2" class="keypadButton" style="min-width: auto; min-height: auto; align-items: auto; background-color: rgba(188, 188, 188, 0);" />
+                    <ui:Button text="3" display-tooltip-when-elided="true" name="Key-3" class="keypadButton" style="background-color: rgba(188, 188, 188, 0);" />
+                </ui:GroupBox>
+                <ui:GroupBox name="KeypadRow2-Group" class="keypadRow">
+                    <ui:Button text="4" display-tooltip-when-elided="true" name="Key-4" class="keypadButton" style="justify-content: flex-start; align-items: auto; background-color: rgba(188, 188, 188, 0);" />
+                    <ui:Button text="5" display-tooltip-when-elided="true" name="Key-5" class="keypadButton" style="min-width: auto; min-height: auto; align-items: auto; background-color: rgba(188, 188, 188, 0);" />
+                    <ui:Button text="6" display-tooltip-when-elided="true" name="Key-6" class="keypadButton" style="background-color: rgba(188, 188, 188, 0);" />
+                </ui:GroupBox>
+                <ui:GroupBox name="KeypadRow3-Group" class="keypadRow">
+                    <ui:Button text="7" display-tooltip-when-elided="true" name="Key-7" class="keypadButton" style="justify-content: flex-start; align-items: auto; background-color: rgba(188, 188, 188, 0);" />
+                    <ui:Button text="8" display-tooltip-when-elided="true" name="Key-8" class="keypadButton" style="min-width: auto; min-height: auto; align-items: auto; background-color: rgba(188, 188, 188, 0);" />
+                    <ui:Button text="9" display-tooltip-when-elided="true" name="Key-9" class="keypadButton" style="background-color: rgba(188, 188, 188, 0);" />
+                </ui:GroupBox>
+                <ui:GroupBox name="KeypadRow4-Group" class="keypadRow">
+                    <ui:Button text="x" display-tooltip-when-elided="true" name="Key-Delete" tooltip="Delete last chracter" class="keypadButton" style="justify-content: flex-start; align-items: auto; background-color: rgba(188, 188, 188, 0); -unity-font-style: normal;" />
+                    <ui:Button text="0" display-tooltip-when-elided="true" name="Key-0" class="keypadButton" style="min-width: auto; min-height: auto; align-items: auto; background-color: rgba(188, 188, 188, 0);" />
+                    <ui:Button text="\u2713" display-tooltip-when-elided="true" name="Key-Enter" tooltip="Check keycode" class="keypadButton" style="background-color: rgba(188, 188, 188, 0); -unity-font-style: normal;" />
+                </ui:GroupBox>
+            </ui:GroupBox>
+        </ui:GroupBox>
+    </ui:VisualElement>
+</ui:UXML>

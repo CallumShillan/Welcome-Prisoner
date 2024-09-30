@@ -1,0 +1,16 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/Induction/Stylesheet.uss?fileID=7433441132597879392&amp;guid=b2d9f9a52ce45b243855b1280b07a326&amp;type=3#Stylesheet" />
+    <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); align-items: stretch; justify-content: space-around; align-self: auto;">
+        <ui:VisualElement name="RootFrame" style="flex-grow: 1; background-color: rgb(0, 0, 0); flex-direction: row;">
+            <ui:VisualElement name="LeftHandNav" style="flex-grow: 0; align-items: center; justify-content: center; flex-shrink: 0; width: 20%; background-color: rgba(0, 0, 0, 0);">
+                <ui:Button text="New Game" parse-escape-sequences="true" display-tooltip-when-elided="true" name="btnNewGame" class="ButtonDismiss" style="font-size: 32px;" />
+                <ui:Button text="Exit Game" parse-escape-sequences="true" display-tooltip-when-elided="true" name="btnExitGame" class="ButtonDismiss" style="font-size: 32px;" />
+            </ui:VisualElement>
+            <ui:VisualElement name="VisualElement" style="flex-grow: 1; background-image: none; background-color: rgb(2, 2, 2);">
+                <ui:VisualElement name="WelcomePrisonerGameImage" style="flex-grow: 1; background-image: url(&apos;project://database/Assets/Textures/Splash%20Screen/Welcome,%20Prisoner%20-%20Splash%20Screen.jpg?fileID=2800000&amp;guid=7936f66da2282c947a81e1b11f2cfaab&amp;type=3#Welcome, Prisoner - Splash Screen&apos;); -unity-background-scale-mode: stretch-to-fill; align-items: auto; width: 100%; justify-content: center; background-color: rgb(0, 0, 0); height: 100%; flex-direction: row; align-self: center;">
+                    <ui:Label tabindex="-1" text="Loading ..." parse-escape-sequences="true" display-tooltip-when-elided="true" name="lblLoading" style="font-size: 84px; color: rgb(255, 255, 255);" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
