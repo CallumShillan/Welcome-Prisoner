@@ -1,0 +1,7 @@
+<size=16><b>External System Interfaces</b></size>
+<size=12>The Prison Computer is used to configure the External System Interfaces.
+
+External System Interfaces are used to communicate with the Judicial, Resources Purchase, and the Resource Planning systems.
+
+Configuring the External System Interfaces is done on an individual basis.
+</size>

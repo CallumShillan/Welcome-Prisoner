@@ -1,0 +1,3 @@
+<size=16><b>Prison Computer</b></size>
+<size=12>The Prison Computer is used on the Computer Room that is access from the recpetion area. The door to the Computer Room is locked and unlocked using the relevant Security Code entered on the Security Keypad next to the door.
+</size>
