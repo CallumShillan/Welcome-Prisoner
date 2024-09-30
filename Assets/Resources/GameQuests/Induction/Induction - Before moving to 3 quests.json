@@ -1,0 +1,221 @@
+{
+    "theStory": {
+        "State": 0,
+        "GameState": "Active",
+        "CompletionEvent": "PRISONER_INDUCTED_AND_EVIDENCE_FOUND",
+        "Title": "Arrival at the World Orbital Prison",
+        "ShortDescription": "You have been found guilty of your crimes and you have been sent to the World Orbital Prison, used to house the most serious felons that have threatened the peace and stability of the United Earth Federation.\r\nHowever, you are innocent and the charges against you were fabricated, and the legal processes were flawed and unreliable. You must start to use the prison systems to unearth evidence of your innocence and uncover the reasons why you were wrongly convicted.\r",
+        "LongDescription": "In the early stages of the last century, Earth faced an unprecedented surge in crimes relating to rejection of the United Earth Federation's laws, rules and regulations.\r\nTraditional prisons were overwhelmed, and the risk of prison breaks and riots became a significant threat to global security. To address this, the United Earth Federation, in collaboration with leading space agencies and private corporations, established the World Orbital Prison, a high-security prison orbiting Earth.\r\nThe World Orbital Prison was designed to isolate the most dangerous felons from society, ensuring they could no longer pose a threat to the public. Constructed using advanced materials and technology, the prison is a marvel of engineering, featuring state-of-the-art security systems, including AI surveillance, automated defence mechanisms, and zero-gravity containment cells. The prison’s location in space makes escape virtually impossible, as any attempt to breach the facility would result in immediate detection and neutralization.\r\nThe prison houses the world’s most notorious criminals, including warlords, terrorist leaders, cybercriminal masterminds, and high-profile organized crime bosses. These individuals have been convicted of severe offenses such as genocide, terrorism, large-scale financial fraud, and other heinous crimes. The selection criteria for inmates are stringent, ensuring only those who pose the highest risk to global security are sent to the World Orbital Prison.\r\nInmates at the World Orbital Prison are subjected to a strict daily regimen designed to maintain order and discipline. Each day begins with a mandatory physical exercise routine to ensure the inmates’ health in the zero-gravity environment. Following this, inmates are assigned to various work duties, which serve both as a means of rehabilitation and a way to contribute to the prison’s self-sufficiency.\r\nSpace Mining Operations: Inmates are tasked with extracting valuable minerals from nearby asteroids. This work is highly monitored and conducted under strict safety protocols to prevent sabotage or escape attempts.\r\nSatellite Maintenance: Inmates with technical skills are assigned to maintain and repair communication and surveillance satellites. This work helps keep the prison operational and contributes to global communication networks.\r\nResearch and Development: Some inmates, particularly those with scientific backgrounds, are involved in research projects aimed at advancing space technology and medicine. Their work is closely supervised and contributes to the betterment of humanity.\r\nDespite the high-security environment, the World Orbital Prison also focuses on rehabilitation. Inmates have access to educational programs, psychological counselling, and vocational training. The goal is to provide them with the skills and mindset needed for eventual reintegration into society, should they ever be deemed fit for release.\r\nThe World Orbital Prison stands as a testament to humanity’s resolve to maintain peace and security, even in the face of the most formidable challenges.\r",
+        "CurrentQuestTitle": "",
+        "QuestTitles": [
+            "Your induction",
+            "Start search for evidence"
+        ]
+    },
+    "theQuests": [
+        {
+            "State": 0,
+            "GameState": "Pending",
+            "CompletionEvent": "PRISONER_INDUCTED",
+            "Title": "Your induction",
+            "ShortDescription": "Welcome to the World Orbital Prison. This facility houses those who have acted against the United Earth Federation and threatened to undermine world order and stability.",
+            "LongDescription": "The World Orbital Prison is run on behalf of the United Earth Federation and is subject to the Universal Civil Liberties legislation.\r\nIn keeping with this legislation, an Induction Process is used so all prisoners are absorbed into the prison in a uniform manner.\r\nThe induction process is:\r\nReception: Upon arrival, prisoners are pick up the steps for the Induction Process from Reception.\r\nIdentification: Prisoners have their bioemtrics taken for identification purposes.\r\nMedical Check: A thorough medical examination is conducted to assess the prisoner’s health and identify any immediate medical needs.\r\nProperty Inventory: Personal items that are allowed in the facility are inventoried, and prohibited items are stored or disposed of.\r\nAssignment: Each prisoner is assigned to a cell or dormitory based on their security classification and needs assessment.\r",
+            "CurrentTaskTitle": "",
+            "TaskTitles": [
+                "Report to reception",
+                "Record your identification",
+                "Medical check",
+                "Personal property removed",
+                "Cell assignment"
+            ],
+            "IsActive": false
+        },
+        {
+            "State": 0,
+            "GameState": "Pending",
+            "CompletionEvent": "START_SEARCH_FOR_EVIDENCE",
+            "Title": "Start search for evidence",
+            "ShortDescription": "You are innocent, you know that. It's time to start to try and access the prisoner records so you can start to search for evidence of your innocence.",
+            "LongDescription": "Begin your search in the prison’s common areas. These areas are often bustling with activity, making it easier for items to be misplaced or left unattended. Check desks, lockers, and any other places where a security card might be casually left behind. Pay attention to areas that are less frequently monitored by guards, as these might be more likely to contain overlooked items.\r\nWhile exploring the common areas, take a moment to examine any whiteboards you come across. Officers often use these boards to jot down important notes, passwords, or reminders. Look for any sequences of numbers, words, or symbols that might serve as a password or hint. These clues can be crucial for accessing restricted areas or systems later on.\r\nYour next objective is to find a key that grants access to a restricted area. This key could be hidden in various places, such as an officer’s personal belongings, a maintenance room, or even a storage closet. Be thorough in your search, checking inside drawers, behind objects, and in less obvious places where a key might be stashed.\r\nWith the key in hand, proceed to the restricted area. Use the key to unlock the door and gain entry. This area is likely to contain sensitive information or tools that are essential for your mission. Move cautiously and be aware of any security measures that might be in place.\r\nOnce inside the restricted area, locate the control panel for the security cameras. Disabling these cameras is crucial to avoid detection. Look for a control room or a panel with multiple screens displaying camera feeds. Use the controls to turn off the cameras or disrupt their signal.\r\nIn the restricted area, find the prison officer’s desk. Thoroughly search through the desk drawers, under the desk, and in any hidden compartments. You might find additional security cards, notes, or passwords that can aid you in your mission. Be discreet to avoid leaving any evidence of your search.\r\nLocate the computer terminal within the restricted area. Use any passwords or security cards you’ve found to log in. This terminal might contain valuable information or controls that are critical to your objectives. Ensure you have all necessary credentials before attempting to access the system.\r\nIf the computer terminal has extra security measures, such as a fingerprint scanner or a secondary password, you’ll need to find a way to bypass them. Look around the room for clues or tools that can help you overcome these obstacles. This might involve finding a fingerprint sample or deciphering a code.\r\nOnce you’ve successfully logged into the computer terminal, navigate to the prison officer’s workstation. Use the information and tools you’ve gathered to gain privileged access. This workstation might provide you with the final pieces of information or control you need to complete your mission.\r\nAfter accessing the workstation, it’s crucial to cover your tracks to avoid detection. Delete any logs of your activity, clear the browser history, and re-enable the security cameras. Ensure that there are no traces of your presence left behind. This will help you avoid suspicion and maintain your cover.\r",
+            "CurrentTaskTitle": "",
+            "TaskTitles": [
+                "Find the Security Card",
+                "Observe the Whiteboard",
+                "Locate the Key",
+                "Access the Restricted Area",
+                "Disable Security Cameras",
+                "Search the Officer’s Desk",
+                "Check the Computer Terminal",
+                "Bypass Additional Security",
+                "Access the Workstation",
+                "Cover Your Tracks"
+            ],
+            "IsActive": false
+        }
+    ],
+    "theTasks": [
+        {
+            "State": 0,
+            "GameState": "Pending",
+            "CompletionEvent": "GAME_STARTED",
+            "Title": "Report to reception",
+            "ShortDescription": "Upon arrival, prisoners should report to reception and pick up the steps for their Induction Process .",
+            "LongDescription": "Arriving at reception marks the initial phase of a prisoner’s journey within the correctional facility.\r\nAs new inmates arrive, they are ushered into the intake area, a transitional space bridging the outside world and the confines of prison.\r\nHere, prison officials meticulously document each arrival, giving them the tasks for their Induction Process.\r\nPersonal belongings are systematically confiscated to maintain security and order within the facility; only approved items are retained.\r\nThis process is crucial for establishing authority and setting the tone for the inmates’ forthcoming incarceration period.\r\nIt is also during this stage that prisoners are stripped of their civilian identity and prepared for their new reality behind bars, a psychological shift that begins with relinquishing possessions and accepting the prison’s authority.\r\nThe reception step is a procedural necessity that ensures smooth inmate management and upholds institutional security.\r",
+            "IsActive": false
+        },
+        {
+            "State": 0,
+            "GameState": "Pending",
+            "CompletionEvent": "IDENTITY_RECORDED",
+            "Title": "Record your identification",
+            "ShortDescription": "Go to Security and record your biometric data for identification purposes.",
+            "LongDescription": "The Identity step in prisoner induction is a critical procedure where new inmates are formally identified and registered into the prison system.\r\nThis stage involves capturing biometric data, including photographs and fingerprints, which serve as unique identifiers throughout their incarceration.\r\nThe process is methodical, ensuring that each prisoner's identity is accurately recorded to prevent any mix-ups and to facilitate future identification needs. It also includes verifying personal details against official documents and previous records.\r\nThis meticulous documentation is essential for security purposes, inmate management, and legal compliance.\r\nThe identity step not only aids in maintaining order within the facility but also upholds the integrity of the judicial system by ensuring that each prisoner serves their rightful sentence.\r\nIt is a moment of transformation, as inmates are assigned an identification number, symbolizing their transition from an individual to a part of the prison populace.\r\nThe Identity step in prisoner induction is a critical procedure where new inmates are formally identified and registered into the prison system.\r\nThis stage involves capturing biometric data, including photographs and fingerprints, which serve as unique identifiers throughout their incarceration.\r\nThe process is methodical, ensuring that each prisoner's identity is accurately recorded to prevent any mix-ups and to facilitate future identification needs. It also includes verifying personal details against official documents and previous records.\r\nThis meticulous documentation is essential for security purposes, inmate management, and legal compliance.\r\nThe identity step not only aids in maintaining order within the facility but also upholds the integrity of the judicial system by ensuring that each prisoner serves their rightful sentence.\r\nIt’s a moment of transformation, as inmates are assigned an identification number, symbolizing their transition from an individual to a part of the prison populace.\r\n",
+            "IsActive": false
+        },
+        {
+            "State": 0,
+            "GameState": "Pending",
+            "CompletionEvent": "MEDICAL_CHECK_COMPLETED",
+            "Title": "Medical check",
+            "ShortDescription": "Go to the Medical room so a thorough medical examination can be conducted to assess your health and identify any immediate medical needs.",
+            "LongDescription": "The Medical Check step is a vital component of the prisoner induction process, ensuring the health and well-being of new inmates.\r\nUpon entry, prisoners undergo a comprehensive medical examination conducted by healthcare professionals. This assessment includes a review of medical history, current health status, and any necessary screenings or tests to detect communicable diseases or immediate health concerns.\r\nThe evaluation also identifies inmates who may require special medical attention or accommodations during their incarceration. Mental health screenings are part of this process, aiming to provide early intervention for those in need.\r\nThe information gathered is crucial for creating individualized healthcare plans and integrating health considerations into overall prison management.\r\nThis step underscores the facility’s commitment to maintaining a safe and healthy environment for all inmates, staff, and visitors, while also upholding the human rights of those incarcerated.\r\nThe Medical Check step is a vital component of the prisoner induction process, ensuring the health and well-being of new inmates.\r\nUpon entry, prisoners undergo a comprehensive medical examination conducted by healthcare professionals. This assessment includes a review of medical history, current health status, and any necessary screenings or tests to detect communicable diseases or immediate health concerns.\r\nThe evaluation also identifies inmates who may require special medical attention or accommodations during their incarceration. Mental health screenings are part of this process, aiming to provide early intervention for those in need.\r\nThe information gathered is crucial for creating individualized healthcare plans and integrating health considerations into overall prison management.\r\nThis step underscores the facility’s commitment to maintaining a safe and healthy environment for all inmates, staff, and visitors, while also upholding the human rights of those incarcerated.\r",
+            "IsActive": false
+        },
+        {
+            "State": 0,
+            "GameState": "Pending",
+            "CompletionEvent": "PROPERTY_INVENTORIED",
+            "Title": "Personal property removed",
+            "ShortDescription": "Go to the Personal Property room so your personal possessions can be inventoried, and prohibited items are stored or disposed of.",
+            "LongDescription": "The Property Inventory step in the prisoner induction process is a systematic approach to managing inmates’ personal belongings.\r\nUpon arrival, prisoners’ items are thoroughly examined and catalogued by prison staff. Essential items permitted within the facility are recorded and stored for inmate use, while contraband or unauthorized possessions are either disposed of or kept in secure storage until release.\r\nThis meticulous inventory ensures that each item is accounted for, preventing the introduction of prohibited materials that could compromise safety or security. The process also serves to respect inmates’ property rights by safeguarding their personal effects.\r\nIt’s a clear message that while the prison controls the environment, it also acknowledges the ownership rights of inmates, balancing security needs with individual rights.\r\nThis step is crucial for maintaining order and discipline within the facility, as well as providing a sense of personal responsibility and ownership to the inmates.\r\nThe Property Inventory step in the prisoner induction process is a systematic approach to managing inmates’ personal belongings.\r\nUpon arrival, prisoners’ items are thoroughly examined and catalogued by prison staff. Essential items permitted within the facility are recorded and stored for inmate use, while contraband or unauthorized possessions are either disposed of or kept in secure storage until release.\r\nThis meticulous inventory ensures that each item is accounted for, preventing the introduction of prohibited materials that could compromise safety or security. The process also serves to respect inmates’ property rights by safeguarding their personal effects.\r\nIt’s a clear message that while the prison controls the environment, it also acknowledges the ownership rights of inmates, balancing security needs with individual rights.\r\nThis step is crucial for maintaining order and discipline within the facility, as well as providing a sense of personal responsibility and ownership to the inmates.\r\n",
+            "IsActive": false
+        },
+        {
+            "State": 0,
+            "GameState": "Pending",
+            "CompletionEvent": "CELL_ASSIGNMENT_COMPLETE",
+            "Title": "Cell assignment",
+            "ShortDescription": "Each prisoner is assigned to a cell or dormitory based on their security classification and needs assessment.",
+            "LongDescription": "The Assignment step is a pivotal moment in the prisoner induction process, where inmates are allocated their living quarters within the correctional facility.\r\nThis allocation is based on a thorough assessment of each inmate’s security risk, health needs, and behavioural profile. The goal is to place prisoners in an environment that ensures their safety and the safety of others, while also promoting rehabilitation and orderly prison management.\r\nHigh-risk individuals may be assigned to maximum-security cells, while those deemed lower risk might be placed in more communal settings. This step also considers compatibility with potential cellmates to minimize conflicts.\r\nThe assignment is not static; it can be re-evaluated and adjusted as needed based on inmate behaviour or changing circumstances.\r\nIt’s a process that underscores the prison’s commitment to individualized care and security, ensuring that each inmate’s placement is appropriate for their specific situation.\r\nThe Assignment step is a pivotal moment in the prisoner induction process, where inmates are allocated their living quarters within the correctional facility.\r\nThis allocation is based on a thorough assessment of each inmate’s security risk, health needs, and behavioural profile. The goal is to place prisoners in an environment that ensures their safety and the safety of others, while also promoting rehabilitation and orderly prison management.\r\nHigh-risk individuals may be assigned to maximum-security cells, while those deemed lower risk might be placed in more communal settings. This step also considers compatibility with potential cellmates to minimize conflicts.\r\nThe assignment is not static; it can be re-evaluated and adjusted as needed based on inmate behaviour or changing circumstances.\r\nIt’s a process that underscores the prison’s commitment to individualized care and security, ensuring that each inmate’s placement is appropriate for their specific situation.\r",
+            "IsActive": false
+        },
+        {
+            "State": 0,
+            "GameState": "Pending",
+            "CompletionEvent": "SECURITY_CARD_FOUND",
+            "Title": "Find the Security Card",
+            "ShortDescription": "Start by exploring the prison’s common areas. Look for a security card that might be left unattended on a desk or in a locker.",
+            "LongDescription": "Begin your quest by exploring the prison’s common areas, such as the cafeteria, recreation room, or staff lounge. Pay close attention to desks, lockers, and other personal spaces where a security card might be left unattended. Look for clues like a lanyard hanging from a chair or a card partially hidden under papers. This card is crucial for accessing restricted areas, so be thorough in your search.",
+            "IsActive": false
+        },
+        {
+            "State": 0,
+            "GameState": "Pending",
+            "CompletionEvent": "WHITEBOARD_OBSERVED",
+            "Title": "Observe the Whiteboard",
+            "ShortDescription": "While in the common areas, check the whiteboards for any written passwords or hints. Sometimes officers jot down passwords or important notes.",
+            "LongDescription": "Whiteboards in common areas or meeting rooms often contain important information. Look for any written passwords, codes, or hints that might be casually noted by the officers. Sometimes, officers jot down temporary passwords or reminders that can be useful. Take a photo or memorize these details, as they can provide direct access to computer systems or secure areas.",
+            "IsActive": false
+        },
+        {
+            "State": 0,
+            "GameState": "Pending",
+            "CompletionEvent": "KEY_LOCATED",
+            "Title": "Locate the Key",
+            "ShortDescription": "Search for a key to a restricted area. This key could be hidden in an officer’s personal belongings or in a maintenance room.",
+            "LongDescription": "Keys to restricted areas are often hidden in less obvious places. Check the personal belongings of officers, such as jackets, bags, or lockers. Maintenance rooms or janitorial closets are also good places to search, as they might contain keys left by staff. Finding this key will allow you to enter areas that are off-limits to regular inmates.",
+            "IsActive": false
+        },
+        {
+            "CompletionEvent": "RESTRICTED_AREA_ACCESSED",
+            "State": 0,
+            "GameState": "Pending",
+            "Title": "Access the Restricted Area",
+            "ShortDescription": "Use the key to enter the restricted area. This area might contain more sensitive information, or tools needed for your mission.",
+            "LongDescription": "Use the key you found to unlock the door to a restricted area. This could be an office, a control room, or a storage area. Be cautious and ensure that no one sees you entering. Once inside, you might find more valuable items or information that will aid your mission.",
+            "IsActive": false
+        },
+        {
+            "State": 0,
+            "GameState": "Pending",
+            "CompletionEvent": "SECURITY_CAMERS_DISABLED",
+            "Title": "Disable Security Cameras",
+            "ShortDescription": "Once inside the restricted area, find the control panel for the security cameras and disable them to avoid detection.",
+            "LongDescription": "Inside the restricted area, locate the control panel for the security cameras. Disabling the cameras will prevent you from being detected while you continue your mission. Look for a manual override switch or a computer terminal that controls the camera system. Be quick and efficient to avoid raising any alarms.",
+            "IsActive": false
+        },
+        {
+            "State": 0,
+            "GameState": "Pending",
+            "CompletionEvent": "PRISON_OFFICER_DESK_SEARCHED",
+            "Title": "Search the Officer’s Desk",
+            "ShortDescription": "Look through the prison officer’s desk for any additional security cards, notes, or passwords that might be hidden in drawers or under the desk.",
+            "LongDescription": "Officers often keep important items in their desks. Search through drawers, under the desk, and in any hidden compartments. Look for additional security cards, notes, or passwords that might be stored here. These items can provide further access to secure systems or areas within the prison.",
+            "IsActive": false
+        },
+        {
+            "State": 0,
+            "GameState": "Pending",
+            "CompletionEvent": "COMPUTER_TERMINAL_CHECKED",
+            "Title": "Check the Computer Terminal",
+            "ShortDescription": "Access the computer terminal in the restricted area. Use any passwords or security cards you’ve found to log in.",
+            "LongDescription": "Find a computer terminal within the restricted area and attempt to log in using the passwords or security cards you’ve collected. If the terminal is locked, look around for clues or tools that might help you bypass the security measures. Successfully logging in will give you access to the prison’s internal systems. Find a computer terminal within the restricted area and attempt to log in using the passwords or security cards you’ve collected. If the terminal is locked, look around for clues or tools that might help you bypass the security measures. Successfully logging in will give you access to the prison’s internal systems.",
+            "IsActive": false
+        },
+        {
+            "State": 0,
+            "GameState": "Pending",
+            "CompletionEvent": "ADDITIONAL_SECURITY_BYPASSED",
+            "Title": "Bypass Additional Security",
+            "ShortDescription": "If the computer terminal has additional security measures, such as a fingerprint scanner or a secondary password, look around the room for clues or tools to bypass these measures.",
+            "LongDescription": "Some computer terminals may have extra security features, such as fingerprint scanners or secondary passwords. Look for items like fingerprint moulds, or search for additional notes that might contain secondary passwords. Use your ingenuity to bypass these measures and gain full access to the system.",
+            "IsActive": false
+        },
+        {
+            "State": 0,
+            "GameState": "Pending",
+            "CompletionEvent": "WORKSTATION_ACCESSED",
+            "Title": "Access the Workstation",
+            "ShortDescription": "Once you’ve successfully logged into the computer terminal, navigate to the prison officer’s workstation. Use the information and tools you’ve gathered to gain privileged access.",
+            "LongDescription": "Find a computer terminal within the restricted area and attempt to log in using the passwords or security cards you’ve collected. If the terminal is locked, look around for clues or tools that might help you bypass the security measures. Successfully logging in will give you access to the prison’s internal systems.",
+            "IsActive": false
+        },
+        {
+            "State": 0,
+            "GameState": "Pending",
+            "CompletionEvent": "TRACKS_COVERED",
+            "Title": "Cover Your Tracks",
+            "ShortDescription": "After accessing the workstation, make sure to cover your tracks. Delete any logs of your activity and re-enable the security cameras to avoid suspicion.",
+            "LongDescription": "Some computer terminals may have extra security features, such as fingerprint scanners or secondary passwords. Look for items like fingerprint moulds, or search for additional notes that might contain secondary passwords. Use your ingenuity to bypass these measures and gain full access to the system.",
+            "IsActive": false
+        }
+    ],
+    "theCompletionEvents": [
+        "PRISONER_INDUCTED_AND_EVIDENCE_FOUND",
+        "PRISONER_INDUCTED",
+        "START_SEARCH_FOR_EVIDENCE",
+        "GAME_STARTED",
+        "INDUCTION_STEPS_ACQUIRED",
+        "IDENTITY_RECORDED",
+        "MEDICAL_CHECK_COMPLETED",
+        "PROPERTY_INVENTORIED",
+        "CELL_ASSIGNMENT_COMPLETE",
+        "SECURITY_CARD_FOUND",
+        "WHITEBOARD_OBSERVED",
+        "KEY_LOCATED",
+        "RESTRICTED_AREA_ACCESSED",
+        "SECURITY_CAMERS_DISABLED",
+        "PRISON_OFFICER_DESK_SEARCHED",
+        "COMPUTER_TERMINAL_CHECKED",
+        "ADDITIONAL_SECURITY_BYPASSED",
+        "WORKSTATION_ACCESSED",
+        "TRACKS_COVERED"
+    ],
+    "theGameStates": [
+        "Pending",
+        "Active",
+        "Aborted",
+        "Completed",
+        "Failed"
+    ]
+}

@@ -1,0 +1,10 @@
+The Security Office is just to your left.
+
+Use Security Code "1234" and enter the Security Office to use the Biometric Harvesting Device for identification in the World Orbital Prison.
+
+<b>Instructions for Biometric Harvesting Device:</b>
+(1) Stand directly in front of the biometric harvesting device.
+(2) Follow the instructions to activate the device.
+(3) You will be transferred to the device.
+(4) Look around, get confirtable, and indicate you are okay to proceed.
+(5) Once the scan is complete, control will be returned to you.

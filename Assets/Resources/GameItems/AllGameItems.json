@@ -1,0 +1,292 @@
+{
+    "Title": "Welcome, Prisoner!",
+    "ShortDescription": "You have been found guilty and must now serve your sentence.",
+    "LongDescription": "This is the long description",
+    "CurrentQuestTitle": "",
+    "Quests": [
+        {
+            "Title": "Quest 0",
+            "ShortDescription": "This is short description for Quest 0",
+            "LongDescription": "This is the LONG description for Quest 0",
+            "CurrentTaskTitle": "",
+            "State": 0,
+            "IsActive": false,
+            "Tasks": [
+                {
+                    "Title": "Task 0-0",
+                    "ShortDescription": "This is short description for Task 0-0",
+                    "LongDescription": "This is LONG description for Task 0-0",
+                    "State": 0,
+                    "IsActive": false,
+                    "CompletionEvent": 0
+                }
+            ]
+        },
+        {
+            "Title": "Quest 1",
+            "ShortDescription": "This is short description for Quest 1",
+            "LongDescription": "This is the LONG description for Quest 1",
+            "CurrentTaskTitle": "",
+            "State": 0,
+            "IsActive": false,
+            "Tasks": [
+                {
+                    "Title": "Task 1-0",
+                    "ShortDescription": "This is short description for Task 1-0",
+                    "LongDescription": "This is LONG description for Task 1-0",
+                    "State": 0,
+                    "IsActive": false,
+                    "CompletionEvent": 0
+                }
+            ]
+        },
+        {
+            "Title": "Quest 2",
+            "ShortDescription": "This is short description for Quest 2",
+            "LongDescription": "This is the LONG description for Quest 2",
+            "CurrentTaskTitle": "",
+            "State": 0,
+            "IsActive": false,
+            "Tasks": [
+                {
+                    "Title": "Task 2-0",
+                    "ShortDescription": "This is short description for Task 2-0",
+                    "LongDescription": "This is LONG description for Task 2-0",
+                    "State": 0,
+                    "IsActive": false,
+                    "CompletionEvent": 0
+                },
+                {
+                    "Title": "Task 2-1",
+                    "ShortDescription": "This is short description for Task 2-1",
+                    "LongDescription": "This is LONG description for Task 2-1",
+                    "State": 0,
+                    "IsActive": false,
+                    "CompletionEvent": 0
+                }
+            ]
+        },
+        {
+            "Title": "Quest 3",
+            "ShortDescription": "This is short description for Quest 3",
+            "LongDescription": "This is the LONG description for Quest 3",
+            "CurrentTaskTitle": "",
+            "State": 0,
+            "IsActive": false,
+            "Tasks": [
+                {
+                    "Title": "Task 3-0",
+                    "ShortDescription": "This is short description for Task 3-0",
+                    "LongDescription": "This is LONG description for Task 3-0",
+                    "State": 0,
+                    "IsActive": false,
+                    "CompletionEvent": 0
+                },
+                {
+                    "Title": "Task 3-1",
+                    "ShortDescription": "This is short description for Task 3-1",
+                    "LongDescription": "This is LONG description for Task 3-1",
+                    "State": 0,
+                    "IsActive": false,
+                    "CompletionEvent": 0
+                },
+                {
+                    "Title": "Task 3-2",
+                    "ShortDescription": "This is short description for Task 3-2",
+                    "LongDescription": "This is LONG description for Task 3-2",
+                    "State": 0,
+                    "IsActive": false,
+                    "CompletionEvent": 0
+                }
+            ]
+        },
+        {
+            "Title": "Quest 4",
+            "ShortDescription": "This is short description for Quest 4",
+            "LongDescription": "This is the LONG description for Quest 4",
+            "CurrentTaskTitle": "",
+            "State": 0,
+            "IsActive": false,
+            "Tasks": [
+                {
+                    "Title": "Task 4-0",
+                    "ShortDescription": "This is short description for Task 4-0",
+                    "LongDescription": "This is LONG description for Task 4-0",
+                    "State": 0,
+                    "IsActive": false,
+                    "CompletionEvent": 0
+                }
+            ]
+        },
+        {
+            "Title": "Quest 5",
+            "ShortDescription": "This is short description for Quest 5",
+            "LongDescription": "This is the LONG description for Quest 5",
+            "CurrentTaskTitle": "",
+            "State": 0,
+            "IsActive": false,
+            "Tasks": [
+                {
+                    "Title": "Task 5-0",
+                    "ShortDescription": "This is short description for Task 5-0",
+                    "LongDescription": "This is LONG description for Task 5-0",
+                    "State": 0,
+                    "IsActive": false,
+                    "CompletionEvent": 0
+                },
+                {
+                    "Title": "Task 5-1",
+                    "ShortDescription": "This is short description for Task 5-1",
+                    "LongDescription": "This is LONG description for Task 5-1",
+                    "State": 0,
+                    "IsActive": false,
+                    "CompletionEvent": 0
+                }
+            ]
+        },
+        {
+            "Title": "Quest 6",
+            "ShortDescription": "This is short description for Quest 6",
+            "LongDescription": "This is the LONG description for Quest 6",
+            "CurrentTaskTitle": "",
+            "State": 0,
+            "IsActive": false,
+            "Tasks": [
+                {
+                    "Title": "Task 6-0",
+                    "ShortDescription": "This is short description for Task 6-0",
+                    "LongDescription": "This is LONG description for Task 6-0",
+                    "State": 0,
+                    "IsActive": false,
+                    "CompletionEvent": 0
+                },
+                {
+                    "Title": "Task 6-1",
+                    "ShortDescription": "This is short description for Task 6-1",
+                    "LongDescription": "This is LONG description for Task 6-1",
+                    "State": 0,
+                    "IsActive": false,
+                    "CompletionEvent": 0
+                }
+            ]
+        },
+        {
+            "Title": "Quest 7",
+            "ShortDescription": "This is short description for Quest 7",
+            "LongDescription": "This is the LONG description for Quest 7",
+            "CurrentTaskTitle": "",
+            "State": 0,
+            "IsActive": false,
+            "Tasks": [
+                {
+                    "Title": "Task 7-0",
+                    "ShortDescription": "This is short description for Task 7-0",
+                    "LongDescription": "This is LONG description for Task 7-0",
+                    "State": 0,
+                    "IsActive": false,
+                    "CompletionEvent": 0
+                },
+                {
+                    "Title": "Task 7-1",
+                    "ShortDescription": "This is short description for Task 7-1",
+                    "LongDescription": "This is LONG description for Task 7-1",
+                    "State": 0,
+                    "IsActive": false,
+                    "CompletionEvent": 0
+                },
+                {
+                    "Title": "Task 7-2",
+                    "ShortDescription": "This is short description for Task 7-2",
+                    "LongDescription": "This is LONG description for Task 7-2",
+                    "State": 0,
+                    "IsActive": false,
+                    "CompletionEvent": 0
+                }
+            ]
+        },
+        {
+            "Title": "Quest 8",
+            "ShortDescription": "This is short description for Quest 8",
+            "LongDescription": "This is the LONG description for Quest 8",
+            "CurrentTaskTitle": "",
+            "State": 0,
+            "IsActive": false,
+            "Tasks": [
+                {
+                    "Title": "Task 8-0",
+                    "ShortDescription": "This is short description for Task 8-0",
+                    "LongDescription": "This is LONG description for Task 8-0",
+                    "State": 0,
+                    "IsActive": false,
+                    "CompletionEvent": 0
+                },
+                {
+                    "Title": "Task 8-1",
+                    "ShortDescription": "This is short description for Task 8-1",
+                    "LongDescription": "This is LONG description for Task 8-1",
+                    "State": 0,
+                    "IsActive": false,
+                    "CompletionEvent": 0
+                },
+                {
+                    "Title": "Task 8-2",
+                    "ShortDescription": "This is short description for Task 8-2",
+                    "LongDescription": "This is LONG description for Task 8-2",
+                    "State": 0,
+                    "IsActive": false,
+                    "CompletionEvent": 0
+                },
+                {
+                    "Title": "Task 8-3",
+                    "ShortDescription": "This is short description for Task 8-3",
+                    "LongDescription": "This is LONG description for Task 8-3",
+                    "State": 0,
+                    "IsActive": false,
+                    "CompletionEvent": 0
+                },
+                {
+                    "Title": "Task 8-4",
+                    "ShortDescription": "This is short description for Task 8-4",
+                    "LongDescription": "This is LONG description for Task 8-4",
+                    "State": 0,
+                    "IsActive": false,
+                    "CompletionEvent": 0
+                }
+            ]
+        },
+        {
+            "Title": "Quest 9",
+            "ShortDescription": "This is short description for Quest 9",
+            "LongDescription": "This is the LONG description for Quest 9",
+            "CurrentTaskTitle": "",
+            "State": 0,
+            "IsActive": false,
+            "Tasks": [
+                {
+                    "Title": "Task 9-0",
+                    "ShortDescription": "This is short description for Task 9-0",
+                    "LongDescription": "This is LONG description for Task 9-0",
+                    "State": 0,
+                    "IsActive": false,
+                    "CompletionEvent": 0
+                },
+                {
+                    "Title": "Task 9-1",
+                    "ShortDescription": "This is short description for Task 9-1",
+                    "LongDescription": "This is LONG description for Task 9-1",
+                    "State": 0,
+                    "IsActive": false,
+                    "CompletionEvent": 0
+                },
+                {
+                    "Title": "Task 9-2",
+                    "ShortDescription": "This is short description for Task 9-2",
+                    "LongDescription": "This is LONG description for Task 9-2",
+                    "State": 0,
+                    "IsActive": false,
+                    "CompletionEvent": 0
+                }
+            ]
+        }
+    ]
+}
