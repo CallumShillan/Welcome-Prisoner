@@ -1,4 +1,0 @@
-repository "Welcome, Prisoner@BugstonePeak@cloud"
-  path "/"
-    br "/main"
-    co "/main"
