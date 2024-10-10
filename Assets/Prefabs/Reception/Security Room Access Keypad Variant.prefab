@@ -95,5 +95,32 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2154957221846468275, guid: b23d821a0e47c9641921c8f22b64e402, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8592467831749001513}
   m_SourcePrefab: {fileID: 100100000, guid: b23d821a0e47c9641921c8f22b64e402, type: 3}
+--- !u!1 &526358119522707456 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2154957221846468275, guid: b23d821a0e47c9641921c8f22b64e402, type: 3}
+  m_PrefabInstance: {fileID: 1921363338312904371}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8592467831749001513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 526358119522707456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e37494564aa2b5740b287b3ec9f2abd2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  doorGameObject: {fileID: 0}
+  significantEvent: 
+  securityKeypadUserInterfaceDocument: {fileID: 0}
+  doorCode: 1234
+  actionIcon: {fileID: 0}
+  actionHintTextMesh: {fileID: 0}
+  actionHintMessage: '{ACTION} {NAME}'
