@@ -60,6 +60,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Lever Arch Binder Variant - Red
       objectReference: {fileID: 0}
+    - target: {fileID: 5620869226065565628, guid: fac37426966320a4aa472000c64de7f9, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e5e1dfa68623bf848bd80d78f35aa5ab, type: 2}
     - target: {fileID: 6112061035222064683, guid: fac37426966320a4aa472000c64de7f9, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
