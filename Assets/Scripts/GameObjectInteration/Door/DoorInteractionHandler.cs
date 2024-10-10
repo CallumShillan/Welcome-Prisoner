@@ -8,9 +8,9 @@ using TMPro;
 
 public class DoorInteractionHandler : MonoBehaviour, IActionInterface
 {
-    [SerializeField]
-    [Tooltip("The animator for this object")]
-    private Animator objectAnimator;
+    //[SerializeField]
+    //[Tooltip("The animator for this object")]
+    //private Animator objectAnimator;
 
     [SerializeField]
     [Tooltip("The animation to open the door")]
@@ -52,9 +52,18 @@ public class DoorInteractionHandler : MonoBehaviour, IActionInterface
     [Tooltip("Whether the door is open or closed")]
     private bool doorIsOpen = false;
 
+    private Animator objectAnimator;
     public bool IsDoorLocked { get => doorIsLocked; set => doorIsLocked = value; }
     public bool IsDoorOpen { get => doorIsOpen; set => doorIsOpen = value; }
 
+    public void Awake()
+    {
+        objectAnimator = GetComponentInParent<Animator>();
+        if (objectAnimator == null)
+        {
+            GameLog.Message(LogType.Error, this, $"Unable to get the animator for door '{this.name}'. Did you forget to set on in the editor?");
+        }
+    }
     public void Start()
     {
         if(doorIsOpen)
