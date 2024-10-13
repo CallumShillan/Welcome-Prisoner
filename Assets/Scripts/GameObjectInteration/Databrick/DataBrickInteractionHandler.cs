@@ -12,10 +12,6 @@ public class DataBrickInteractionHandler : MonoBehaviour, IActionInterface
     private GameObject databrickModel = null;
 
     [SerializeField]
-    [Tooltip("The name of the Databrick")]
-    private string databrickName = string.Empty;
-
-    [SerializeField]
     [Tooltip("The Significant Event, if relevant")]
     private string significantEvent = null;
 
@@ -44,12 +40,6 @@ public class DataBrickInteractionHandler : MonoBehaviour, IActionInterface
         if (databrickModel is null)
         {
             GameLog.ErrorMessage(this, "The Databrick's GameObject Model/Prefab is NULL. Did you forget to set one in the Editor?");
-            return;
-        }
-
-        if (string.IsNullOrWhiteSpace(databrickName))
-        {
-            GameLog.ErrorMessage(this, "The Databrick Name is not set. Did you forget to set it in the Editor?");
             return;
         }
 
@@ -83,7 +73,7 @@ public class DataBrickInteractionHandler : MonoBehaviour, IActionInterface
     {
         actionIcon.enabled = true;
         actionHintTextMesh.enabled = true;
-        actionHintTextMesh.text = actionHintMessage.Replace("{NAME}", $"'{databrickName}'").Replace("{ACTION}", "Add to PDA");
+        actionHintTextMesh.text = actionHintMessage.Replace("{NAME}", $"'{this.name}'").Replace("{ACTION}", "Add to PDA: ");
 
         return (true);
     }
@@ -95,12 +85,14 @@ public class DataBrickInteractionHandler : MonoBehaviour, IActionInterface
     public bool PerformInteraction()
     {
 
-        if (!string.IsNullOrWhiteSpace(significantEvent))
+        // Raise the significant event, if needed
+        if (false == string.IsNullOrWhiteSpace(significantEvent))
         {
             QuestManager.HandleSignificantEvent(significantEvent);
         }
 
-        GameMessage theGameMessage = GameMessages.Instance.AllGameMessages[databrickName];
+        // Mark the game message as having been accessed
+        GameMessage theGameMessage = GameMessages.Instance.AllGameMessages[this.name];
         if(theGameMessage is not null)
         {
             theGameMessage.WhenShown = DateTime.Now;
@@ -110,9 +102,13 @@ public class DataBrickInteractionHandler : MonoBehaviour, IActionInterface
         // Deactivate the DataBrick GameObject so it won't get rendered, scripts won't be run, colliders won't be effective, and so on
         databrickModel.SetActive(false);
 
+        // Play the animation, if needed
         if(objectAnimator is not null)
         {
-            objectAnimator.Play(animationToPlay, 0, 0.0f);
+            if( false == string.IsNullOrEmpty(animationToPlay))
+            {
+                objectAnimator.Play(animationToPlay, 0, 0.0f);
+            }
         }
 
         return (true); // As we are finished

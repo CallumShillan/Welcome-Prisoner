@@ -13,6 +13,10 @@ public class DoorInteractionHandler : MonoBehaviour, IActionInterface
     //private Animator objectAnimator;
 
     [SerializeField]
+    [Tooltip("The significan event to raise")]
+    string significantEvent = string.Empty;
+
+    [SerializeField]
     [Tooltip("The animation to open the door")]
     private string openAnimation = string.Empty;
 
@@ -91,6 +95,12 @@ public class DoorInteractionHandler : MonoBehaviour, IActionInterface
 
     public bool PerformInteraction()
     {
+        // Handle the significant event, if needed
+        if(false == string.IsNullOrEmpty(significantEvent))
+        {
+            QuestManager.HandleSignificantEvent(significantEvent);
+        }
+
         if (doorIsLocked)
         {
             GameLog.Message(LogType.Log, this, "Door is locked so playing 'locked' audio");

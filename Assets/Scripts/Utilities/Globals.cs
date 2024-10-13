@@ -1,18 +1,33 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
-// Thanks to https://csharpindepth.com/articles/singleton
-public sealed class Globals
+public class Globals : MonoBehaviour
 {
-    private static readonly Lazy<Globals> lazy = new Lazy<Globals>(() => new Globals());
+    public static Globals Instance { get; private set; }
+    public AudioSource CurrentAudioSource { get => currentAudioSource; set => currentAudioSource = value; }
 
-    public static Globals Instance { get { return lazy.Value; } }
+    private AudioSource currentAudioSource;
 
-    public bool FocussedInteraction { get => focussedInteraction; set => focussedInteraction = value; }
-
-    private bool focussedInteraction = false;
-
-    private Globals()
+    void Awake()
     {
+        try
+        {
+            if (Instance != null && Instance != this)
+            {
+                Destroy(this);
+                return;
+            }
+
+            Instance = this;
+        }
+        catch (Exception ex)
+        {
+            GameLog.ExceptionMessage(this, "Globals Awake() exception: {0}", ex.ToString());
+        }
+        GameLog.NormalMessage(this, "Globals Awake() finished");
     }
 }

@@ -81,7 +81,7 @@
             "State": 0,
             "GameState": "Pending",
             "CompletionEvent": "HAVE_INDUCTION_PROCESS_INSTRUCTIONS",
-            "Title": "Pick up the Induction Process instructions",
+            "Title": "Pick up instructions",
             "ShortDescription": "Pick up the Induction Process instructions that have been left with in the Reception.",
             "LongDescription": "The induction process is crucial for prisoners as it helps them understand prison rules, routines, and available support services.\r\nThis orientation ensures their safety, well-being, and smooth integration into the prison environment, reducing anxiety and promoting a structured, orderly atmosphere.",
             "IsActive": false

@@ -48,13 +48,29 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -6224866736051403363, guid: ffbe93d1e1367ec47abd7b59806768aa, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: -4698642788297020275, guid: ffbe93d1e1367ec47abd7b59806768aa, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: fa55c46287c8e8c4b8d21e0f08e67f76, type: 2}
+    - target: {fileID: -3181452503744645242, guid: ffbe93d1e1367ec47abd7b59806768aa, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: ffbe93d1e1367ec47abd7b59806768aa, type: 3}
       propertyPath: m_Name
-      value: Barcelona Cofee Table Variant
+      value: Barcelona Cofee Table
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: ffbe93d1e1367ec47abd7b59806768aa, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 4662465872369196208, guid: ffbe93d1e1367ec47abd7b59806768aa, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 5921829394163989994, guid: ffbe93d1e1367ec47abd7b59806768aa, type: 3}
       propertyPath: m_Materials.Array.data[0]

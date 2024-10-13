@@ -56,7 +56,11 @@ public class BiometricScannerInteractionHandler : MonoBehaviour, IActionInterfac
         actionIcon.enabled = false;
         actionHintTextMesh.enabled = false;
 
-        QuestManager.HandleSignificantEvent(significantEvent);
+        // Handle the Significant Event, if needed
+        if(false == string.IsNullOrEmpty(significantEvent))
+        {
+            QuestManager.HandleSignificantEvent(significantEvent);
+        }
 
         // Play the defined animation
         objectAnimator.Play(biometricScanAnimation, 0, 0.0f);
@@ -64,7 +68,6 @@ public class BiometricScannerInteractionHandler : MonoBehaviour, IActionInterfac
         if(audioClip)
         {
             AudioSource.PlayClipAtPoint(audioClip, this.transform.position);
-
         }
 
         return (true); // As we don't need further interactions
