@@ -27,14 +27,14 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
---- !u!1102 &-6968081725362826089
+--- !u!1102 &-8352808661340049711
 AnimatorState:
   serializedVersion: 6
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Security Officer Stands Up
+  m_Name: Point to Biometric Scanner
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -47,7 +47,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 6fa84de6b606b6246a37ba8b8da0dac7, type: 2}
+  m_Motion: {fileID: 7400000, guid: 22b260228d36c71458b9cd543c8ffacc, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -120,8 +120,8 @@ AnimatorStateMachine:
     m_State: {fileID: 7282023173289220953}
     m_Position: {x: 430, y: 360, z: 0}
   - serializedVersion: 1
-    m_State: {fileID: -6968081725362826089}
-    m_Position: {x: 465, y: 425, z: 0}
+    m_State: {fileID: -8352808661340049711}
+    m_Position: {x: 440, y: 490, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []

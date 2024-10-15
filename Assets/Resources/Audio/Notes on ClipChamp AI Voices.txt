@@ -1,4 +1,4 @@
 Prison Governor: Masaru Multilingual
 Reception Robot: Ryan 
-Voice prompt: Sonia (English (UK))
+Voice prompt: Ryan
 Security Robot: Ryan
