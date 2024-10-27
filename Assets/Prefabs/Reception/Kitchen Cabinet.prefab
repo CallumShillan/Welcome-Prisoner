@@ -55,15 +55,19 @@ PrefabInstance:
     - target: {fileID: -7491298895445806075, guid: b6465c44a9fbe344abdb2474e8a4f71e, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 0292317e263353a4a87ba7e3d5046eb0, type: 2}
+      objectReference: {fileID: 2100000, guid: 58e98e3a5a6f4cf408da6e53cde19aed, type: 2}
     - target: {fileID: -895306380916907690, guid: b6465c44a9fbe344abdb2474e8a4f71e, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 6ca8cd0988afcdf408549bf989a21bed, type: 2}
+      objectReference: {fileID: 2100000, guid: 44a1c1fc7b12de146b1a0c037db7e3c2, type: 2}
     - target: {fileID: -30700666750343410, guid: b6465c44a9fbe344abdb2474e8a4f71e, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 916f604076c304945bfd5c7ca2b8c8cd, type: 2}
+      objectReference: {fileID: 2100000, guid: 953c2f1694749e74a8e931825da317aa, type: 2}
+    - target: {fileID: 33842932654231097, guid: b6465c44a9fbe344abdb2474e8a4f71e, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 953c2f1694749e74a8e931825da317aa, type: 2}
     - target: {fileID: 919132149155446097, guid: b6465c44a9fbe344abdb2474e8a4f71e, type: 3}
       propertyPath: m_Name
       value: Kitchen Cabinet
@@ -75,7 +79,7 @@ PrefabInstance:
     - target: {fileID: 8343335053255935721, guid: b6465c44a9fbe344abdb2474e8a4f71e, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 0292317e263353a4a87ba7e3d5046eb0, type: 2}
+      objectReference: {fileID: 2100000, guid: 58e98e3a5a6f4cf408da6e53cde19aed, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

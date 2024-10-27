@@ -51,7 +51,7 @@ PrefabInstance:
     - target: {fileID: -4897732323685117858, guid: 1b93ea8236fbf064aac8e86ba22b0e77, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 8a06dbffecf4722428af6e2f40bc2ebb, type: 2}
+      objectReference: {fileID: 2100000, guid: b9b16747faa2a3842b317be45e3a6aba, type: 2}
     - target: {fileID: -4566100247282584494, guid: 1b93ea8236fbf064aac8e86ba22b0e77, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -60,6 +60,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Barcelona Chair (simplified)
       objectReference: {fileID: 0}
+    - target: {fileID: 3415239947420713130, guid: 1b93ea8236fbf064aac8e86ba22b0e77, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 07e2d33c2ca8feb47965585ec7088cc1, type: 2}
     - target: {fileID: 4326584784135244107, guid: 1b93ea8236fbf064aac8e86ba22b0e77, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 

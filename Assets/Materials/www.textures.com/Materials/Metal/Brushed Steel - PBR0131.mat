@@ -16,6 +16,7 @@ Material:
   - _NORMALMAP
   - _OCCLUSIONMAP
   - _PARALLAXMAP
+  - _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -30,7 +31,7 @@ Material:
     m_TexEnvs:
     - _BaseMap:
         m_Texture: {fileID: 2800000, guid: aacf85587afbff64fb70e975a0dd96b5, type: 3}
-        m_Scale: {x: 1, y: 1}
+        m_Scale: {x: 0.1, y: 0.1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
         m_Texture: {fileID: 2800000, guid: 1b4bd79da2c46704491992983d0a87e1, type: 3}
@@ -54,10 +55,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 2800000, guid: aacf85587afbff64fb70e975a0dd96b5, type: 3}
-        m_Scale: {x: 1, y: 1}
+        m_Scale: {x: 0.1, y: 0.1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
-        m_Texture: {fileID: 2800000, guid: 44162d202e2d16e47ae35725c292013d, type: 3}
+        m_Texture: {fileID: 2800000, guid: 13a40bf9b2f90bc4bb0ed615311d90a2, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -108,8 +109,8 @@ Material:
     - _Parallax: 0.005
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _Smoothness: 0.5
-    - _SmoothnessTextureChannel: 0
+    - _Smoothness: 1
+    - _SmoothnessTextureChannel: 1
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
