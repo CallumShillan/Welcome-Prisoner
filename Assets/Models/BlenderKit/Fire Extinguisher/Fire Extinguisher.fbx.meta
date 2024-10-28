@@ -1,11 +1,46 @@
 fileFormatVersion: 2
-guid: e5c0ba317f168aa41ae9c254430ba060
+guid: 2f391a5a6a13b134a8f7e3097efc13e1
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: copper
+    second: {fileID: 2100000, guid: c0e855fac01d86840b3c2ce0d11febb5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: dark metal
+    second: {fileID: 2100000, guid: a62d551fdfb2dfa479cedd045150f468, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: plastic
+    second: {fileID: 2100000, guid: fadaa37a11aaf41498ec5328faaadf91, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: polished metal
+    second: {fileID: 2100000, guid: 9c7413b0b384fae47b7581ca883c84e2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: preasure gouge
+    second: {fileID: 2100000, guid: b718caf62ad082243a8eb86b75290af5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: red, painted metal with label
+    second: {fileID: 2100000, guid: bdb1502dc840d604e8b7864f672c07e6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: rubber
+    second: {fileID: 2100000, guid: 69731c632d7f0a64da4a4ad6cc9017c5, type: 2}
   materials:
-    materialImportMode: 0
+    materialImportMode: 2
     materialName: 0
     materialSearch: 1
     materialLocation: 1
