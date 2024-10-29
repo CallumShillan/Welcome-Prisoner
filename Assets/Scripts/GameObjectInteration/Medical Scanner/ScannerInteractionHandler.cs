@@ -4,7 +4,7 @@ using UnityEngine;
 
 using UnityEngine.UI;
 using TMPro;
-public class BiometricScannerInteractionHandler : MonoBehaviour, IActionInterface
+public class ScannerInteractionHandler : MonoBehaviour, IActionInterface
 {
     [SerializeField]
     [Tooltip("The Significant Event associated with this interaction")]
@@ -42,7 +42,7 @@ public class BiometricScannerInteractionHandler : MonoBehaviour, IActionInterfac
         actionHintTextMesh.enabled = true;
 
         // Set the hint message
-        actionHintTextMesh.text = actionHintMessage.Replace("{NAME}", this.name).Replace("{ACTION}", "scan your biometrics");
+        actionHintTextMesh.text = actionHintMessage.Replace("{NAME}", this.name).Replace("{ACTION}", "perform a medical scan");
 
         // Indicate we need furhter interactions (to indicate we have finished when the animation has stopped playing)
         return (true);

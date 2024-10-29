@@ -18,17 +18,17 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Material.001
-    second: {fileID: 2100000, guid: 73f7fc4dffb61de438432c4b0473bf87, type: 2}
+    second: {fileID: 2100000, guid: 50377435e1cf27343b572a2915be4cfe, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Old Metal Pan.001
-    second: {fileID: 2100000, guid: 944db6bfc4d76d44499724f1573a4674, type: 2}
+    second: {fileID: 2100000, guid: b91ce3cad0fe2b941adbbee823a998ba, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Old White Metal.002
-    second: {fileID: 2100000, guid: d562f8d4333048a40b1bfef1156ee695, type: 2}
+    second: {fileID: 2100000, guid: b91ce3cad0fe2b941adbbee823a998ba, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -43,12 +43,12 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Stainless Steel.006
-    second: {fileID: 2100000, guid: 8a06dbffecf4722428af6e2f40bc2ebb, type: 2}
+    second: {fileID: 2100000, guid: 8ac54364c97458045853467ca5d49370, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: rubber.001
-    second: {fileID: 2100000, guid: cbad33b686461894794115567622aed7, type: 2}
+    second: {fileID: 2100000, guid: 2ba8769b2e5df0e4fa4106af8133f17c, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
