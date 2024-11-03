@@ -8,25 +8,11 @@
         "LongDescription": "In the early stages of the last century, Earth faced an unprecedented surge in crimes relating to rejection of the United Earth Federation's laws, rules and regulations.\r\nTraditional prisons were overwhelmed, and the risk of prison breaks and riots became a significant threat to global security. To address this, the United Earth Federation, in collaboration with leading space agencies and private corporations, established the World Orbital Prison, a high-security prison orbiting Earth.\r\nThe World Orbital Prison was designed to isolate the most dangerous felons from society, ensuring they could no longer pose a threat to the public. Constructed using advanced materials and technology, the prison is a marvel of engineering, featuring state-of-the-art security systems, including AI surveillance, automated defence mechanisms, and zero-gravity containment cells. The prison’s location in space makes escape virtually impossible, as any attempt to breach the facility would result in immediate detection and neutralization.\r\nThe prison houses the world’s most notorious criminals, including warlords, terrorist leaders, cybercriminal masterminds, and high-profile organized crime bosses. These individuals have been convicted of severe offenses such as genocide, terrorism, large-scale financial fraud, and other heinous crimes. The selection criteria for inmates are stringent, ensuring only those who pose the highest risk to global security are sent to the World Orbital Prison.\r\nInmates at the World Orbital Prison are subjected to a strict daily regimen designed to maintain order and discipline. Each day begins with a mandatory physical exercise routine to ensure the inmates’ health in the zero-gravity environment. Following this, inmates are assigned to various work duties, which serve both as a means of rehabilitation and a way to contribute to the prison’s self-sufficiency.\r\nSpace Mining Operations: Inmates are tasked with extracting valuable minerals from nearby asteroids. This work is highly monitored and conducted under strict safety protocols to prevent sabotage or escape attempts.\r\nSatellite Maintenance: Inmates with technical skills are assigned to maintain and repair communication and surveillance satellites. This work helps keep the prison operational and contributes to global communication networks.\r\nResearch and Development: Some inmates, particularly those with scientific backgrounds, are involved in research projects aimed at advancing space technology and medicine. Their work is closely supervised and contributes to the betterment of humanity.\r\nDespite the high-security environment, the World Orbital Prison also focuses on rehabilitation. Inmates have access to educational programs, psychological counselling, and vocational training. The goal is to provide them with the skills and mindset needed for eventual reintegration into society, should they ever be deemed fit for release.\r\nThe World Orbital Prison stands as a testament to humanity’s resolve to maintain peace and security, even in the face of the most formidable challenges.\r",
         "CurrentQuestTitle": "",
         "QuestTitles": [
-            "Welcome Prisoner",
             "Your induction",
             "Start search for evidence"
         ]
     },
     "theQuests": [
-        {
-            "State": 0,
-            "GameState": "Pending",
-            "CompletionEvent": "RECEPTION_ENTERED",
-            "Title": "Welcome Prisoner",
-            "ShortDescription": "Welcome to the World Orbital Prison. This facility houses those who have acted against the United Earth Federation and threatened to undermine world order and stability.",
-            "LongDescription": "The World Orbital Prison is run on behalf of the United Earth Federation and is subject to the Universal Civil Liberties legislation.",
-            "CurrentTaskTitle": "",
-            "TaskTitles": [
-                "Report to reception"
-            ],
-            "IsActive": false
-        },
         {
             "State": 0,
             "GameState": "Pending",
@@ -36,9 +22,13 @@
             "LongDescription": "The induction process is:\r\nReception: Upon arrival, prisoners pick up the steps for the Induction Process from Reception.\r\nIdentification: Prisoners have their bioemtrics taken for identification purposes.\r\nMedical Check: A thorough medical examination is conducted to assess the prisoner’s health and identify any immediate medical needs.\r\nProperty Inventory: Personal items that are allowed in the facility are inventoried, and prohibited items are stored or disposed of.\r\nAssignment: Each prisoner is assigned to a cell or dormitory based on their security classification and needs assessment.",
             "CurrentTaskTitle": "",
             "TaskTitles": [
-                "Pick up instructions",
+                "Report to reception",
+                "Pick up PDA",
+                "Report to Security",
                 "Record your identification",
+                "Report to Medical",
                 "Medical check",
+                "Report to Storage",
                 "Personal property removed",
                 "Cell assignment"
             ],
@@ -80,10 +70,19 @@
         {
             "State": 0,
             "GameState": "Pending",
-            "CompletionEvent": "HAVE_INDUCTION_PROCESS_INSTRUCTIONS",
-            "Title": "Pick up instructions",
-            "ShortDescription": "Pick up the Induction Process instructions that have been left with in the Reception.",
+            "CompletionEvent": "PDA_ACQUIRED",
+            "Title": "Pick up PDA",
+            "ShortDescription": "Pick up the Induction Process instructions on the PDA that has been left for you in the Reception.",
             "LongDescription": "The induction process is crucial for prisoners as it helps them understand prison rules, routines, and available support services.\r\nThis orientation ensures their safety, well-being, and smooth integration into the prison environment, reducing anxiety and promoting a structured, orderly atmosphere.",
+            "IsActive": false
+        },
+        {
+            "State": 0,
+            "GameState": "Pending",
+            "CompletionEvent": "SECURITY_ENTERED",
+            "Title": "Report to Security",
+            "ShortDescription": "Go to the Security Office so you can record your biometric data for identification purposes.",
+            "LongDescription": "",
             "IsActive": false
         },
         {
@@ -98,10 +97,28 @@
         {
             "State": 0,
             "GameState": "Pending",
+            "CompletionEvent": "MEDICAL_ENTERED",
+            "Title": "Report to Medical",
+            "ShortDescription": "Go to the Medica Office so you can record have your medical check-up.",
+            "LongDescription": "",
+            "IsActive": false
+        },
+        {
+            "State": 0,
+            "GameState": "Pending",
             "CompletionEvent": "MEDICAL_CHECK_COMPLETED",
             "Title": "Medical check",
             "ShortDescription": "Go to the Medical room so a thorough medical examination can be conducted to assess your health and identify any immediate medical needs.",
             "LongDescription": "The Medical Check step is a vital component of the prisoner induction process, ensuring the health and well-being of new inmates.\r\nUpon entry, prisoners undergo a comprehensive medical examination conducted by healthcare professionals. This assessment includes a review of medical history, current health status, and any necessary screenings or tests to detect communicable diseases or immediate health concerns.\r\nThe evaluation also identifies inmates who may require special medical attention or accommodations during their incarceration. Mental health screenings are part of this process, aiming to provide early intervention for those in need.\r\nThe information gathered is crucial for creating individualized healthcare plans and integrating health considerations into overall prison management.\r\nThis step underscores the facility’s commitment to maintaining a safe and healthy environment for all inmates, staff, and visitors, while also upholding the human rights of those incarcerated.\r\nThe Medical Check step is a vital component of the prisoner induction process, ensuring the health and well-being of new inmates.\r\nUpon entry, prisoners undergo a comprehensive medical examination conducted by healthcare professionals. This assessment includes a review of medical history, current health status, and any necessary screenings or tests to detect communicable diseases or immediate health concerns.\r\nThe evaluation also identifies inmates who may require special medical attention or accommodations during their incarceration. Mental health screenings are part of this process, aiming to provide early intervention for those in need.\r\nThe information gathered is crucial for creating individualized healthcare plans and integrating health considerations into overall prison management.\r\nThis step underscores the facility’s commitment to maintaining a safe and healthy environment for all inmates, staff, and visitors, while also upholding the human rights of those incarcerated.\r",
+            "IsActive": false
+        },
+        {
+            "State": 0,
+            "GameState": "Pending",
+            "CompletionEvent": "STORAGE_ENTERED",
+            "Title": "Report to Storage",
+            "ShortDescription": "Go to the Storage room so your personal possessions can be inventoried, and prohibited items are stored or disposed of.",
+            "LongDescription": "",
             "IsActive": false
         },
         {
@@ -218,10 +235,12 @@
         "PRISONER_INDUCTED",
         "START_SEARCH_FOR_EVIDENCE",
         "RECEPTION_ENTERED",
-        "HAVE_INDUCTION_PROCESS_INSTRUCTIONS",
-        "INDUCTION_STEPS_ACQUIRED",
+        "PDA_ACQUIRED",
+        "SECURITY_ENTERED",
         "IDENTITY_RECORDED",
+        "MEDICAL_ENTERED",
         "MEDICAL_CHECK_COMPLETED",
+        "STORAGE_ENTERED",
         "PROPERTY_INVENTORIED",
         "CELL_ASSIGNMENT_COMPLETE",
         "SECURITY_CARD_FOUND",

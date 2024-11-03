@@ -57,7 +57,7 @@ public class ScannerInteractionHandler : MonoBehaviour, IActionInterface
         actionHintTextMesh.enabled = false;
 
         // Handle the Significant Event, if needed
-        if(false == string.IsNullOrEmpty(significantEvent))
+        if (false == string.IsNullOrEmpty(significantEvent))
         {
             QuestManager.HandleSignificantEvent(significantEvent);
         }
@@ -65,7 +65,7 @@ public class ScannerInteractionHandler : MonoBehaviour, IActionInterface
         // Play the defined animation
         objectAnimator.Play(biometricScanAnimation, 0, 0.0f);
 
-        if(audioClip)
+        if (audioClip)
         {
             AudioSource.PlayClipAtPoint(audioClip, this.transform.position);
         }
