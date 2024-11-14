@@ -57,10 +57,10 @@ public static class QuestDetailsHelper
         }
         labelQuestName.text = "No active task ...";
 
-        labelQuestDetails = rootVisualElement.Q<Label>("label-quest-details");
+        labelQuestDetails = rootVisualElement.Q<Label>("label-QuestDetails");
         if (labelQuestDetails is null)
         {
-            GameLog.ErrorMessage($"Unable to find button 'label-quest-details' in Root Visual Element '{rootVisualElementName}'");
+            GameLog.ErrorMessage($"Unable to find button 'label-QuestDetails' in Root Visual Element '{rootVisualElementName}'");
             return;
         }
         labelQuestDetails.text = string.Empty;

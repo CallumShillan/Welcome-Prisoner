@@ -18,7 +18,7 @@
             "GameState": "Pending",
             "CompletionEvent": "PRISONER_INDUCTED",
             "Title": "Your induction",
-            "ShortDescription": "In keeping with the United Earth Federation's andUniversal Civil Liberties legislation, an Induction Process is used so all prisoners are absorbed into the prison in a uniform manner.",
+            "ShortDescription": "In keeping with the United Earth Federation's and Universal Civil Liberties legislation, an Induction Process is used so all prisoners are absorbed into the prison in a uniform manner.",
             "LongDescription": "The induction process is:\r\nReception: Upon arrival, prisoners pick up the steps for the Induction Process from Reception.\r\nIdentification: Prisoners have their bioemtrics taken for identification purposes.\r\nMedical Check: A thorough medical examination is conducted to assess the prisoner’s health and identify any immediate medical needs.\r\nProperty Inventory: Personal items that are allowed in the facility are inventoried, and prohibited items are stored or disposed of.\r\nAssignment: Each prisoner is assigned to a cell or dormitory based on their security classification and needs assessment.",
             "CurrentTaskTitle": "",
             "TaskTitles": [

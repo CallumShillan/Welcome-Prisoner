@@ -63,14 +63,14 @@ public class PrisonerDigitalAssistantEventHandler : MonoBehaviour
     void Start()
     {
         // Check if we have a Player Game Object
-        if (player is null)
+        if (player == null)
         {
             GameLog.ErrorMessage(this, "There is no Player Game Object. Did you forget to set one in the Inspector?");
             return;
         }
 
         // Check if we have a UI Document to function as the host for all PDS Apps
-        if (pdaAppHostUIDocument is null)
+        if (pdaAppHostUIDocument == null)
         {
             GameLog.ErrorMessage(this, "Pda App Host UI Document is null. Did you forget to set one in the Inspector?");
             return;
@@ -162,7 +162,7 @@ public class PrisonerDigitalAssistantEventHandler : MonoBehaviour
                     PdaHomePageHelper.WireUp(pdaAppTemplateContainer, this);
                     break;
                 case PdaAppId.MessageReader:
-                    MessageReaderHelper.WireUp(pdaAppTemplateContainer, this);
+                    MessageReaderHelper.WireUp(pdaAppTemplateContainer, this, "Messages", "Please select a message from the LHS ...");
                     break;
                 case PdaAppId.EbookReader:
                     EBookReaderHelper.WireUp(pdaAppTemplateContainer, this);
@@ -199,12 +199,10 @@ public class PrisonerDigitalAssistantEventHandler : MonoBehaviour
             pdaAppHost.RemoveFromClassList("pop-animation-hide");
         }
 
-        // Hide all PDA apps except the one to be displayed
-        foreach (PdaAppId pdaAppIdentifier in allPdaAppVisualTrees.Keys)
-        {
-            allPdaAppVisualTrees[pdaAppIdentifier].style.display = pdaAppIdentifier == pdaAppIdToShow ? DisplayStyle.Flex : DisplayStyle.None;
-        }
+        // Display the PDA, and add the PDA App's root Visual Element into the PDA App host
         pdaRootVisualElement.style.display = DisplayStyle.Flex;
+        pdaAppHost.Clear();
+        pdaAppHost.Add(allPdaAppVisualTrees[pdaAppIdToShow]);
 
         // Allow the relevant helper to get ready for display and use
         switch (pdaAppIdToShow)
@@ -213,7 +211,8 @@ public class PrisonerDigitalAssistantEventHandler : MonoBehaviour
                 MessageReaderHelper.CreateNavigationForKnownMessages();
                 break;
             case PdaAppId.EbookReader:
-                EBookReaderHelper.CreateNavigationForKnownBooks();
+                //ABCD
+                //EBookReaderHelper.CreateNavigationForKnownBooks();
                 break;
             case PdaAppId.QuestDetails:
                 QuestDetailsHelper.CreateNavigationForKnownQuests();

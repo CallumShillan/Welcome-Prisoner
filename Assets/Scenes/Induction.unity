@@ -8057,14 +8057,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 950542499}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0.35146293, z: -0, w: 0.9362018}
-  m_LocalPosition: {x: -24.94, y: -0.92700005, z: -77.13}
+  m_LocalRotation: {x: -0, y: -0.77732337, z: -0, w: 0.62910134}
+  m_LocalPosition: {x: -24.968, y: -0.92700005, z: -76.748}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 490922764}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: -41.154, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -102.032, z: 0}
 --- !u!114 &950542501
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8091,7 +8091,7 @@ MonoBehaviour:
   - pdaAppID: 4
     appVisualTreeAsset: {fileID: 9197481963319205126, guid: 0875c5ddc26e0b84a83410fdf38dec02, type: 3}
   - pdaAppID: 3
-    appVisualTreeAsset: {fileID: 9197481963319205126, guid: 058a798be0e15b841af2a7b902a4975a, type: 3}
+    appVisualTreeAsset: {fileID: 9197481963319205126, guid: 400bae8478dbcf5489798f7b31179282, type: 3}
 --- !u!114 &950542502
 MonoBehaviour:
   m_ObjectHideFlags: 0

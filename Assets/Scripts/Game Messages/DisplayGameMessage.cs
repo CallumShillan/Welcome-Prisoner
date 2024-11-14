@@ -138,10 +138,9 @@ public class DisplayGameMessage : MonoBehaviour
 
             shouldBeShown = false;
 
-            // Update the Game Message
+            // Update the Game Message to indicate it has been shown
             theGameMessage = GameMessages.Instance.AllGameMessages[gameMessageTitle];
-            theGameMessage.WhenShown = DateTime.Now;
-            theGameMessage.HasBeenShown = true;
+            GameMessages.Instance.SetShown(gameMessageTitle);
 
             // Assign the Game Message properties to the UI Labels
             speakerImage.style.backgroundImage = new StyleBackground(speakerSprite);

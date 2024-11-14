@@ -37,7 +37,7 @@ public class QuestManager : MonoBehaviour
     {
     }
 
-    public static Story AllSceneQuests
+    public static Story SceneStory
     {
         get
         {
@@ -193,13 +193,16 @@ public class QuestManager : MonoBehaviour
         }
 
         bool yetToSetActivityMarker = true;
-        bool allSubtasksComplete = true;
+        bool allSubtasksHaveBeenCompleted = true;
         Quest singleQuest = null;
 
         // Loop through all outstanding quests and see if the Significant Event relates to any Quest or Task - if it does, mark it as complete
         foreach (string questTitle in QuestManager.OutstandingQuests)
         {
             singleQuest = QuestManager.GetQuest(questTitle);
+
+            // This may have been set false
+            allSubtasksHaveBeenCompleted = true;
 
             // Step through the subtasks for this active task
             foreach (string singleTaskTitle in singleQuest.TaskTitles)
@@ -214,9 +217,9 @@ public class QuestManager : MonoBehaviour
                         allActivityMarkers[singleTask.Title].SetActive(false);
                     }
 
-                    // For the current quest, we want to set the next Activity Marker to be active
-                    if (string.Equals(questTitle, currentQuestTitle, StringComparison.InvariantCultureIgnoreCase))
-                    {
+                    //// For the current quest, we want to set the next Activity Marker to be active
+                    //if (string.Equals(questTitle, currentQuestTitle, StringComparison.InvariantCultureIgnoreCase))
+                    //{
                         // If we have an outstanding activity, set it active and remember we have done so
                         if (yetToSetActivityMarker && singleTask.State != StoryState.Completed)
                         {
@@ -226,24 +229,24 @@ public class QuestManager : MonoBehaviour
                             singleTask.State = StoryState.Active;
                         }
 
-                        // See if we have an uncompleted activity for the current Quest
+                        // See if we have an uncompleted task activity for the Quest
                         if (singleTask.State != StoryState.Completed)
                         {
-                            allSubtasksComplete = false;
+                            allSubtasksHaveBeenCompleted = false;
                         }
-                    }
+                    //}
 
                 }
             }
 
             // If all subtasks are complete, the quest should be marked as complete
-            if (allSubtasksComplete)
+            if (allSubtasksHaveBeenCompleted)
             {
                 singleQuest.State = StoryState.Completed;
             }
 
             // Reset the flag ready for the next quest in the for loop
-            allSubtasksComplete = true;
+            allSubtasksHaveBeenCompleted = true;
 
         }
     }
