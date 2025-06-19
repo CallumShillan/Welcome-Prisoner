@@ -8,9 +8,6 @@ using TMPro;
 
 public class DoorInteractionHandler : MonoBehaviour, IActionInterface
 {
-    //[SerializeField]
-    //[Tooltip("The animator for this object")]
-    //private Animator objectAnimator;
 
     [SerializeField]
     [Tooltip("The significan event to raise")]

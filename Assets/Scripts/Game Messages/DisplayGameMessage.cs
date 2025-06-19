@@ -14,7 +14,7 @@ public class DisplayGameMessage : MonoBehaviour
 
     [SerializeField]
     [Tooltip("The speaker's face icon sprite")]
-    private Sprite speakerSprite;
+    private Texture2D speakerImageIcon;
 
     [SerializeField]
     [Tooltip("The game message title")]
@@ -53,9 +53,9 @@ public class DisplayGameMessage : MonoBehaviour
             return;
         }
 
-        if (speakerSprite == null)
+        if (speakerImageIcon == null)
         {
-            GameLog.ErrorMessage(this, "Speaker Sprite is NULL. Did you forget to set one in the Editor?");
+            GameLog.ErrorMessage(this, "Speaker Image Icon is NULL. Did you forget to set one in the Editor?");
             return;
         }
 
@@ -144,9 +144,9 @@ public class DisplayGameMessage : MonoBehaviour
             theGameMessage.HasBeenShown = true;
 
             // Assign the Game Message properties to the UI Labels
-            speakerImage.style.backgroundImage = new StyleBackground(speakerSprite);
+            speakerImage.style.backgroundImage = new StyleBackground(speakerImageIcon);
             labelMessage.text = theGameMessage.MessageText;
-            labelSpeakerAndTitle.text = $"{speakerSprite.name}: {gameMessageTitle}";
+            labelSpeakerAndTitle.text = $"{speakerImageIcon.name}: {gameMessageTitle}";
 
             // Show the Game Message user interface
             gameMessageDocument.rootVisualElement.visible = true;
