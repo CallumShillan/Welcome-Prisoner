@@ -37,8 +37,8 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Wall Bricks
-  m_Shader: {fileID: -6465566751694194690, guid: 085ac11a5a7c7a84e8bebb6bfcc2c4e2, type: 3}
-  m_Parent: {fileID: -876546973899608171, guid: 085ac11a5a7c7a84e8bebb6bfcc2c4e2, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 33fb2a5a538ddf141a88f7618cd58229, type: 3}
+  m_Parent: {fileID: -876546973899608171, guid: 33fb2a5a538ddf141a88f7618cd58229, type: 3}
   m_ModifiedSerializedProperties: 16
   m_ValidKeywords: []
   m_InvalidKeywords:
@@ -68,6 +68,10 @@ Material:
         m_Texture: {fileID: 2800000, guid: 72e11ea15e5577249881aff0f014ce8a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Heightmap:
+        m_Texture: {fileID: 2800000, guid: dc63ed2b0989f5942b63c8cd24cbf623, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _Normal:
         m_Texture: {fileID: 2800000, guid: 4d4a59e103db8524e83bfa4e562a3498, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -79,6 +83,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _DoubleSidedNormalMode: 1
+    - _Height: 0.01
     - _Metallic: 0.5
     - _QueueControl: 0
     - _Scale_Factor: 0.01

@@ -1,79 +1,89 @@
-using System.Collections;
 using System;
-using System.Collections.Generic;
-using System.Xml;
 using UnityEngine;
 using UnityEngine.UIElements;
-using Invector.vCharacterController;
 
 public class DisplayGameMessage : MonoBehaviour
 {
-    [SerializeField]
-    [Tooltip("The player's Game Object")]
-    public GameObject player = null;
+    // Visual Element Name Constants
+    private const string RootFrameName = "RootFrame";
+    private const string SpeakerImageName = "SpeakerTexture2D";
+    private const string SpeakerAndTitleName = "SpeakerAndTitleLabel";
+    private const string MessageTextName = "MessageLabel";
+    private const string BtnDismissName = "DismissButton";
 
-    [SerializeField]
-    [Tooltip("The speaker's face icon sprite")]
+    [SerializeField, Tooltip("The player's Game Object")]
+    private GameObject player = null;
+
+    [SerializeField, Tooltip("The speaker's face icon texture")]
     private Texture2D speakerImageIcon;
 
-    [SerializeField]
-    [Tooltip("The game message title")]
+    [SerializeField, Tooltip("The game message title")]
     private string gameMessageTitle = string.Empty;
 
-    [SerializeField]
-    [Tooltip("Whether the message should be displayed")]
+    [SerializeField, Tooltip("Whether the message should be displayed")]
     private bool shouldBeShown = true;
 
-    [SerializeField]
-    [Tooltip("The UI Document to display the game message")]
+    [SerializeField, Tooltip("The UI Document to display the game message")]
     private UIDocument gameMessageDocument = null;
 
-    // Used to hide and display the Game Message UI
-    private VisualElement voiceMessageRootVisualElement = null;
+    private VisualElement voiceMessageRootVisualElement;
+    private VisualElement speakerImage;
+    private Label labelSpeakerAndTitle;
+    private Label labelMessage;
+    private Button btnDismiss;
 
-    // Used to hide and display the Game Message UI
-    private VisualElement speakerImage = null;
+    private GameMessage theGameMessage;
 
-    // Displays the name of the speaker
-    private UnityEngine.UIElements.Label labelSpeakerAndTitle = null;
+    // Store the delegate so it can be unregistered
+    private EventCallback<ClickEvent> btnDismissClickHandler;
 
-    // The words that are spoken
-    private UnityEngine.UIElements.Label labelMessage = null;
+    private void Awake()
+    {
+        if (!ValidateSerializedFields())
+            return;
 
-    // The command button that will close the Game Message UI
-    private UnityEngine.UIElements.Button btnDismiss = null;
+        HookUpUiElements();
 
-    private GameMessage theGameMessage = null;
+        btnDismissClickHandler = _ => HandleDismissClick();
+        btnDismiss.RegisterCallback<ClickEvent>(btnDismissClickHandler);
+    }
 
-    void Awake()
+    // Unregister the button click event to prevent memory leaks when this object is destroyed.
+    private void OnDestroy()
+    {
+        if (btnDismiss != null && btnDismissClickHandler != null)
+        {
+            btnDismiss.UnregisterCallback<ClickEvent>(btnDismissClickHandler);
+        }
+    }
+
+    private bool ValidateSerializedFields()
     {
         if (player == null)
         {
             GameLog.ErrorMessage(this, "Player is NULL. Did you forget to set one in the Editor?");
-            return;
+            return false;
         }
-
         if (speakerImageIcon == null)
         {
             GameLog.ErrorMessage(this, "Speaker Image Icon is NULL. Did you forget to set one in the Editor?");
-            return;
+            return false;
         }
-
         if (string.IsNullOrWhiteSpace(gameMessageTitle))
         {
             GameLog.ErrorMessage(this, "Game Message Title is not set. Did you forget to set it in the Editor?");
-            return;
+            return false;
         }
-
         if (gameMessageDocument == null)
         {
             GameLog.ErrorMessage(this, "Game Message Document is NULL. Did you forget to set one in the Editor?");
-            return;
+            return false;
         }
-        // Hide the Game Message User interface
-        gameMessageDocument.rootVisualElement.visible = false;
+        return true;
+    }
 
-        // Remember the Root Visual Element of the User Interface for the Game Message
+    private void HookUpUiElements()
+    {
         voiceMessageRootVisualElement = gameMessageDocument.rootVisualElement;
         if (voiceMessageRootVisualElement == null)
         {
@@ -81,99 +91,87 @@ public class DisplayGameMessage : MonoBehaviour
             return;
         }
 
-        // Get the Root Frame of the Game Message Content
-        VisualElement voiceMessageRootFrame = voiceMessageRootVisualElement.Q<VisualElement>("RootFrame");
+        voiceMessageRootVisualElement.visible = false;
+
+        var voiceMessageRootFrame = voiceMessageRootVisualElement.Q<VisualElement>(RootFrameName);
         if (voiceMessageRootFrame == null)
         {
-            GameLog.ErrorMessage(this, "Unable to find a Visual Element called 'RootFrame' in the Game Message user interface document.");
+            GameLog.ErrorMessage(this, $"Unable to find a Visual Element called '{RootFrameName}' in the Game Message user interface document.");
             return;
         }
 
-        speakerImage = voiceMessageRootVisualElement.Q<VisualElement>("visualelement-SpeakerImage");
+        speakerImage = voiceMessageRootVisualElement.Q<VisualElement>(SpeakerImageName);
         if (speakerImage == null)
         {
-            GameLog.ErrorMessage(this, "Unable to find a Visual Element called 'visualelement-SpeakerImage' in the Game Message user interface document.");
+            GameLog.ErrorMessage(this, $"Unable to find a Visual Element called '{SpeakerImageName}' in the Game Message user interface document.");
             return;
         }
 
-        // The Speaker and Message Title label
-        labelSpeakerAndTitle = voiceMessageRootFrame.Q<Label>("label-SpeakerAndTitle");
+        labelSpeakerAndTitle = voiceMessageRootFrame.Q<Label>(SpeakerAndTitleName);
         if (labelSpeakerAndTitle == null)
         {
-            GameLog.ErrorMessage(this, "Unable to find a Label called 'label-SpeakerNameAndMessageTitle' in the Game Message user interface document.");
+            GameLog.ErrorMessage(this, $"Unable to find a Label called '{SpeakerAndTitleName}' in the Game Message user interface document.");
             return;
         }
 
-        // The Spoken Words label
-        labelMessage = voiceMessageRootFrame.Q<Label>("label-Message");
+        labelMessage = voiceMessageRootFrame.Q<Label>(MessageTextName);
         if (labelMessage == null)
         {
-            GameLog.ErrorMessage(this, "Unable to find a Label called 'label-SpokenWords' in the Game Message user interface document.");
+            GameLog.ErrorMessage(this, $"Unable to find a Label called '{MessageTextName}' in the Game Message user interface document.");
             return;
         }
 
-        btnDismiss = voiceMessageRootFrame.Q<Button>("btn-Dismiss");
+        btnDismiss = voiceMessageRootFrame.Q<Button>(BtnDismissName);
         if (btnDismiss == null)
         {
-            GameLog.ErrorMessage(this, "Unable to find a Button called 'btn-Dismiss' in the Game Message user interface document.");
+            GameLog.ErrorMessage(this, $"Unable to find a Button called '{BtnDismissName}' in the Game Message user interface document.");
+            return;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (!shouldBeShown) return;
+
+        UnityEngine.Cursor.visible = true;
+        player.SetActive(false);
+        shouldBeShown = false;
+
+        if (!TryGetGameMessage(gameMessageTitle, out theGameMessage))
+        {
+            GameLog.ErrorMessage(this, $"Game message with title '{gameMessageTitle}' not found.");
             return;
         }
 
-        btnDismiss.RegisterCallback<ClickEvent>(ev => { HandleDismissClick(); });
+        theGameMessage.WhenShown = DateTime.Now;
+        theGameMessage.HasBeenShown = true;
+
+        speakerImage.style.backgroundImage = new StyleBackground(speakerImageIcon);
+        labelMessage.text = theGameMessage.MessageText;
+        labelSpeakerAndTitle.text = $"{speakerImageIcon.name}: {gameMessageTitle}";
+
+        gameMessageDocument.rootVisualElement.visible = true;
     }
 
-
-    /// <summary>
-    /// When the player trips the trigger and if it should be shown, display the message
-    /// </summary>
-    /// <param name="other"></param>
-    private void OnTriggerEnter(Collider other)
+    private bool TryGetGameMessage(string title, out GameMessage message)
     {
-        if (shouldBeShown)
-        {
-            UnityEngine.Cursor.visible = true;
-
-            // Disable the player so they don't repond to mouse movements and keyboard presses
-            player.SetActive(false);
-
-            shouldBeShown = false;
-
-            // Update the Game Message
-            theGameMessage = GameMessages.Instance.AllGameMessages[gameMessageTitle];
-            theGameMessage.WhenShown = DateTime.Now;
-            theGameMessage.HasBeenShown = true;
-
-            // Assign the Game Message properties to the UI Labels
-            speakerImage.style.backgroundImage = new StyleBackground(speakerImageIcon);
-            labelMessage.text = theGameMessage.MessageText;
-            labelSpeakerAndTitle.text = $"{speakerImageIcon.name}: {gameMessageTitle}";
-
-            // Show the Game Message user interface
-            gameMessageDocument.rootVisualElement.visible = true;
-        }
+        message = null;
+        if (GameMessages.Instance == null || GameMessages.Instance.AllGameMessages == null)
+            return false;
+        return GameMessages.Instance.AllGameMessages.TryGetValue(title, out message);
     }
 
-    /// <summary>
-    /// Respond to the DISMISS button being clicked, and hide the message
-    /// </summary>
     private void HandleDismissClick()
     {
-        // Hide the message user interface
         gameMessageDocument.rootVisualElement.visible = false;
-
         UnityEngine.Cursor.visible = false;
 
-        // Stop any audio that might be playing
-        AudioSource currentAudioSource = Globals.Instance.CurrentAudioSource;
-        if (currentAudioSource != null)
+        var currentAudioSource = Globals.Instance.CurrentAudioSource;
+        if (currentAudioSource != null && currentAudioSource.isPlaying)
         {
-            if(currentAudioSource.isPlaying)
-            {
-                currentAudioSource.Stop();
-            }
+            currentAudioSource.Stop();
         }
 
-        // Enable the player so they can repond to mouse movements and keyboard presses
         player.SetActive(true);
     }
 }
