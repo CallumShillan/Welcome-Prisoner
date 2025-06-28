@@ -7,28 +7,47 @@ using UnityEngine.SceneManagement;
 
 public class GameMessage
 {
-    private string theMessage = string.Empty;
+    private string messageTitle = string.Empty;
+    private string messageContent = string.Empty;
     private bool hasBeenShown = false;
     private DateTime whenShown = DateTime.MinValue;
 
-    public GameMessage(string gameMessage)
+    public GameMessage()
     {
-        theMessage = gameMessage;
+    }
+    public GameMessage(string gameMessageTitle, string gameMessageContent)
+    {
+        messageTitle = gameMessageTitle;
+        messageContent = gameMessageContent;
         hasBeenShown = false;
         whenShown = DateTime.MinValue;
     }
 
-    public string MessageText { get => theMessage; }
+    public string MessageTitle { get => messageContent; }
+    public string MessageText { get => messageContent; }
     public bool HasBeenShown { get => hasBeenShown; set => hasBeenShown = value; }
     public DateTime WhenShown { get => whenShown; set => whenShown = value; }
+}
+
+public class DescendingDateComparer : IComparer<DateTime>
+{
+    public int Compare(DateTime x, DateTime y)
+    {
+        return y.CompareTo(x);
+        // Reverse the comparison
+    }
 }
 
 public class GameMessages : MonoBehaviour
 {
     public static GameMessages Instance {get; private set;}
     public Dictionary<string, GameMessage> AllGameMessages { get => allGameMessages;  }
+    public SortedDictionary<DateTime, string> AllGameMessagesByWhenShown { get => allGameMessagesByWhenShown; }
 
     private Dictionary<string, GameMessage> allGameMessages = new Dictionary<string, GameMessage>();
+
+    private SortedDictionary<DateTime, string> allGameMessagesByWhenShown = new SortedDictionary<DateTime, string>(new DescendingDateComparer());
+
     void Awake()
     {
         try
@@ -53,7 +72,7 @@ public class GameMessages : MonoBehaviour
             // Add them to the dictionary of Game Messages
             foreach (TextAsset sceneMessage in allSceneMessages)
             {
-                allGameMessages.Add(sceneMessage.name, new GameMessage(sceneMessage.text));
+                allGameMessages.Add(sceneMessage.name, new GameMessage(sceneMessage.name, sceneMessage.text));
             }
         }
         catch (Exception ex)
@@ -63,13 +82,18 @@ public class GameMessages : MonoBehaviour
         GameLog.NormalMessage(this, "GameDocuments Awake() finished");
     }
 
-    public GameMessage Message(string messageKey)
+    public void SetShown(string messageTitle)
     {
-        if (false == allGameMessages.ContainsKey(messageKey))
+        GameMessage message = new GameMessage();
+
+        DateTime rightNow = DateTime.Now;
+
+        if(allGameMessages.TryGetValue(messageTitle, out message))
         {
-            return (null);
+            message.WhenShown = rightNow;
+            message.HasBeenShown = true;
         }
 
-        return allGameMessages[messageKey];
+        allGameMessagesByWhenShown.Add(rightNow, messageTitle);
     }
 }

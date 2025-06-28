@@ -3,24 +3,6 @@
     color: rgb(0, 0, 0);
 }
 
-.btn-ebook-reader-page-controls {
-    border-left-width: 0;
-    border-right-width: 0;
-    border-top-width: 0;
-    border-bottom-width: 0;
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
-    font-size: 10px;
-    border-left-color: rgb(178, 52, 52);
-    border-right-color: rgb(178, 52, 52);
-    border-top-color: rgb(178, 52, 52);
-    border-bottom-color: rgb(178, 52, 52);
-    flex-shrink: 0;
-    height: 10px;
-}
-
 .btn-ebook-document-name:hover {
     width: auto;
     font-size: 10px;
@@ -68,34 +50,6 @@
 .unity-foldout__checkmark {
     flex-grow: 0;
     flex-shrink: 0;
-}
-
-.btn-ebook-document-name {
-    width: auto;
-    font-size: 10px;
-    border-left-width: 0;
-    border-right-width: 0;
-    border-top-width: 0;
-    border-bottom-width: 0;
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-    border-left-color: rgba(149, 149, 149, 0);
-    border-right-color: rgba(149, 149, 149, 0);
-    border-top-color: rgba(149, 149, 149, 0);
-    border-bottom-color: rgba(149, 149, 149, 0);
-    background-color: rgba(188, 188, 188, 0);
-    margin-left: 0;
-    margin-right: 0;
-    margin-top: 0;
-    margin-bottom: 0;
-    padding-left: 0;
-    padding-right: 0;
-    padding-top: 0;
-    padding-bottom: 0;
-    align-items: flex-start;
-    align-self: flex-start;
 }
 
 .group-ebook-document-list {

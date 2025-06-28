@@ -5,8 +5,8 @@
             <ui:Label tabindex="-1" text="Are you sure you want to exit the game?" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Label" style="white-space: normal; -unity-text-align: upper-center;" />
         </ui:VisualElement>
         <ui:VisualElement style="flex-direction: row; align-items: flex-start; justify-content: center; flex-grow: 1;">
-            <ui:Button text="YES" parse-escape-sequences="true" display-tooltip-when-elided="true" name="btn-Yes" class="btn-home-screen-icon" />
-            <ui:Button text="NO" parse-escape-sequences="true" display-tooltip-when-elided="true" name="btn-No" class="btn-home-screen-icon" />
+            <ui:Button text="YES" parse-escape-sequences="true" display-tooltip-when-elided="true" name="btn-Yes" class="btn-pda" style="font-size: 24px;" />
+            <ui:Button text="NO" parse-escape-sequences="true" display-tooltip-when-elided="true" name="btn-No" class="btn-pda" style="font-size: 24px;" />
         </ui:VisualElement>
     </ui:GroupBox>
 </ui:UXML>
