@@ -55,7 +55,7 @@ PrefabInstance:
     - target: {fileID: -3584497630037689987, guid: 62c7e439e64c4c640b94e3fc81cb0297, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: c61a29ea2f9a9e24186d27ba03d520a3, type: 2}
+      objectReference: {fileID: 2100000, guid: 937e08d727b27b745ab9792b069cedd9, type: 2}
     - target: {fileID: 919132149155446097, guid: 62c7e439e64c4c640b94e3fc81cb0297, type: 3}
       propertyPath: m_Name
       value: Corridor with End Door
@@ -67,7 +67,7 @@ PrefabInstance:
     - target: {fileID: 2511811754567536238, guid: 62c7e439e64c4c640b94e3fc81cb0297, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 6ed79f65abb2254448c843118f4c5218, type: 2}
+      objectReference: {fileID: 2100000, guid: 70dc0356f2ea91f4392285ffd3cf82c5, type: 2}
     - target: {fileID: 2550463727306718371, guid: 62c7e439e64c4c640b94e3fc81cb0297, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
