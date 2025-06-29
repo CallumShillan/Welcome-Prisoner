@@ -1,18 +1,16 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI%20Toolkit/WelcomePrisoner.uss?fileID=7433441132597879392&amp;guid=26595234caf0503478716a13a1144fca&amp;type=3#WelcomePrisoner" />
-    <ui:GroupBox name="RootFrame" class="root-frame" style="align-items: auto; justify-content: center;">
-        <ui:VisualElement name="GameMessage" class="root-frame__game-message">
-            <ui:VisualElement name="MessageBanner" class="root-frame__message-banner">
-                <ui:Label tabindex="-1" text="Label" parse-escape-sequences="true" display-tooltip-when-elided="true" name="SpeakerAndTitleLabel" class="message-banner__speaker-and-title" />
-                <ui:Button text="Dismiss" parse-escape-sequences="true" display-tooltip-when-elided="true" name="DismissButton" class="message-banner__dismiss-button" />
-            </ui:VisualElement>
-            <ui:VisualElement name="MessageContent" class="root-frame__message-content">
-                <ui:VisualElement name="SpeakerTexture2D" class="message-content-speaker-texture" />
-                <ui:VisualElement name="MessageLabel" class="message-content__message">
-                    <ui:ScrollView horizontal-scroller-visibility="Hidden" focusable="true" name="theScrollView" style="width: 100%; height: 100%; background-color: rgb(255, 255, 255);">
-                        <ui:Label tabindex="-1" parse-escape-sequences="true" display-tooltip-when-elided="true" name="MessageLabel" style="height: 100%; width: 100%; font-size: 12px; flex-shrink: 1; flex-grow: 1; flex-wrap: wrap; align-items: auto; white-space: normal;" />
-                    </ui:ScrollView>
-                </ui:VisualElement>
+    <ui:GroupBox name="RootFrame" class="root-frame" style="flex-direction: column;">
+        <ui:VisualElement name="MessageBanner" style="background-color: rgb(225, 32, 32); flex-grow: 0.1;">
+            <ui:Label tabindex="-1" text="Label" parse-escape-sequences="true" display-tooltip-when-elided="true" name="SpeakerAndTitleLabel" class="message-banner__speaker-and-title" />
+            <ui:Button text="Dismiss" parse-escape-sequences="true" display-tooltip-when-elided="true" name="DismissButton" class="message-banner__dismiss-button" />
+        </ui:VisualElement>
+        <ui:VisualElement name="MessageContent" class="root-frame__message-content">
+            <ui:VisualElement name="SpeakerTexture2D" class="message-content-speaker-texture" />
+            <ui:VisualElement name="MessageLabel" class="message-content__message">
+                <ui:ScrollView horizontal-scroller-visibility="Hidden" focusable="true" name="theScrollView" style="width: 100%; height: 100%; background-color: rgb(255, 255, 255);">
+                    <ui:Label tabindex="-1" parse-escape-sequences="true" display-tooltip-when-elided="true" name="MessageLabel" style="height: 100%; width: 100%; font-size: 12px; flex-shrink: 1; flex-grow: 1; flex-wrap: wrap; align-items: auto; white-space: normal;" />
+                </ui:ScrollView>
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:GroupBox>
