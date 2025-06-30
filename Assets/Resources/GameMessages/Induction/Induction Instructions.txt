@@ -1,9 +1,0 @@
-The World Orbital Prison is run on behalf of the United Earth Federation and is subject to the Universal Civil Liberties legislation.
-
-In keeping with this legislation, an Induction Process is used so all prisoners are absorbed into the prison in a uniform manner.
-
-The induction process is:
-	Identification: Prisoners have their bioemtrics taken for identification purposes.
-	Medical Check: A thorough medical examination is conducted to assess the prisoner’s health and identify any immediate medical needs.
-	Property Inventory: Personal items that are allowed in the facility are inventoried, and prohibited items are stored or disposed of.
-	Assignment: Each prisoner is assigned to a cell or dormitory based on their security classification and needs assessment.
