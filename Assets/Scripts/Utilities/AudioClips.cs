@@ -7,10 +7,6 @@ public class AudioClips : Singleton<AudioClips>
 {
     private static Dictionary<string, AudioClip> audioClipDictionary;
 
-    void Awake()
-    {
-    }
-
     static public float PlayClipAtPoint(string audioClipName, Vector3 position)
     {
         if (audioClipDictionary is null)

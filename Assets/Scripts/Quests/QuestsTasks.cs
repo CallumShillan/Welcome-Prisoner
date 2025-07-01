@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,25 +8,14 @@ public enum StoryState { Pending, Active, Completed }
 public class BasicInfo
 {
     public StoryState State = StoryState.Pending;
-    public QuestManager.OldGameEvent CompletionEvent = QuestManager.OldGameEvent.NONE;
     public string Title = string.Empty;
     public string ShortDescription = string.Empty;
     public string LongDescription = string.Empty;
-
-    public BasicInfo(string title, string shortDescription, string longDescription, StoryState storyState, QuestManager.OldGameEvent gameEvent)
-    {
-        Title = title;
-        ShortDescription = shortDescription;
-        LongDescription = longDescription;
-        State = storyState;
-        CompletionEvent = gameEvent;
-    }   
 }
 [Serializable]
 public class Story
 {
     public StoryState State = StoryState.Pending;
-    //public QuestManager.OldGameEvent CompletionEvent = QuestManager.OldGameEvent.NONE;
     public string GameState = string.Empty;
     public string CompletionEvent = string.Empty;
     public string Title = string.Empty;
@@ -35,6 +23,17 @@ public class Story
     public string LongDescription = string.Empty;
     public string CurrentQuestTitle = string.Empty;
     public List<string> QuestTitles = null;
+
+    public Story()
+    {
+        this.GameState = string.Empty;
+        this.CompletionEvent = string.Empty;
+        this.Title = string.Empty;
+        this.ShortDescription = string.Empty;
+        this.LongDescription = string.Empty;
+        this.CurrentQuestTitle = string.Empty;
+        this.QuestTitles = new List<string>();
+    }
 
     public Story(string title = "", string shortDescription = "", string longDescription = "", string completionEvent = "", string gameState = "")
     {
@@ -51,7 +50,6 @@ public class Story
 public class Quest
 {
     public StoryState State = StoryState.Pending;
-    //public QuestManager.OldGameEvent CompletionEvent = QuestManager.OldGameEvent.NONE;
     public string GameState = string.Empty;
     public string CompletionEvent = string.Empty;
     public string Title = string.Empty;
@@ -77,7 +75,6 @@ public class Quest
 public class Task
 {
     public StoryState State = StoryState.Pending;
-    //public QuestManager.OldGameEvent CompletionEvent = QuestManager.OldGameEvent.NONE;
     public string GameState = string.Empty;
     public string CompletionEvent = string.Empty;
     public string Title = string.Empty;

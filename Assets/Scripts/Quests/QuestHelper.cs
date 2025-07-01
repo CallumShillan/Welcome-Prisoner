@@ -1,9 +1,7 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEditor;
 using System.IO;
 
 public enum OperationResult { Success, TitleAlreadyExistsInQuestsList, TitleAlreadyExistsInDictionary }
@@ -20,39 +18,42 @@ public class StoryQuestsTasks
 
 public class QuestHelper
 {
-    // This is the Story information for the Scene
-    private Story sceneStory;
-
-    // A dictionary of Quests and Tasks so we can get the detail for a given Title
+    private Story sceneStory = new Story();
     private Dictionary<string, Quest> questDictionary = new Dictionary<string, Quest>();
     private Dictionary<string, Task> taskDictionary = new Dictionary<string, Task>();
     private List<string> completionEvents = new List<string>();
     private List<string> gameStates = new List<string>();
 
-    // Make the above private objects publically accessible
-    public Story SceneStory { get => sceneStory; }
-    public Dictionary<string, Quest> QuestDictionary { get => questDictionary; }
-    public Dictionary<string, Task> TaskDictionary {  get => taskDictionary; }
-    public List<string> CompletionEvents { get => completionEvents; }
-    public List<string> GameStates { get => gameStates; }
+    public Story SceneStory => sceneStory;
+    public Dictionary<string, Quest> QuestDictionary => questDictionary;
+    public Dictionary<string, Task> TaskDictionary => taskDictionary;
+    public List<string> CompletionEvents => completionEvents;
+    public List<string> GameStates => gameStates;
 
     public OperationResult AddQuest(Quest newQuest)
     {
-        // If Scene Story already contains this quest, return false to indicate the quest could not be added
-        if(sceneStory.QuestTitles.Contains(newQuest.Title))
+        if (sceneStory.QuestTitles == null)
+        {
+            sceneStory.QuestTitles = new List<string>();
+        }
+
+        if (string.IsNullOrWhiteSpace(newQuest?.Title))
+        {
+            GameLog.ErrorMessage("Cannot add quest: Title is null or empty.");
+            return OperationResult.TitleAlreadyExistsInQuestsList;
+        }
+
+        if (sceneStory.QuestTitles.Contains(newQuest.Title))
         {
             return OperationResult.TitleAlreadyExistsInQuestsList;
         }
 
-        // If there is already a quest of this name, return false to indicate the quest could not be added
         if (questDictionary.ContainsKey(newQuest.Title))
         {
             return OperationResult.TitleAlreadyExistsInDictionary;
         }
 
-        // Add the quest to the list of quest names and the quest dictionary
         sceneStory.QuestTitles.Add(newQuest.Title);
-        //questNames.Add(newQuest.Title);
         questDictionary.Add(newQuest.Title, newQuest);
 
         return OperationResult.Success;
@@ -60,217 +61,177 @@ public class QuestHelper
 
     public bool DeleteQuest(string questTitle)
     {
-        bool removedFromStory = SceneStory.QuestTitles.Remove(questTitle);
-        bool removedFromDictionary = QuestDictionary.Remove(questTitle);
+        if (string.IsNullOrWhiteSpace(questTitle))
+        {
+            GameLog.ErrorMessage("Cannot delete quest: Title is null or empty.");
+            return false;
+        }
 
-        return (removedFromStory && removedFromDictionary);
+        bool removedFromStory = sceneStory.QuestTitles?.Remove(questTitle) ?? false;
+        bool removedFromDictionary = questDictionary.Remove(questTitle);
+        return removedFromStory && removedFromDictionary;
     }
 
-    public bool DeleteTask(string theTaskTitle)
+    public bool DeleteTask(string taskTitle)
     {
-        bool taskRemovedFromDictionary = false;
-
-        // Remove the Task from the dictionary of Tasks
-        if (TaskDictionary.Remove(theTaskTitle))
+        if (string.IsNullOrWhiteSpace(taskTitle))
         {
-            taskRemovedFromDictionary = true;
-            GameLog.NormalMessage($"Task '{theTaskTitle}' was deleted from the Task Dictionary");
+            GameLog.ErrorMessage("Cannot delete task: Title is null or empty.");
+            return false;
+        }
+
+        bool removed = taskDictionary.Remove(taskTitle);
+        if (removed)
+        {
+            GameLog.NormalMessage($"Task '{taskTitle}' was deleted from the Task Dictionary");
         }
         else
         {
-            GameLog.ErrorMessage($"Unable to find Task '{theTaskTitle}' in the dictionary of Tasks");
+            GameLog.ErrorMessage($"Unable to find Task '{taskTitle}' in the dictionary of Tasks");
         }
 
-        // Remove the task from quests
-        foreach (Quest singleQuest in QuestDictionary.Values)
+        foreach (KeyValuePair<string, Quest> questPair in questDictionary)
         {
-            if (singleQuest.TaskTitles.Remove(theTaskTitle))
+            Quest quest = questPair.Value;
+            if (quest.TaskTitles != null && quest.TaskTitles.Remove(taskTitle))
             {
-                GameLog.NormalMessage($"Task '{theTaskTitle}' was deleted from Quest '{singleQuest.Title}'");
+                GameLog.NormalMessage($"Task '{taskTitle}' was deleted from Quest '{quest.Title}'");
             }
         }
 
-        return taskRemovedFromDictionary;
+        return removed;
     }
 
     public bool AddTaskToQuest(string questTitle, Task task)
     {
-        // If there is NOT already a quest of this name, return false to indicate the task could not be added
-        if (false == sceneStory.QuestTitles.Contains(questTitle))
+        if (string.IsNullOrWhiteSpace(questTitle) || task == null || string.IsNullOrWhiteSpace(task.Title))
         {
+            GameLog.ErrorMessage("Cannot add task to quest: Invalid quest or task title.");
             return false;
         }
 
-        // If there is NOT already a quest of this name, return false to indicate the task could not be added
-        if (false == questDictionary.ContainsKey(questTitle))
+        Quest quest;
+        if (!questDictionary.TryGetValue(questTitle, out quest))
         {
+            GameLog.ErrorMessage($"Quest '{questTitle}' not found.");
             return false;
         }
 
-        // Get the quest from the quest dictionary
-        Quest quest = questDictionary[questTitle];
+        if (quest.TaskTitles == null)
+        {
+            quest.TaskTitles = new List<string>();
+        }
 
-        // Add the new Task Title to the Quest's list of Task Titles
-        quest.TaskTitles.Add(task.Title);
+        if (!quest.TaskTitles.Contains(task.Title))
+        {
+            quest.TaskTitles.Add(task.Title);
+        }
 
         return true;
     }
 
     public bool SaveSceneQuestsAndTasks()
     {
-        bool returnValue = false;
-
-        // Get the Assets folder location and the Active Scene name
-        string assetsFolder = Application.dataPath;
-        string sceneName = SceneManager.GetActiveScene().name;
-
-        string sqtJsonLocation = $"{assetsFolder}/Resources/GameQuests/{sceneName}/{sceneName}.json";
-
-        StoryQuestsTasks sqt = new StoryQuestsTasks();
-
-        sqt.theStory.CompletionEvent = SceneStory.CompletionEvent;
-        sqt.theStory.GameState = SceneStory.GameState;
-        sqt.theStory.Title = SceneStory.Title;
-        sqt.theStory.ShortDescription = SceneStory.ShortDescription;
-        sqt.theStory.LongDescription = SceneStory.LongDescription;
-        sqt.theStory.QuestTitles = SceneStory.QuestTitles;
-
-        foreach (string questTitle in QuestDictionary.Keys)
+        try
         {
-            sqt.theQuests.Add(QuestDictionary[questTitle]);
-        }
+            string assetsFolder = Application.dataPath;
+            string sceneName = SceneManager.GetActiveScene().name;
+            string sqtJsonLocation = Path.Combine(assetsFolder, "Resources", "GameQuests", sceneName, $"{sceneName}.json");
 
-        foreach (string taskTitle in TaskDictionary.Keys)
+            StoryQuestsTasks sqt = new StoryQuestsTasks
+            {
+                theStory = sceneStory,
+                theQuests = new List<Quest>(questDictionary.Values),
+                theTasks = new List<Task>(taskDictionary.Values),
+                theCompletionEvents = new List<string>(completionEvents),
+                theGameStates = new List<string>(gameStates)
+            };
+
+            string jsonSqt = JsonUtility.ToJson(sqt, true);
+
+            string dir = Path.GetDirectoryName(sqtJsonLocation);
+            if (!Directory.Exists(dir))
+            {
+                Directory.CreateDirectory(dir);
+            }
+            File.WriteAllText(sqtJsonLocation, jsonSqt);
+
+            return true;
+        }
+        catch (Exception ex)
         {
-            sqt.theTasks.Add(TaskDictionary[taskTitle]);
+            GameLog.ExceptionMessage(null, $"SaveSceneQuestsAndTasks exception: {ex}");
+            return false;
         }
-
-        foreach (string completionEvent in CompletionEvents)
-        {
-            sqt.theCompletionEvents.Add(completionEvent);
-        }
-
-        foreach( string state in GameStates)
-        {
-            sqt.theGameStates.Add(state);
-        }
-
-        string jsonSqt = JsonUtility.ToJson(sqt);
-
-        using (StreamWriter outputFile = new StreamWriter(sqtJsonLocation))
-        {
-            outputFile.WriteLine(jsonSqt);
-        }
-
-        returnValue = true;
-
-        return returnValue;
     }
 
     public bool LoadSceneQuests()
     {
-        bool sceneQuestsLoaded = false;
         try
         {
-            // The StoryQuestsTasks class is used to hold persisted Story, Quests and Tasks data for the Scene
             StoryQuestsTasks sqt = LoadStoryQuestTaskInfo();
-
-            if (sqt != null)
+            if (sqt == null)
             {
-                sceneStory = sqt.theStory;
-
-                // The hydrated StoryQuestsTasks object is processed to provide data structures that can be more easily used by the Quest Editor
-
-                // Clear out the objects used to provide easier access by the Quest Editor control fields
-                questDictionary.Clear();
-                taskDictionary.Clear();
-                completionEvents.Clear();
-                gameStates.Clear();
-
-                // Build the list of Quests, the dictionary of Quests, and the Tasks in a given Quest 
-                foreach (Quest singleQuest in sqt.theQuests)
-                {
-                    questDictionary.Add(singleQuest.Title, singleQuest);
-                }
-
-                // Build the dictionary of Tasks
-                foreach (Task singleTask in sqt.theTasks)
-                {
-                    taskDictionary.Add(singleTask.Title, singleTask);
-                }
-
-                foreach (string singleCompletionEvent in sqt.theCompletionEvents)
-                {
-                    completionEvents.Add(singleCompletionEvent);
-                }
-
-                foreach (string singleGameState in sqt.theGameStates)
-                {
-                    gameStates.Add(singleGameState);
-                }
-
-                // Indicate we loaded the scene
-                sceneQuestsLoaded = true;
+                GameLog.WarningMessage("QuestHelper LoadSceneQuests() didn't hydrate data and returned an empty StoryQuestsTasks object.");
+                return false;
             }
-            else
+
+            sceneStory = sqt.theStory ?? new Story();
+            questDictionary = new Dictionary<string, Quest>();
+            taskDictionary = new Dictionary<string, Task>();
+            completionEvents = new List<string>(sqt.theCompletionEvents ?? new List<string>());
+            gameStates = new List<string>(sqt.theGameStates ?? new List<string>());
+
+            if (sqt.theQuests != null)
             {
-                sqt = new StoryQuestsTasks();
-                GameLog.WarningMessage($"QuestHelper LoadSceneQuests() didn't hydrate data and returned an empty StoryQuestsTasks object.");
+                foreach (Quest quest in sqt.theQuests)
+                {
+                    if (!string.IsNullOrWhiteSpace(quest.Title))
+                    {
+                        questDictionary[quest.Title] = quest;
+                    }
+                }
             }
+
+            if (sqt.theTasks != null)
+            {
+                foreach (Task task in sqt.theTasks)
+                {
+                    if (!string.IsNullOrWhiteSpace(task.Title))
+                    {
+                        taskDictionary[task.Title] = task;
+                    }
+                }
+            }
+
+            return true;
         }
         catch (Exception ex)
         {
-            GameLog.ExceptionMessage(null, $"QuestHelper LoadSceneQuests() exception: {ex.ToString()}");
+            GameLog.ExceptionMessage(null, $"QuestHelper LoadSceneQuests() exception: {ex}");
+            return false;
         }
-
-        sceneQuestsLoaded = true;
-        //try
-        //{
-        //    StoryQuestsTasks sqt = new StoryQuestsTasks();
-        //    sqt.theStory = new Story("Welcome, Prisoner!", "Short description", "Long description", StoryState.Active, QuestManager.OldGameEvent.NONE);
-        //    for (int iCnt = 1; iCnt < 10; iCnt++)
-        //    {
-        //        Quest singleQuest = new Quest($"Quest {iCnt}", $"This is short description for Quest {iCnt}", $"This is the LONG description for Quest {iCnt}", StoryState.Pending, QuestManager.OldGameEvent.NONE);
-
-        //        Task singleTask = new Task($"Task {iCnt}", $"This is short description for Task {iCnt}", $"This is LONG description for Task {iCnt}", StoryState.Pending, QuestManager.OldGameEvent.NONE);
-        //        sqt.theTasks.Add(singleTask);
-
-        //        singleQuest.TaskTitles = new List<string>();
-
-        //        for (int jCnt = 0; jCnt < iCnt; jCnt++)
-        //        {
-        //            singleQuest.TaskTitles.Add(sqt.theTasks[jCnt].Title);
-        //        }
-        //        sqt.theQuests.Add(singleQuest);
-        //        sqt.theStory.QuestTitles.Add(singleQuest.Title);
-        //    }
-
-        //    string jsonSqt = JsonUtility.ToJson(sqt);
-        //}
-        //catch (Exception ex)
-        //{
-        //    GameLog.ExceptionMessage(null, ex.ToString());
-        //}
-
-        return sceneQuestsLoaded;
     }
 
     private StoryQuestsTasks LoadStoryQuestTaskInfo()
     {
-        StoryQuestsTasks sqt = null; 
-        
-        // Get the Active Scene name
-        string sceneName = SceneManager.GetActiveScene().name;
+        try
+        {
+            string sceneName = SceneManager.GetActiveScene().name;
+            string jsonResourceFile = $"GameQuests/{sceneName}/{sceneName}";
+            TextAsset textAssetJsonStoryQuestsTasks = Resources.Load<TextAsset>(jsonResourceFile);
 
-        // Get the path to the Asset Resources for the Game Messages for this scene
-        string jsonResourceFile = "GameQuests/" + sceneName + "/" + sceneName;
+            if (textAssetJsonStoryQuestsTasks == null)
+            {
+                return null;
+            }
 
-        // Load the file in the specified resource path
-        TextAsset textAssetJsonStoryQuestsTasks = Resources.Load<TextAsset>(jsonResourceFile);
-
-        string jsonSqt = textAssetJsonStoryQuestsTasks.text;
-        sqt = JsonUtility.FromJson<StoryQuestsTasks>(jsonSqt);
-
-        return sqt;
+            return JsonUtility.FromJson<StoryQuestsTasks>(textAssetJsonStoryQuestsTasks.text);
+        }
+        catch (Exception ex)
+        {
+            GameLog.ExceptionMessage(null, $"LoadStoryQuestTaskInfo exception: {ex}");
+            return null;
+        }
     }
 }

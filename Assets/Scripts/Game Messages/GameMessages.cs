@@ -1,99 +1,77 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameMessage
+/// <summary>
+/// Manages all game messages, loading them per scene and tracking when they are shown.
+/// </summary>
+public class GameMessages : Singleton<GameMessages>
 {
-    private string messageTitle = string.Empty;
-    private string messageContent = string.Empty;
-    private bool hasBeenShown = false;
-    private DateTime whenShown = DateTime.MinValue;
+    /// <summary>
+    /// All loaded game messages, keyed by their title.
+    /// </summary>
+    public IReadOnlyDictionary<string, GameMessage> AllGameMessages => allGameMessages;
 
-    public GameMessage()
+    /// <summary>
+    /// All shown game messages, sorted by when they were shown (descending).
+    /// </summary>
+    public IReadOnlyDictionary<DateTime, string> AllGameMessagesByWhenShown => allGameMessagesByWhenShown;
+
+    private readonly Dictionary<string, GameMessage> allGameMessages = new Dictionary<string, GameMessage>();
+    private readonly SortedDictionary<DateTime, string> allGameMessagesByWhenShown = new SortedDictionary<DateTime, string>(new DescendingDateComparer());
+
+    /// <inheritdoc/>
+    protected override void Awake()
     {
-    }
-    public GameMessage(string gameMessageTitle, string gameMessageContent)
-    {
-        messageTitle = gameMessageTitle;
-        messageContent = gameMessageContent;
-        hasBeenShown = false;
-        whenShown = DateTime.MinValue;
-    }
+        // Ensure only one instance exists and persists across scenes.
+        base.Awake();
 
-    public string MessageTitle { get => messageContent; }
-    public string MessageText { get => messageContent; }
-    public bool HasBeenShown { get => hasBeenShown; set => hasBeenShown = value; }
-    public DateTime WhenShown { get => whenShown; set => whenShown = value; }
-}
-
-public class DescendingDateComparer : IComparer<DateTime>
-{
-    public int Compare(DateTime x, DateTime y)
-    {
-        return y.CompareTo(x);
-        // Reverse the comparison
-    }
-}
-
-public class GameMessages : MonoBehaviour
-{
-    public static GameMessages Instance {get; private set;}
-    public Dictionary<string, GameMessage> AllGameMessages { get => allGameMessages;  }
-    public SortedDictionary<DateTime, string> AllGameMessagesByWhenShown { get => allGameMessagesByWhenShown; }
-
-    private Dictionary<string, GameMessage> allGameMessages = new Dictionary<string, GameMessage>();
-
-    private SortedDictionary<DateTime, string> allGameMessagesByWhenShown = new SortedDictionary<DateTime, string>(new DescendingDateComparer());
-
-    void Awake()
-    {
         try
         {
-            if (Instance != null && Instance != this)
+            // Load all game messages for the current scene from Resources.
+            string sceneName = SceneManager.GetActiveScene().name;
+            string sceneMessageFolder = $"GameMessages/{sceneName}";
+            TextAsset[] allSceneMessages = Resources.LoadAll<TextAsset>(sceneMessageFolder);
+
+            // Return if no messages were found for the scene
+            if (allSceneMessages == null || allSceneMessages.Length == 0)
             {
-                Destroy(this);
+                GameLog.NormalMessage(this, $"No game messages found for scene: {sceneName}");
                 return;
             }
 
-            Instance = this;
-
-            // Get the Active Scene name
-            string sceneName = SceneManager.GetActiveScene().name;
-
-            // Get the path to the Asset Resources for the Game Messages for this scene
-            string sceneMessageFolder = "GameMessages/" + sceneName;
-
-            // Load all the files in the specified resource path
-            TextAsset[] allSceneMessages = Resources.LoadAll<TextAsset>(sceneMessageFolder);
-
-            // Add them to the dictionary of Game Messages
             foreach (TextAsset sceneMessage in allSceneMessages)
             {
-                allGameMessages.Add(sceneMessage.name, new GameMessage(sceneMessage.name, sceneMessage.text));
+                if (!allGameMessages.TryAdd(sceneMessage.name, new GameMessage(sceneMessage.name, sceneMessage.text)))
+                {
+                    GameLog.WarningMessage(this, $"Duplicate GameMessage key detected: {sceneMessage.name}");
+                }
             }
+
+            GameLog.NormalMessage(this, $"{nameof(GameMessages)} Awake() finished");
         }
         catch (Exception ex)
         {
-            GameLog.ExceptionMessage(this, "GameDocuments Awake() exception: {0}", ex.ToString());
+            GameLog.ExceptionMessage(this, $"{nameof(GameMessages)} Awake() exception: {ex}");
         }
-        GameLog.NormalMessage(this, "GameDocuments Awake() finished");
     }
 
+    /// <summary>
+    /// Marks a message as shown and records the time.
+    /// </summary>
+    /// <param name="messageTitle">The title of the message to mark as shown.</param>
     public void SetShown(string messageTitle)
     {
-        GameMessage message = new GameMessage();
-
-        DateTime rightNow = DateTime.Now;
-
-        if(allGameMessages.TryGetValue(messageTitle, out message))
+        if (!allGameMessages.TryGetValue(messageTitle, out var message))
         {
-            message.WhenShown = rightNow;
-            message.HasBeenShown = true;
+            GameLog.WarningMessage(this, $"SetShown called with unknown messageTitle: {messageTitle}");
+            return;
         }
 
+        DateTime rightNow = DateTime.UtcNow;
+        message.WhenShown = rightNow;
+        message.HasBeenShown = true;
         allGameMessagesByWhenShown.Add(rightNow, messageTitle);
     }
 }

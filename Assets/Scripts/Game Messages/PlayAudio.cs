@@ -1,31 +1,35 @@
 using System;
-using System.Collections;
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.UIElements;
-using Invector.vCharacterController;
 
+/// <summary>
+/// Plays an audio clip when the player enters the trigger, only once per activation.
+/// </summary>
+[RequireComponent(typeof(AudioSource))]
 public class PlayAudio : MonoBehaviour
 {
     [SerializeField]
-    [Tooltip("Whether the audio should be played")]
+    [Tooltip("If true, the audio will play when triggered.")]
     private bool shouldBePlayed = true;
 
     [SerializeField]
-    [Tooltip("Whether the audio should be played")]
+    [Tooltip("The AudioSource component to use for playback.")]
     private AudioSource audioSource;
 
     [SerializeField]
-    [Tooltip("Whether the audio should be played")]
+    [Tooltip("The AudioClip to play.")]
     private AudioClip audioClip;
 
-    void Awake()
+    private void Awake()
     {
+        // Auto-assign AudioSource if not set in the Inspector
         if (audioSource == null)
         {
-            GameLog.ErrorMessage(this, "The audio source is not set. Did you forget to set it in the Editor?");
-            return;
+            audioSource = GetComponent<AudioSource>();
+            if (audioSource == null)
+            {
+                GameLog.ErrorMessage(this, "The audio source is not set and could not be found on the GameObject.");
+                return;
+            }
         }
         if (audioClip == null)
         {
@@ -35,21 +39,32 @@ public class PlayAudio : MonoBehaviour
     }
 
     /// <summary>
-    /// When the player trips the trigger and if it should be played, play the audio
+    /// When the player trips the trigger and if it should be played, play the audio.
     /// </summary>
-    /// <param name="other"></param>
+    /// <param name="other">The collider that entered the trigger.</param>
     private void OnTriggerEnter(Collider other)
     {
-        if (shouldBePlayed)
+        // Check if the collider's GameObject is tagged as "Player"
+        if (!other.CompareTag("Player"))
         {
-            shouldBePlayed = false;
-
-            // Remember the active AudioSource in case it needs to be stopped by some other event/action
-            Globals.Instance.CurrentAudioSource = audioSource;
-
-            audioSource.clip = audioClip;
-            audioSource.Play();
+            return;
         }
+
+        if (!shouldBePlayed)
+        {
+            return;
+        }
+
+        shouldBePlayed = false;
+
+        // Set the current audio source in Globals if available
+        if (Globals.Instance != null)
+        {
+            Globals.Instance.CurrentAudioSource = audioSource;
+        }
+
+        audioSource.clip = audioClip;
+        audioSource.Play();
     }
 }
 
