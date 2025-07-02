@@ -1,81 +1,70 @@
 using System;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameBook
+/// <summary>
+/// Manages all game books loaded from resources for the current scene.
+/// </summary>
+public class GameDocuments : Singleton<GameDocuments>
 {
-    private string bookName = string.Empty;
-    private List<string> bookPages = null;
-    private bool hasYetToBeShown = true;
-    private DateTime whenShown = DateTime.MinValue;
+    private readonly Dictionary<string, GameBook> allBooks = new();
 
-    public GameBook(string bookName)
+    /// <summary>
+    /// Gets all books loaded for the current scene.
+    /// </summary>
+    public IReadOnlyDictionary<string, GameBook> AllBooks => allBooks;
+
+    /// <inheritdoc/>
+    protected override void Awake()
     {
-        this.bookName = bookName;
-        this.bookPages = new List<string>();
-        hasYetToBeShown = true;
-    }
-
-    public string BookName { get => bookName; }
-    public List<string> ThePages { get => bookPages; }
-    public bool HasYetToBeShown { get => hasYetToBeShown; set => hasYetToBeShown = value; }
-    public DateTime WhenShown { get => whenShown; set => whenShown = value; }
-}
-
-public class GameDocuments : MonoBehaviour
-{
-    private Dictionary<string, GameBook> allBooks = new System.Collections.Generic.Dictionary<string, GameBook>();
-    public static GameDocuments Instance { get; private set; }
-    public Dictionary<string, GameBook> AllBooks { get => allBooks; set => allBooks = value; }
-
-    void Awake()
-    {
+        base.Awake();
+        GameLog.NormalMessage(this, "[GameDocuments] Awake() started");
         try
         {
-            if (Instance != null && Instance != this)
+            // Prepare the document library for the active scene
+            string sceneName = SceneManager.GetActiveScene().name;
+            if (string.IsNullOrEmpty(sceneName))
             {
-                Destroy(this);
+                GameLog.ExceptionMessage(this, "[GameDocuments] Scene name is null or empty.");
                 return;
             }
 
-            Instance = this;
-
-            // Prime the Document Library by preparing (a) an empty sorted lists of all rooms in the scene that has books and (b) an empty sorted list of books within that room
-            // These are then ready for population with the book contents, when needed
-
-            // Remember the Active Scene name
-            string sceneName = SceneManager.GetActiveScene().name;
-            
-            object[] allPages = Resources.LoadAll<TextAsset>("GameDocuments/" + sceneName);
-            
-            string[] nameInfo;
-            string bookName = string.Empty;
-            string pageName = string.Empty;
-
-            foreach ( TextAsset page in allPages)
+            // Load all pages from the files in the Resources folder for the current scene
+            // Naming format is {BookName}!{PageNumber}
+            TextAsset[] allPages = Resources.LoadAll<TextAsset>($"GameDocuments/{sceneName}");
+            if (allPages == null || allPages.Length == 0)
             {
-                nameInfo = page.name.Split("!");
-                bookName = nameInfo[0];
-                pageName = nameInfo[1];
+                GameLog.NormalMessage(this, $"[GameDocuments] No pages found for scene '{sceneName}'.");
+                return;
+            }
 
-                if ( allBooks.ContainsKey(bookName))
+            // Iterate through all pages and add them to the relevant books
+            foreach (TextAsset page in allPages)
+            {
+                string[] nameInfo = page.name.Split('!');
+                if (nameInfo.Length < 2)
                 {
-                    allBooks[bookName].ThePages.Add(page.text);
+                    GameLog.ExceptionMessage(this, $"[GameDocuments] Invalid page name format: {page.name}");
+                    continue;
                 }
-                else
+
+                string bookName = nameInfo[0];
+                //string pageName = nameInfo[1]; // Available if needed but at the moment, the book just has a List<string> of the pages.
+
+                // Check if the book already exists, if not, create a new one
+                if (!allBooks.TryGetValue(bookName, out GameBook gameBook))
                 {
-                    GameBook aGameBook = new GameBook(bookName);
-                    aGameBook.ThePages.Add(page.text);
-                    allBooks.Add(bookName, aGameBook);
+                    gameBook = new GameBook(bookName);
+                    allBooks.Add(bookName, gameBook);
                 }
+                gameBook.AddPage(page.text);
             }
         }
-        catch ( Exception ex)
+        catch (Exception ex)
         {
-            GameLog.ExceptionMessage(this, "GameDocuments Awake() exception: {0}", ex.ToString());
+            GameLog.ExceptionMessage(this, $"[GameDocuments] Awake() exception: {ex}");
         }
-        GameLog.NormalMessage(this, "GameDocuments Awake() finished");
+        GameLog.NormalMessage(this, "[GameDocuments] Awake() finished");
     }
 }

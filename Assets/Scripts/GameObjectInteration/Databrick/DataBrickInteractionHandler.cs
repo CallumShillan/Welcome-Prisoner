@@ -66,16 +66,22 @@ public class DataBrickInteractionHandler : MonoBehaviour, IActionInterface
             GameLog.ErrorMessage(this, "The Action Hint Message is not set. Did you forget to set it in the Editor?");
             return;
         }
-
     }
 
+    /// <summary>
+    /// Displays an interaction prompt to the user and updates the action hint text.
+    /// </summary>
+    /// <remarks>This method enables the action icon and hint text, replacing placeholders in the hint message
+    /// with the appropriate values. The interaction prompt is intended to guide the user on the next action.</remarks>
+    /// <returns><see langword="true"/> to indicate that the interaction prompt was successfully displayed.</returns>
     public bool AdvertiseInteraction()
     {
         actionIcon.enabled = true;
         actionHintTextMesh.enabled = true;
-        actionHintTextMesh.text = actionHintMessage.Replace("{NAME}", $"'{this.name}'").Replace("{ACTION}", "Add to PDA: ");
-
-        return (true);
+        actionHintTextMesh.text = actionHintMessage
+            .Replace("{NAME}", $"'{name}'")
+            .Replace("{ACTION}", "Add to PDA: ");
+        return true;
     }
 
     /// <summary>
@@ -84,33 +90,32 @@ public class DataBrickInteractionHandler : MonoBehaviour, IActionInterface
     /// <returns>TRUE as we need further interactions with the user</returns>
     public bool PerformInteraction()
     {
-
         // Raise the significant event, if needed
-        if (false == string.IsNullOrWhiteSpace(significantEvent))
+        if (!string.IsNullOrWhiteSpace(significantEvent))
         {
             QuestManager.HandleSignificantEvent(significantEvent);
         }
 
         // Mark the game message as having been accessed
-        GameMessage theGameMessage = GameMessages.Instance.AllGameMessages[this.name];
-        if(theGameMessage is not null)
+        if (GameMessages.Instance.AllGameMessages.TryGetValue(name, out GameMessage theGameMessage) && theGameMessage is not null)
         {
             theGameMessage.WhenShown = DateTime.Now;
             theGameMessage.HasBeenShown = true;
         }
-
-        // Deactivate the DataBrick GameObject so it won't get rendered, scripts won't be run, colliders won't be effective, and so on
-        databrickModel.SetActive(false);
-
-        // Play the animation, if needed
-        if(objectAnimator is not null)
+        else
         {
-            if( false == string.IsNullOrEmpty(animationToPlay))
-            {
-                objectAnimator.Play(animationToPlay, 0, 0.0f);
-            }
+            GameLog.ErrorMessage(this, $"GameMessage for '{name}' not found in AllGameMessages.");
         }
 
-        return (true); // As we are finished
+        // Deactivate the DataBrick GameObject so it won't get rendered, scripts won't be run, colliders won't be effective, and so on
+        databrickModel?.SetActive(false);
+
+        // Play the animation, if needed
+        if (objectAnimator is not null && !string.IsNullOrEmpty(animationToPlay))
+        {
+            objectAnimator.Play(animationToPlay, 0, 0.0f);
+        }
+
+        return true; // As we are finished
     }
 }

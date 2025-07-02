@@ -1,99 +1,145 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-using UnityEngine.UI;
 using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
 
 public class DoorInteractionHandler : MonoBehaviour, IActionInterface
 {
+    private const string NamePlaceholder = "{NAME}";
+    private const string ActionPlaceholder = "{ACTION}";
 
-    [SerializeField]
-    [Tooltip("The significan event to raise")]
-    string significantEvent = string.Empty;
+    [SerializeField, Tooltip("The significant event to raise")]
+    private string significantEvent = string.Empty;
 
-    [SerializeField]
-    [Tooltip("The animation to open the door")]
+    [SerializeField, Tooltip("The animation to open the door")]
     private string openAnimation = string.Empty;
 
-    [SerializeField]
-    [Tooltip("The animation to close the door")]
+    [SerializeField, Tooltip("The animation to close the door")]
     private string closeAnimation = string.Empty;
 
-    [SerializeField]
-    [Tooltip("The Audio Clip for the locked door rattle")]
+    [SerializeField, Tooltip("The Audio Clip for the locked door rattle")]
     private AudioClip lockedDoorRattleSound = null;
 
-    [SerializeField]
-    [Tooltip("The Audio Clip for the open door sound")]
+    [SerializeField, Tooltip("The Audio Clip for the open door sound")]
     private AudioClip doorOpenAndCloseSound = null;
 
-    [SerializeField]
-    [Tooltip("The icon displayed for this action")]
+    [SerializeField, Tooltip("The icon displayed for this action")]
     private Image actionIcon = null;
 
-    [SerializeField]
-    [Tooltip("The text mesh to display the hint")]
-    private TextMeshProUGUI actionHintTextMesh;
+    [SerializeField, Tooltip("The text mesh to display the hint")]
+    private TextMeshProUGUI actionHintTextMesh = null;
 
-    [SerializeField]
-    [Tooltip("A tooltip about the action")]
+    [SerializeField, Tooltip("A tooltip about the action")]
     private string actionHintMessage = string.Empty;
 
-    [SerializeField]
-    [Tooltip("A tooltip for when the door is locked")]
+    [SerializeField, Tooltip("A tooltip for when the door is locked")]
     private string actionLockedMessage = string.Empty;
 
-    [SerializeField]
-    [Tooltip("Whether the door is locked")]
+    [SerializeField, Tooltip("Whether the door is locked")]
     private bool doorIsLocked = false;
 
-    [SerializeField]
-    [Tooltip("Whether the door is open or closed")]
+    [SerializeField, Tooltip("Whether the door is open or closed")]
     private bool doorIsOpen = false;
 
     private Animator objectAnimator;
-    public bool IsDoorLocked { get => doorIsLocked; set => doorIsLocked = value; }
-    public bool IsDoorOpen { get => doorIsOpen; set => doorIsOpen = value; }
 
-    public void Awake()
+    public bool IsDoorLocked
+    {
+        get => doorIsLocked;
+        set => doorIsLocked = value;
+    }
+
+    public bool IsDoorOpen
+    {
+        get => doorIsOpen;
+        set => doorIsOpen = value;
+    }
+
+    /// <summary>
+    /// Initializes the component by retrieving required references and validating their assignments.
+    /// </summary>
+    /// <remarks>This method attempts to retrieve the parent <see cref="Animator"/> component and validates
+    /// that all required references, such as the action icon and action hint text mesh, are properly assigned. If any
+    /// required reference is missing, an error message is logged.</remarks>
+    private void Awake()
     {
         objectAnimator = GetComponentInParent<Animator>();
         if (objectAnimator == null)
         {
-            GameLog.Message(LogType.Error, this, $"Unable to get the animator for door '{this.name}'. Did you forget to set on in the editor?");
+            GameLog.ErrorMessage(this, $"Unable to get the animator for door '{name}'. Did you forget to set one in the editor?");
         }
+        else
+        {
+            // There is an animator, so check the animations
+            if (string.IsNullOrWhiteSpace(openAnimation))
+            {
+                GameLog.ErrorMessage(this, "Open animation is not assigned or is empty.");
+            }
+            if (string.IsNullOrWhiteSpace(closeAnimation))
+            {
+                GameLog.ErrorMessage(this, "Close animation is not assigned or is empty.");
+            }
+        }
+
+        if (string.IsNullOrWhiteSpace(significantEvent))
+        {
+            GameLog.ErrorMessage(this, "Significant event is not assigned or is empty.");
+        }
+        if (lockedDoorRattleSound == null)
+        {
+            GameLog.ErrorMessage(this, "Locked door rattle sound is not assigned.");
+        }
+        if (doorOpenAndCloseSound == null)
+        {
+            GameLog.ErrorMessage(this, "Door open and close sound is not assigned.");
+        }
+        if (actionIcon == null)
+        {
+            GameLog.ErrorMessage(this, "Action icon is not assigned.");
+        }
+        if (actionHintTextMesh == null)
+        {
+            GameLog.ErrorMessage(this, "Action hint text mesh is not assigned.");
+        }
+        if (string.IsNullOrWhiteSpace(actionHintMessage))
+        {
+            GameLog.ErrorMessage(this, "Action hint message is not assigned or is empty.");
+        }
+        if (string.IsNullOrWhiteSpace(actionLockedMessage))
+        {
+            GameLog.ErrorMessage(this, "Action locked message is not assigned or is empty.");
+        }
+        // doorIsLocked and doorIsOpen are bools, so no null/empty check needed
     }
-    public void Start()
+
+    private void Start()
     {
-        if(doorIsOpen)
+        if (doorIsOpen)
         {
             GameLog.Message(LogType.Log, this, "Initial state needs the door open");
-            objectAnimator.Play(openAnimation, 0, 0.0f);
+            objectAnimator?.Play(openAnimation, 0, 0.0f);
         }
     }
 
     public bool AdvertiseInteraction()
     {
-        actionIcon.enabled = true;
-        actionHintTextMesh.enabled = true;
-
-        if (doorIsLocked)
+        if (actionIcon != null)
         {
-            actionHintTextMesh.text = actionLockedMessage.Replace("{NAME}", this.name).Replace("{ACTION}", doorIsOpen ? "Close" : "Open");
+            actionIcon.enabled = true;
         }
-        else
+        if (actionHintTextMesh != null)
         {
-            actionHintTextMesh.text = actionHintMessage.Replace("{NAME}", this.name).Replace("{ACTION}", doorIsOpen ? "Close" : "Open");
+            actionHintTextMesh.enabled = true;
+            actionHintTextMesh.text = actionHintMessage
+            .Replace(NamePlaceholder, name)
+            .Replace(ActionPlaceholder, doorIsOpen ? "Closed" : "Open");
         }
-        return (false);
+        return false;
     }
 
     public bool PerformInteraction()
     {
         // Handle the significant event, if needed
-        if(false == string.IsNullOrEmpty(significantEvent))
+        if (!string.IsNullOrEmpty(significantEvent))
         {
             QuestManager.HandleSignificantEvent(significantEvent);
         }
@@ -101,27 +147,39 @@ public class DoorInteractionHandler : MonoBehaviour, IActionInterface
         if (doorIsLocked)
         {
             GameLog.Message(LogType.Log, this, "Door is locked so playing 'locked' audio");
-            AudioSource.PlayClipAtPoint(lockedDoorRattleSound, this.transform.position);
+            PlayAudioClip(lockedDoorRattleSound);
+            return false;
+        }
+
+        PlayAudioClip(doorOpenAndCloseSound);
+
+        if (objectAnimator == null)
+        {
+            GameLog.Message(LogType.Error, this, "Animator not found, cannot animate door.");
+            return false;
+        }
+
+        if (doorIsOpen)
+        {
+            GameLog.Message(LogType.Log, this, "Closing the door");
+            objectAnimator.Play(closeAnimation, 0, 0.0f);
+            doorIsOpen = false;
         }
         else
         {
-            AudioSource.PlayClipAtPoint(doorOpenAndCloseSound, this.transform.position);
-
-            // Thanks to https://www.youtube.com/watch?v=tJiO4cvsHAo for basic mechanism of animating doors
-            if (doorIsOpen)
-            {
-                GameLog.Message(LogType.Log, this, "Closing the door");
-                objectAnimator.Play(closeAnimation, 0, 0.0f);
-                doorIsOpen = false;
-            }
-            else
-            {
-                GameLog.Message(LogType.Log, this, "Opening the door");
-                objectAnimator.Play(openAnimation, 0, 0.0f);
-                doorIsOpen = true;
-            }
+            GameLog.Message(LogType.Log, this, "Opening the door");
+            objectAnimator.Play(openAnimation, 0, 0.0f);
+            doorIsOpen = true;
         }
 
-        return (false); // As we don't need further interactions
+        return false; // No further interactions needed
+    }
+
+    private void PlayAudioClip(AudioClip clip)
+    {
+        if (clip != null)
+        {
+            AudioSource.PlayClipAtPoint(clip, transform.position);
+        }
     }
 }
