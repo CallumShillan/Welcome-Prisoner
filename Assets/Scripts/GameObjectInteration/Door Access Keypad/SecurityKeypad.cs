@@ -9,6 +9,13 @@ using UnityEngine.UIElements;
 
 public class SecurityKeypad : MonoBehaviour
 {
+    // Constants for field names used in guard statements
+    private const string FIELD_UIDOCUMENT = "securityKeypadUserInterfaceDocument";
+    private const string FIELD_ROOTVISUALELEMENT = "securityKeypadRootVisualElement";
+    private const string FIELD_ROOTFRAME = "RootFrame";
+    private const string FIELD_KEYPADREADOUT = "keyPadReadout";
+    private const string FIELD_KEYBUTTON_PREFIX = "Key-";
+
     // The UI Document that will be used to render the User Interface for the Security Keypad
     private UIDocument securityKeypadUserInterfaceDocument = null;
 
@@ -21,61 +28,70 @@ public class SecurityKeypad : MonoBehaviour
     // The keypad characters entered by the user
     private StringBuilder enteredKeys = null;
 
-    // Whether the interaction of the Security Keypad is completed
-    //private bool interactionIsCompleted = false;
-    
     public delegate void HandleCheckKeycode(string keyCode);
 
     private HandleCheckKeycode checkKeycodeHandler = null;
 
-
-    // Start is called before the first frame update
-    void Start()
+    /// <summary>
+    /// Initializes the component by retrieving required references and validating their assignments.
+    /// </summary>
+    private void Awake()
     {
-        if( false == this.TryGetComponent<UIDocument>(out securityKeypadUserInterfaceDocument) )
+        bool somethingNeedsToBeFixed = false;
+
+        // Guard: Try to get the UIDocument component
+        if (!this.TryGetComponent<UIDocument>(out securityKeypadUserInterfaceDocument))
         {
-            GameLog.ErrorMessage(this, "Unable to get the UI Document for the Security Keypad.");
-            return;
+            GameLog.ErrorMessage(this, $"Unable to get the UI Document for the Security Keypad. Field: {FIELD_UIDOCUMENT}");
+            somethingNeedsToBeFixed = true;
         }
 
-        // Remember the Security Keypad's Root Visual Element
-        securityKeypadRootVisualElement = securityKeypadUserInterfaceDocument.rootVisualElement;
-        if (securityKeypadRootVisualElement is null)
+        // Guard: Root Visual Element
+        securityKeypadRootVisualElement = securityKeypadUserInterfaceDocument?.rootVisualElement;
+        if (securityKeypadRootVisualElement == null)
         {
-            GameLog.ErrorMessage(this, "No Root Visual Element found in the Security Keypad user interface document.");
-            return;
+            GameLog.ErrorMessage(this, $"No Root Visual Element found in the Security Keypad user interface document. Field: {FIELD_ROOTVISUALELEMENT}");
+            somethingNeedsToBeFixed = true;
         }
 
-        // Get the Root Frame of the Security Keypad UI
-        VisualElement securityKeypadAppRootFrame = securityKeypadRootVisualElement.Q<VisualElement>("RootFrame");
-        if (securityKeypadAppRootFrame is null)
+        // Guard: Root Frame
+        VisualElement securityKeypadAppRootFrame = securityKeypadRootVisualElement?.Q<VisualElement>(FIELD_ROOTFRAME);
+        if (securityKeypadAppRootFrame == null)
         {
-            GameLog.ErrorMessage(this, "Unable to find a Visual Element called 'RootFrame' in the UI Document.");
-            return;
+            GameLog.ErrorMessage(this, $"Unable to find a Visual Element called '{FIELD_ROOTFRAME}' in the UI Document.");
+            somethingNeedsToBeFixed = true;
         }
 
-        // Clear the Keypad Readout label from
-        keyPadReadout = securityKeypadAppRootFrame.Q<UnityEngine.UIElements.Label>("KeypadReadout");
-        if (keyPadReadout is null)
+        // Guard: Keypad Readout
+        keyPadReadout = securityKeypadAppRootFrame?.Q<UnityEngine.UIElements.Label>("KeypadReadout");
+        if (keyPadReadout == null)
         {
-            GameLog.ErrorMessage(this, "Can't find the 'KeypadReadout' in the UI Document.");
-            return;
+            GameLog.ErrorMessage(this, $"Can't find the 'KeypadReadout' in the UI Document. Field: {FIELD_KEYPADREADOUT}");
+            somethingNeedsToBeFixed = true;
         }
-        keyPadReadout.text = string.Empty;
+        if (keyPadReadout != null)
+        {
+            keyPadReadout.text = string.Empty;
+        }
 
         // Hook up event handlers to the buttons
         foreach (string keyValue in new string[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "Enter", "Delete" })
         {
-            UnityEngine.UIElements.Button btnVerify = securityKeypadAppRootFrame.Q<UnityEngine.UIElements.Button>("Key-" + keyValue);
-            if (btnVerify is null)
+            UnityEngine.UIElements.Button btnVerify = securityKeypadAppRootFrame?.Q<UnityEngine.UIElements.Button>(FIELD_KEYBUTTON_PREFIX + keyValue);
+            if (btnVerify == null)
             {
-                GameLog.ErrorMessage(this, "Can't find the 'Key-" + keyValue + "' button in the UI Document.");
-                return;
+                GameLog.ErrorMessage(this, $"Can't find the '{FIELD_KEYBUTTON_PREFIX}{keyValue}' button in the UI Document.");
+                somethingNeedsToBeFixed = true;
             }
             else
             {
                 btnVerify.RegisterCallback<ClickEvent>(ev => HandleKeypadClick(keyValue));
             }
+        }
+
+        if (somethingNeedsToBeFixed)
+        {
+            GameLog.ErrorMessage(this, "Please fix the above issues in the Inspector.");
         }
 
         enteredKeys = new StringBuilder();
@@ -106,7 +122,10 @@ public class SecurityKeypad : MonoBehaviour
                 break;
 
             case "ENTER":
-                checkKeycodeHandler(keyPadReadout.text);
+                if (checkKeycodeHandler != null)
+                {
+                    checkKeycodeHandler(keyPadReadout.text);
+                }
                 break;
 
             case "DELETE":
@@ -119,25 +138,67 @@ public class SecurityKeypad : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Displays the security keypad interface and initializes the necessary components for handling keycode input.
+    /// </summary>
+    /// <remarks>This method ensures that the keypad interface is visible and ready for user interaction. It
+    /// clears any previously entered keycode and resets the keypad readout display. The provided <paramref
+    /// name="checkKeycode"/> delegate is assigned to handle keycode validation.</remarks>
+    /// <param name="checkKeycode">A delegate that defines the logic for validating the entered keycode. This is used to process user input and
+    /// determine whether the keycode is correct.</param>
     public void Show(HandleCheckKeycode checkKeycode)
     {
-        // Show the UI
-        enteredKeys.Clear();
-        keyPadReadout.text = string.Empty;
+        // Guard: Ensure required references are set
+        if (enteredKeys == null)
+        {
+            enteredKeys = new StringBuilder();
+        }
+        else
+        {
+            enteredKeys.Clear();
+        }
+
+        if (keyPadReadout != null)
+        {
+            keyPadReadout.text = string.Empty;
+        }
 
         checkKeycodeHandler = checkKeycode;
 
-        securityKeypadRootVisualElement.style.display = DisplayStyle.Flex;
-    }
-    public void Hide()
-    {
-        // Hide the UI
-        securityKeypadRootVisualElement.style.display = DisplayStyle.None;
+        if (securityKeypadRootVisualElement != null)
+        {
+            securityKeypadRootVisualElement.style.display = DisplayStyle.Flex;
+        }
     }
 
+    /// <summary>
+    /// Hides the security keypad by setting its display style to none.
+    /// </summary>
+    /// <remarks>This method makes the security keypad invisible in the user interface.  Ensure that
+    /// <c>securityKeypadRootVisualElement</c> is properly initialized before calling this method.</remarks>
+    public void Hide()
+    {
+        if (securityKeypadRootVisualElement != null)
+        {
+            securityKeypadRootVisualElement.style.display = DisplayStyle.None;
+        }
+    }
+
+    /// <summary>
+    /// Resets the state of the keypad by clearing entered keys and resetting the display text.
+    /// </summary>
+    /// <remarks>This method clears the collection of entered keys and sets the keypad readout text to an
+    /// empty string. Ensure that <c>enteredKeys</c> and <c>keyPadReadout</c> are properly initialized before calling
+    /// this method.</remarks>
     public void Reset()
     {
-        enteredKeys.Clear();
-        keyPadReadout.text = string.Empty;
+        if (enteredKeys != null)
+        {
+            enteredKeys.Clear();
+        }
+        if (keyPadReadout != null)
+        {
+            keyPadReadout.text = string.Empty;
+        }
     }
 }

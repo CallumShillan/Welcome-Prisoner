@@ -1,41 +1,37 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 using TMPro;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 using static SecurityKeypad;
 
+/// <summary>
+/// Handles interactions with a security keypad to lock or unlock a door.
+/// </summary>
+/// <remarks>This class manages the interaction flow between the user and a security keypad, including displaying
+/// the keypad UI, validating the entered code, and toggling the lock state of the associated door. It also supports
+/// advertising the interaction and providing hints to the user.</remarks>
 public class DoorAccessKeypadInteractionHandler : MonoBehaviour, IActionInterface
 {
-    [SerializeField]
-    [Tooltip("The Game Object of the door that will be locked/unlocked")]
+    [SerializeField, Tooltip("The Game Object of the door that will be locked/unlocked")]
     private GameObject doorGameObject = null;
 
-    [SerializeField]
-    [Tooltip("The Significant Event for unlocking this door")]
+    [SerializeField, Tooltip("The Significant Event for unlocking this door")]
     private string significantEvent = string.Empty;
 
-    [SerializeField]
-    [Tooltip("The UI Document for the Security Keypad")]
+    [SerializeField, Tooltip("The UI Document for the Security Keypad")]
     private UIDocument securityKeypadUserInterfaceDocument = null;
 
-    [SerializeField]
-    [Tooltip("The keypad code to unlock / lock the door")]
-    private string doorCode = null;
+    [SerializeField, Tooltip("The keypad code to unlock / lock the door")]
+    private string doorCode = string.Empty;
 
-    [SerializeField]
-    [Tooltip("The icon displayed for this action")]
+    [SerializeField, Tooltip("The icon displayed for this action")]
     private UnityEngine.UI.Image actionIcon = null;
 
-    [SerializeField]
-    [Tooltip("The text mesh to display the hint")]
-    private TextMeshProUGUI actionHintTextMesh;
+    [SerializeField, Tooltip("The text mesh to display the hint")]
+    private TextMeshProUGUI actionHintTextMesh = null;
 
-    [SerializeField]
-    [Tooltip("A tooltip about the action")]
+    [SerializeField, Tooltip("A tooltip about the action")]
     private string actionHintMessage = string.Empty;
 
     // The Interaction Handler for the door that is locked/unlocked by this Security Keypad (used to determine if the door is open/closed and locked/unlocked)
@@ -47,45 +43,92 @@ public class DoorAccessKeypadInteractionHandler : MonoBehaviour, IActionInterfac
     // Whether the interaction of the Security Keypad is completed
     private bool correctKeyCodeEntered = false;
 
-    // Start is called before the first frame update
-    public void Start()
+    /// <summary>
+    /// Initializes the component by retrieving required references and validating their assignments.
+    /// </summary>
+    private void Awake()
     {
-        // Try to get the Door Game Object script from the Door Game Object
-        if(doorGameObject is null)
+        bool somethingNeedsToBeFixed = false;
+
+        // Guard statements for all serialized fields
+        if (doorGameObject == null)
         {
-            GameLog.ErrorMessage(this, "Unable to get the Door Game Object. Did you forget to add one in the Game Object Inspector?");
-            return;
+            GameLog.ErrorMessage(this, "Door Game Object is not assigned. Did you forget to add one in the Inspector?");
+            somethingNeedsToBeFixed = true;
         }
 
-        // Try to get the Door Interaction Handler
-        if (false == doorGameObject.TryGetComponent<DoorInteractionHandler>(out controlledDoorInteractionHandler))
+        if (!doorGameObject.TryGetComponent<DoorInteractionHandler>(out controlledDoorInteractionHandler))
         {
             GameLog.ErrorMessage(this, "Unable to get the Door Interaction Handler of the door that this security lock is controlling. Did you forget to add one in the Game Object Inspector?");
-            return;
+            somethingNeedsToBeFixed = true;
         }
 
-        if(securityKeypadUserInterfaceDocument is null)
+        if (securityKeypadUserInterfaceDocument == null)
         {
-            GameLog.ErrorMessage(this, "There is no UI Document for the User Interface. Did you forget to add one in the Inspector?");
-            return;
+            GameLog.ErrorMessage(this, "UI Document for the Security Keypad is not assigned. Did you forget to add one in the Inspector?");
+            somethingNeedsToBeFixed = true;
         }
 
-        if(false == securityKeypadUserInterfaceDocument.TryGetComponent<SecurityKeypad>(out theSecurityKeypad))
+        if (!securityKeypadUserInterfaceDocument.TryGetComponent<SecurityKeypad>(out theSecurityKeypad))
         {
             GameLog.ErrorMessage(this, "There is no SecurityKeypad component in the UI Document. Did you forget to add one in the Inspector?");
-            return;
+            somethingNeedsToBeFixed = true;
         }
 
+        if (string.IsNullOrWhiteSpace(significantEvent))
+        {
+            GameLog.ErrorMessage(this, "Significant event is not assigned or is empty.");
+            somethingNeedsToBeFixed = true;
+        }
+
+        if (string.IsNullOrWhiteSpace(doorCode))
+        {
+            GameLog.ErrorMessage(this, "Door code is not assigned or is empty.");
+            somethingNeedsToBeFixed = true;
+        }
+
+        if (actionIcon == null)
+        {
+            GameLog.ErrorMessage(this, "Action icon is not assigned.");
+            somethingNeedsToBeFixed = true;
+        }
+
+        if (actionHintTextMesh == null)
+        {
+            GameLog.ErrorMessage(this, "Action hint text mesh is not assigned.");
+            somethingNeedsToBeFixed = true;
+        }
+
+        if (string.IsNullOrWhiteSpace(actionHintMessage))
+        {
+            GameLog.ErrorMessage(this, "Action hint message is not assigned or is empty.");
+            somethingNeedsToBeFixed = true;
+        }
+
+        if (somethingNeedsToBeFixed)
+        {
+            GameLog.ErrorMessage(this, "Please fix the above issues in the Inspector.");
+        }
     }
 
+    /// <summary>
+    /// Displays interaction hints to the user by enabling associated UI elements.
+    /// </summary>
+    /// <remarks>This method enables the action icon and hint text mesh, if they are not null,  and updates
+    /// the hint text with the appropriate action message.</remarks>
+    /// <returns><see langword="true"/> to indicate we need to advertise further action.</returns>
     public bool AdvertiseInteraction()
     {
-        actionIcon.enabled = true;
-        actionHintTextMesh.enabled = true;
-
-        actionHintTextMesh.text = SetActionMessage();
-
-        return (true);
+        if (actionIcon != null)
+        {
+            actionIcon.enabled = true;
+        }
+        if (actionHintTextMesh != null)
+        {
+            actionHintTextMesh.enabled = true;
+            actionHintTextMesh.text = SetActionMessage();
+        }
+        return true;
     }
 
     /// <summary>
@@ -94,35 +137,32 @@ public class DoorAccessKeypadInteractionHandler : MonoBehaviour, IActionInterfac
     /// <returns>TRUE as we need further interactions with the user</returns>
     public bool PerformInteraction()
     {
-        // Check we're in the right Game State to be able to perform this interaction
-        //if(GameState.CurrentProgress != requiredGameProgress)
-        //{
-        //    return (false);
-        //}
         UnityEngine.Cursor.visible = true;
         correctKeyCodeEntered = false;
-        
-        theSecurityKeypad.Show(new HandleCheckKeycode(CheckKeycode));
 
-        return (true); // As we need further interactions
+        if (theSecurityKeypad != null)
+        {
+            theSecurityKeypad.Show(new HandleCheckKeycode(CheckKeycode));
+        }
+
+        return true; // As we need further interactions
     }
 
     /// <summary>
     /// Continue the interaction unless (a) the ESCAPE key has been pressed or (b) the correct keypad code has been entered 
     /// </summary>
-    /// <returns>Whether the interaction is continuiing or not</returns>
+    /// <returns>Whether the interaction is continuing or not</returns>
     public InteractionStatus ContinueInteraction()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) || correctKeyCodeEntered)
+        if ((Input.GetKeyDown(KeyCode.Escape) || correctKeyCodeEntered) && theSecurityKeypad != null)
         {
             theSecurityKeypad.Hide();
-            //GameState.CurrentProgress = progressGameToNextState;
-            return (InteractionStatus.Completed);
+            return InteractionStatus.Completed;
         }
 
-        return (InteractionStatus.Continuing); // Indicate we have not finished
+        return InteractionStatus.Continuing; // Indicate we have not finished
     }
-    
+
     /// <summary>
     /// A call back used from the Security Keypad component to check the keycode that has been entered
     /// </summary>
@@ -131,14 +171,20 @@ public class DoorAccessKeypadInteractionHandler : MonoBehaviour, IActionInterfac
     {
         if (string.Equals(enteredKeyCode, doorCode, StringComparison.InvariantCultureIgnoreCase))
         {
-            // Correct keycode status, so toggle the Door Locked status and hide the Security Keypad UI
-            controlledDoorInteractionHandler.IsDoorLocked = !controlledDoorInteractionHandler.IsDoorLocked;
+            if (controlledDoorInteractionHandler != null)
+            {
+                // Correct keycode status, so toggle the Door Locked status and hide the Security Keypad UI
+                controlledDoorInteractionHandler.IsDoorLocked = !controlledDoorInteractionHandler.IsDoorLocked;
+            }
             correctKeyCodeEntered = true;
             QuestManager.HandleSignificantEvent(significantEvent);
         }
         else
         {
-            theSecurityKeypad.Reset();
+            if (theSecurityKeypad != null)
+            {
+                theSecurityKeypad.Reset();
+            }
         }
     }
 
@@ -148,6 +194,11 @@ public class DoorAccessKeypadInteractionHandler : MonoBehaviour, IActionInterfac
     /// <returns></returns>
     private string SetActionMessage()
     {
+        if (doorGameObject == null || controlledDoorInteractionHandler == null)
+        {
+            return "Door or handler not assigned.";
+        }
+
         string returnActionMessage = actionHintMessage.Replace("{NAME}", doorGameObject.name);
 
         if (controlledDoorInteractionHandler.IsDoorLocked)
@@ -158,6 +209,6 @@ public class DoorAccessKeypadInteractionHandler : MonoBehaviour, IActionInterfac
         {
             returnActionMessage = returnActionMessage.Replace("{ACTION}", "Lock");
         }
-        return (returnActionMessage);
+        return returnActionMessage;
     }
 }
