@@ -131,7 +131,7 @@ public class DoorInteractionHandler : MonoBehaviour, IActionInterface
             actionHintTextMesh.enabled = true;
             actionHintTextMesh.text = actionHintMessage
             .Replace(NamePlaceholder, name)
-            .Replace(ActionPlaceholder, doorIsOpen ? "Closed" : "Open");
+            .Replace(ActionPlaceholder, doorIsOpen ? "Close" : "Open");
         }
         return false;
     }

@@ -21,7 +21,6 @@ public static class AutoSaveEditor
     {
         if (Application.isPlaying)
         {
-            Debug.Log($"[AutoSave] Game is playing, so unable to save");
             return;
         }
 

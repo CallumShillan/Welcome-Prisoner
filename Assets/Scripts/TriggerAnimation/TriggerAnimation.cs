@@ -45,6 +45,7 @@ public class TriggerAnimation : MonoBehaviour
             shouldBeShown = false;
 
             objectAnimator.Play(animationToPlay, 0, 0.0f);
+
         }
     }
 }
