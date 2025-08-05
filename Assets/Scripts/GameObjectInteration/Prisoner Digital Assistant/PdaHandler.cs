@@ -17,7 +17,7 @@ public class PdaHandler : MonoBehaviour
         // Get the PDA Event Handler component
         if (false == this.TryGetComponent<PrisonerDigitalAssistantEventHandler>(out pdaEventHandler))
         {
-            GameLog.ErrorMessage(this, "Unable to get the PDA Event Handler.");
+            GameLog.ErrorMessage(this, "Unable to get the PDA Event Handler. Did you forget to add one?");
             return;
         }
     }

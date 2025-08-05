@@ -9,22 +9,27 @@ public class PrisonerDigitalAssistantInteractionHandler : MonoBehaviour, IAction
     private string significantEvent = string.Empty;
 
     [SerializeField]
-    [Tooltip("The icon displayed for this action")]
-    private Image actionIcon = null;
-
-    [SerializeField]
-    [Tooltip("The text mesh to display the hint")]
-    private TextMeshProUGUI actionHintTextMesh;
-
-    [SerializeField]
     [Tooltip("A tooltip about the action")]
     private string actionHintMessage = string.Empty;
+
+    Image actionIcon = null;
+    PlayerInteraction playerInteraction = null;
+    TextMeshProUGUI actionHintTextMesh = null;
+
+    void Awake()
+    {
+        actionIcon = Globals.Instance.ActionIcon;
+        playerInteraction = Globals.Instance.PlayerInteraction;
+        actionHintTextMesh = playerInteraction.ActionHintTextMesh;
+    }
 
     public bool AdvertiseInteraction()
     {
         actionIcon.enabled = true;
         actionHintTextMesh.enabled = true;
-        actionHintTextMesh.text = actionHintMessage.Replace("{NAME}", this.name).Replace("{ACTION}", "Open");
+        actionHintTextMesh.text = actionHintMessage
+            .Replace("{NAME}", this.name)
+            .Replace("{ACTION}", "Open");
 
         return (false);
     }
@@ -46,7 +51,7 @@ public class PrisonerDigitalAssistantInteractionHandler : MonoBehaviour, IAction
             childMeshCollider.enabled = false;
         }
 
-        return (true); // As we DO need further interactions to allow the PDA to move into position and open/close
+        return (true); // As we DO need further interactions to display the PDA
     }
 
     public InteractionStatus ContinueInteraction()

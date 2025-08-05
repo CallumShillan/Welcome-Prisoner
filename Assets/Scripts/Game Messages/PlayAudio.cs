@@ -1,13 +1,13 @@
 using UnityEngine;
 
 /// <summary>
-/// Plays an audio clip when the player enters the trigger, only once per activation.
+/// Provides functionality to play audio clips when triggered by a player.
 /// </summary>
+/// <remarks>This class is designed to handle audio playback in response to trigger events. It supports
+/// single-shot playback, looping, and conditional playback based on the specified settings. The audio source and audio
+/// clip must be assigned in the Unity Editor for proper functionality.</remarks>
 public class PlayAudio : MonoBehaviour
 {
-    [SerializeField, Tooltip("If true, the audio will play only once.")]
-    private bool singleShotPlay = true;
-
     [SerializeField, Tooltip("If true, the audio will play when triggered.")]
     private bool shouldBePlayed = true;
 
@@ -36,8 +36,7 @@ public class PlayAudio : MonoBehaviour
 
         GameLog.NormalMessage(
             this,
-            $"PlayAudio Awake() finished. singleShotPlay: {singleShotPlay}," +
-            $" shouldBePlayed: {shouldBePlayed}," +
+            $"PlayAudio Awake() finished. shouldBePlayed: {shouldBePlayed}," +
             $" shouldLoop: {shouldLoop}," +
             $" AudioSource: {audioSource.name}," +
             $" AudioClip: {audioClip.name}"
@@ -50,27 +49,24 @@ public class PlayAudio : MonoBehaviour
     /// <param name="other">The collider that entered the trigger.</param>
     private void OnTriggerEnter(Collider other)
     {
+        if (!shouldBePlayed)
+        {
+            return;
+        }
+
         // Check if the collider's GameObject is tagged as "Player"
         if (!other.CompareTag("Player"))
         {
             return;
         }
 
-        if (!shouldBePlayed)
-        {
-            return;
-        }
-
-        if(singleShotPlay && audioSource.isPlaying)
+        if(audioSource.isPlaying)
         {
             // If single shot play is enabled and audio is already playing, do not play again
             return;
         }
 
-        if(singleShotPlay)
-        {
-            shouldBePlayed = false;
-        }
+        shouldBePlayed = false;
 
         // Set the current audio source in Globals if available
         if (Globals.Instance != null)
