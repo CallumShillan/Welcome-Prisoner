@@ -1,10 +1,7 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Xml;
+using System.ComponentModel;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.UIElements;
-using Invector.vCharacterController;
 
 /// <summary>
 /// Manages the display of in-game messages, including speaker icons, message text, and dismiss functionality.
@@ -17,6 +14,18 @@ using Invector.vCharacterController;
 /// Missing or improperly configured fields will result in warnings in the Unity console.</remarks>
 public class TriggerMessageDisplay : MonoBehaviour
 {
+    private enum WhenToShowMessage
+    {
+        [Description("Always")]
+        Always,
+
+        [Description("Event Occurred")]
+        EventOccurred,
+
+        [Description("Event NOT Occurred")]
+        EventNotOccurred
+    }
+
     // The texture used to represent the speaker's icon in the game message.
     [SerializeField, Tooltip("The speaker's face icon texture")]
     private Texture2D speakerIconTexture;
@@ -29,6 +38,17 @@ public class TriggerMessageDisplay : MonoBehaviour
     [SerializeField, Tooltip("Whether the message should be displayed")]
     private bool shouldBeShown = true;
 
+    // Condition for the message to be shown.
+    [SerializeField, Tooltip("Condition for message to be shown")]
+    private WhenToShowMessage whenShown = WhenToShowMessage.Always;
+
+    // Significant Event to check condition against.
+    [SerializeField, Tooltip("Significant Event to check condition against")]
+    [StringDropdown("GetSignificantEvents")]
+    private string significantEvent = string.Empty;
+
+    private bool triggerHandled = false;
+
     private void Awake()
     {
         if (speakerIconTexture == null)
@@ -40,10 +60,24 @@ public class TriggerMessageDisplay : MonoBehaviour
         {
             Debug.Log("Game Message Title is not set. Did you forget to set it in the Editor?");
         }
+
+        if(whenShown != WhenToShowMessage.Always && string.IsNullOrEmpty(significantEvent))
+        {
+            Debug.Log($"When Shown is '{whenShown}' and Significant Event is not set. Did you forget to set it in the Editor?");
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
+        if(triggerHandled)
+        {
+            return; // Prevents multiple triggers from the same collider.
+        }
+        else
+        {
+            triggerHandled = true; // Set to true to prevent further triggers.
+        }
+
         if (!shouldBeShown)
         {
             return;
@@ -57,6 +91,43 @@ public class TriggerMessageDisplay : MonoBehaviour
 
         shouldBeShown = false; // Prevents the message from being shown again after the first trigger.
 
-        DisplayGameMessage.Instance.ShowGameMessage(speakerIconTexture, gameMessageTitle);
+        bool shouldDisplayMessage = false;
+        switch (whenShown)
+        {
+            case WhenToShowMessage.Always:
+                shouldDisplayMessage = true;
+                break;
+            case WhenToShowMessage.EventOccurred:
+                if (QuestManager.GetSignificantEventState(significantEvent) == QuestManager.SignificantEventState.SignificantEventOccurred)
+                {
+                    shouldDisplayMessage = true;
+                }
+                break;
+            case WhenToShowMessage.EventNotOccurred:
+                if (QuestManager.GetSignificantEventState(significantEvent) == QuestManager.SignificantEventState.SignificantEventNotOccurred)
+                {
+                    shouldDisplayMessage = true;
+                }
+                break;
+        }
+
+        if (shouldDisplayMessage)
+        {
+            DisplayGameMessage.Instance.ShowGameMessage(speakerIconTexture, gameMessageTitle);
+
+            if (Globals.Instance.AudioClips.TryGetValue(gameMessageTitle, out var messageClip))
+            {
+                AudioSource audioSource = Globals.Instance.VoiceMessageAudioSource;
+                Globals.Instance.CurrentAudioSource = audioSource; // So, it can be stopped if user dismisses the message.
+                audioSource.clip = messageClip;
+                audioSource.loop = false;
+                audioSource.Play();
+            }
+            else
+            {
+                Debug.LogWarning($"Audio clip for '{gameMessageTitle}' not found in Globals.AudioClips. Did you forget to add it?");
+            }
+
+        }
     }
 }

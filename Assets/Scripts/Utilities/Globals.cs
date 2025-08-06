@@ -1,7 +1,7 @@
 using System;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.UIElements;
 
 [Serializable]
@@ -67,6 +67,13 @@ public class Globals : Singleton<Globals>
     [SerializeField, Tooltip("The icon displayed for an action")]
     private UnityEngine.UI.Image actionIcon = null;
     public UnityEngine.UI.Image ActionIcon => actionIcon;
+
+    [SerializeField, Tooltip("Used for playing the spoken audio of messages")]
+    private AudioSource voiceMessageAutioSource = null;
+    public AudioSource VoiceMessageAudioSource => voiceMessageAutioSource;
+
+    private Dictionary<string, AudioClip> audioClips = new Dictionary<string, AudioClip>();
+    public Dictionary<string, AudioClip> AudioClips => audioClips;
 
 
     public AudioSource CurrentAudioSource { get => currentAudioSource; set => currentAudioSource = value; }
@@ -139,11 +146,29 @@ public class Globals : Singleton<Globals>
             {
                 GameLog.ErrorMessage(this, "Globals: ActionIcon is not set.");
             }
+            // --- VoiceMessageAudioSource checks ---
+            if (VoiceMessageAudioSource == null)
+            {
+                GameLog.ErrorMessage(this, "Globals: VoiceMessageAudioSource is not set.");
+            }
         }
         catch (Exception ex)
         {
             GameLog.ExceptionMessage(this, "Globals Awake() exception: {0}", ex.ToString());
         }
         GameLog.NormalMessage(this, "Globals Awake() finished");
+    }
+
+    void Start()
+    {
+        AudioClip[] clips = Resources.LoadAll<AudioClip>("Audio");
+
+        foreach (AudioClip clip in clips)
+        {
+            if (!audioClips.ContainsKey(clip.name))
+            {
+                audioClips.Add(clip.name, clip);
+            }
+        }
     }
 }

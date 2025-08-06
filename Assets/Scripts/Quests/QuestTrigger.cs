@@ -7,14 +7,17 @@ public class QuestTrigger : MonoBehaviour
 {
     [SerializeField]
     [Tooltip("The Quest to initiate, if needed")]
+    [QuestDropdown("GetQuestNames")]
     private string questToInitiate = string.Empty;
 
     [SerializeField]
     [Tooltip("The Task to initiate, if needed")]
+    [TaskDropdown("GetTaskNames")]
     private string taskToInitiate = string.Empty;
 
     [SerializeField]
     [Tooltip("The Significant Event to raise, if needed")]
+    [StringDropdown("GetSignificantEvents")]
     private string significantEvent = string.Empty;
 
     /// <summary>

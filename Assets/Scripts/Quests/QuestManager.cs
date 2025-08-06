@@ -9,13 +9,20 @@ using UnityEngine.SceneManagement;
 [Serializable]
 public class QuestManager : MonoBehaviour
 {
+    public enum SignificantEventState
+    {
+        SignificantEventUnknown,
+        SignificantEventOccurred,
+        SignificantEventNotOccurred
+    }
+
     [SerializeField]
     [Tooltip("The tag used for all Quest or Activity Markers")]
     private string questActivityMarkerTag;
 
     public static QuestManager Instance { get; private set; }
 
-    private static readonly QuestHelper questHelper = new QuestHelper();
+    //private static readonly QuestHelper questHelper = new QuestHelper();
 
     private static string currentQuestName = string.Empty;
     private static string currentTaskName = string.Empty;
@@ -43,7 +50,7 @@ public class QuestManager : MonoBehaviour
                 allActivityMarkers[marker.name] = marker;
             }
 
-            questHelper.LoadSceneQuests();
+            //questHelper.LoadStoryGraph();
         }
         catch (Exception ex)
         {
@@ -55,7 +62,7 @@ public class QuestManager : MonoBehaviour
     /// <summary>
     /// The story associated with the current scene.
     /// </summary>
-    public static Story SceneStory => questHelper.SceneStory;
+    public static Story SceneStory => QuestHelper.SceneStory;
 
     /// <summary>
     /// The name of the current quest.
@@ -65,13 +72,13 @@ public class QuestManager : MonoBehaviour
         get => currentQuestName;
         set
         {
-            if (!questHelper.QuestDictionary.ContainsKey(value))
+            if (!QuestHelper.QuestDictionary.ContainsKey(value))
             {
                 GameLog.ErrorMessage($"QuestManager CurrentQuestName: QuestDictionary does not have a quest called '{value}'");
                 return;
             }
             currentQuestName = value;
-            questHelper.QuestDictionary[currentQuestName].State = StoryState.Active;
+            QuestHelper.QuestDictionary[currentQuestName].State = StoryState.Active;
         }
     }
 
@@ -83,13 +90,13 @@ public class QuestManager : MonoBehaviour
         get => currentTaskName;
         set
         {
-            if (!questHelper.TaskDictionary.ContainsKey(value))
+            if (!QuestHelper.TaskDictionary.ContainsKey(value))
             {
                 GameLog.ErrorMessage($"QuestManager CurrentTaskName: TaskDictionary does not have a task called '{value}'");
                 return;
             }
             currentTaskName = value;
-            questHelper.TaskDictionary[currentTaskName].State = StoryState.Active;
+            QuestHelper.TaskDictionary[currentTaskName].State = StoryState.Active;
         }
     }
 
@@ -105,8 +112,8 @@ public class QuestManager : MonoBehaviour
     {
         get
         {
-            List<string> result = new List<string>(questHelper.QuestDictionary.Count);
-            foreach (Quest quest in questHelper.QuestDictionary.Values)
+            List<string> result = new List<string>(QuestHelper.QuestDictionary.Count);
+            foreach (Quest quest in QuestHelper.QuestDictionary.Values)
             {
                 if ((quest.State == StoryState.Active) || (quest.State == StoryState.Completed))
                 {
@@ -124,8 +131,8 @@ public class QuestManager : MonoBehaviour
     {
         get
         {
-            List<string> result = new List<string>(questHelper.QuestDictionary.Count);
-            foreach (Quest quest in questHelper.QuestDictionary.Values)
+            List<string> result = new List<string>(QuestHelper.QuestDictionary.Count);
+            foreach (Quest quest in QuestHelper.QuestDictionary.Values)
             {
                 if (quest.State != StoryState.Completed)
                 {
@@ -140,13 +147,34 @@ public class QuestManager : MonoBehaviour
     /// Gets a quest by its title.
     /// </summary>
     public static Quest GetQuest(string questTitle) =>
-        questHelper.QuestDictionary.TryGetValue(questTitle, out Quest quest) ? quest : null;
+        QuestHelper.QuestDictionary.TryGetValue(questTitle, out Quest quest) ? quest : null;
 
     /// <summary>
     /// Gets a task by its title.
     /// </summary>
     public static Task GetTask(string taskTitle) =>
-        questHelper.TaskDictionary.TryGetValue(taskTitle, out Task task) ? task : null;
+        QuestHelper.TaskDictionary.TryGetValue(taskTitle, out Task task) ? task : null;
+
+    /// <summary>
+    /// Gets the state of a significant event based on its title.
+    /// </summary>
+    /// <param name="significantEvent"></param>
+    /// <returns></returns>
+    public static SignificantEventState GetSignificantEventState(string significantEvent)
+    {
+        if (string.IsNullOrEmpty(significantEvent))
+        {
+            return SignificantEventState.SignificantEventUnknown;
+        }
+        return allSignificantEvents.ContainsKey(significantEvent) ? SignificantEventState.SignificantEventOccurred : SignificantEventState.SignificantEventNotOccurred;
+    }
+
+    public static List<string> GetAllSignificantEvents()
+    {
+        List<string> result = new List<string>(allSignificantEvents.Keys);
+        result.Sort();
+        return result;
+    }
 
     /// <summary>
     /// Handles a significant event, updating quest and task states as needed.

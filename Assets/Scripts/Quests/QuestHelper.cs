@@ -7,7 +7,7 @@ using System.IO;
 public enum OperationResult { Success, TitleAlreadyExistsInQuestsList, TitleAlreadyExistsInDictionary }
 
 [Serializable]
-public class StoryQuestsTasks
+public class StoryRegistry
 {
     public Story theStory = new Story();
     public List<Quest> theQuests = new List<Quest>();
@@ -16,121 +16,31 @@ public class StoryQuestsTasks
     public List<string> theGameStates = new List<string>();
 }
 
-public class QuestHelper
+public static class QuestHelper
 {
-    private Story sceneStory = new Story();
-    private Dictionary<string, Quest> questDictionary = new Dictionary<string, Quest>();
-    private Dictionary<string, Task> taskDictionary = new Dictionary<string, Task>();
-    private List<string> completionEvents = new List<string>();
-    private List<string> gameStates = new List<string>();
+    private static Story sceneStory = new Story();
+    private static Dictionary<string, Quest> questDictionary = new Dictionary<string, Quest>();
+    private static Dictionary<string, Task> taskDictionary = new Dictionary<string, Task>();
+    private static List<string> completionEvents = new List<string>();
+    private static List<string> gameStates = new List<string>();
 
-    public Story SceneStory => sceneStory;
-    public Dictionary<string, Quest> QuestDictionary => questDictionary;
-    public Dictionary<string, Task> TaskDictionary => taskDictionary;
-    public List<string> CompletionEvents => completionEvents;
-    public List<string> GameStates => gameStates;
+    public static Story SceneStory => sceneStory;
+    public static Dictionary<string, Quest> QuestDictionary => questDictionary;
+    public static Dictionary<string, Task> TaskDictionary => taskDictionary;
+    public static List<string> CompletionEvents => completionEvents;
+    public static List<string> GameStates => gameStates;
+    public static List<string> QuestTitles => sceneStory.QuestTitles;
+    public static List<string> TaskTitles => sceneStory.TaskTitles;
 
-    public OperationResult AddQuest(Quest newQuest)
+    private static StoryRegistry storyRegistry = null;
+
+    static QuestHelper()
     {
-        if (sceneStory.QuestTitles == null)
-        {
-            sceneStory.QuestTitles = new List<string>();
-        }
-
-        if (string.IsNullOrWhiteSpace(newQuest?.Title))
-        {
-            GameLog.ErrorMessage("Cannot add quest: Title is null or empty.");
-            return OperationResult.TitleAlreadyExistsInQuestsList;
-        }
-
-        if (sceneStory.QuestTitles.Contains(newQuest.Title))
-        {
-            return OperationResult.TitleAlreadyExistsInQuestsList;
-        }
-
-        if (questDictionary.ContainsKey(newQuest.Title))
-        {
-            return OperationResult.TitleAlreadyExistsInDictionary;
-        }
-
-        sceneStory.QuestTitles.Add(newQuest.Title);
-        questDictionary.Add(newQuest.Title, newQuest);
-
-        return OperationResult.Success;
+        // Load the story graph when the class is initialized
+        LoadStoryGraph();
     }
 
-    public bool DeleteQuest(string questTitle)
-    {
-        if (string.IsNullOrWhiteSpace(questTitle))
-        {
-            GameLog.ErrorMessage("Cannot delete quest: Title is null or empty.");
-            return false;
-        }
-
-        bool removedFromStory = sceneStory.QuestTitles?.Remove(questTitle) ?? false;
-        bool removedFromDictionary = questDictionary.Remove(questTitle);
-        return removedFromStory && removedFromDictionary;
-    }
-
-    public bool DeleteTask(string taskTitle)
-    {
-        if (string.IsNullOrWhiteSpace(taskTitle))
-        {
-            GameLog.ErrorMessage("Cannot delete task: Title is null or empty.");
-            return false;
-        }
-
-        bool removed = taskDictionary.Remove(taskTitle);
-        if (removed)
-        {
-            GameLog.NormalMessage($"Task '{taskTitle}' was deleted from the Task Dictionary");
-        }
-        else
-        {
-            GameLog.ErrorMessage($"Unable to find Task '{taskTitle}' in the dictionary of Tasks");
-        }
-
-        foreach (KeyValuePair<string, Quest> questPair in questDictionary)
-        {
-            Quest quest = questPair.Value;
-            if (quest.TaskTitles != null && quest.TaskTitles.Remove(taskTitle))
-            {
-                GameLog.NormalMessage($"Task '{taskTitle}' was deleted from Quest '{quest.Title}'");
-            }
-        }
-
-        return removed;
-    }
-
-    public bool AddTaskToQuest(string questTitle, Task task)
-    {
-        if (string.IsNullOrWhiteSpace(questTitle) || task == null || string.IsNullOrWhiteSpace(task.Title))
-        {
-            GameLog.ErrorMessage("Cannot add task to quest: Invalid quest or task title.");
-            return false;
-        }
-
-        Quest quest;
-        if (!questDictionary.TryGetValue(questTitle, out quest))
-        {
-            GameLog.ErrorMessage($"Quest '{questTitle}' not found.");
-            return false;
-        }
-
-        if (quest.TaskTitles == null)
-        {
-            quest.TaskTitles = new List<string>();
-        }
-
-        if (!quest.TaskTitles.Contains(task.Title))
-        {
-            quest.TaskTitles.Add(task.Title);
-        }
-
-        return true;
-    }
-
-    public bool SaveSceneQuestsAndTasks()
+    public static bool SaveStoryGraph()
     {
         try
         {
@@ -138,7 +48,7 @@ public class QuestHelper
             string sceneName = SceneManager.GetActiveScene().name;
             string sqtJsonLocation = Path.Combine(assetsFolder, "Resources", "GameQuests", sceneName, $"{sceneName}.json");
 
-            StoryQuestsTasks sqt = new StoryQuestsTasks
+            StoryRegistry storyRegistry = new StoryRegistry
             {
                 theStory = sceneStory,
                 theQuests = new List<Quest>(questDictionary.Values),
@@ -147,7 +57,7 @@ public class QuestHelper
                 theGameStates = new List<string>(gameStates)
             };
 
-            string jsonSqt = JsonUtility.ToJson(sqt, true);
+            string jsonSqt = JsonUtility.ToJson(storyRegistry, true);
 
             string dir = Path.GetDirectoryName(sqtJsonLocation);
             if (!Directory.Exists(dir))
@@ -160,31 +70,31 @@ public class QuestHelper
         }
         catch (Exception ex)
         {
-            GameLog.ExceptionMessage(null, $"SaveSceneQuestsAndTasks exception: {ex}");
+            GameLog.ExceptionMessage(null, $"SaveStoryGraph exception: {ex}");
             return false;
         }
     }
 
-    public bool LoadSceneQuests()
+    public static bool LoadStoryGraph()
     {
         try
         {
-            StoryQuestsTasks sqt = LoadStoryQuestTaskInfo();
-            if (sqt == null)
+            storyRegistry = LoadStoryRegistry();
+            if (storyRegistry == null)
             {
-                GameLog.WarningMessage("QuestHelper LoadSceneQuests() didn't hydrate data and returned an empty StoryQuestsTasks object.");
+                GameLog.WarningMessage("QuestHelper LoadStoryGraph() didn't hydrate data and returned an empty StoryQuestsTasks object.");
                 return false;
             }
 
-            sceneStory = sqt.theStory ?? new Story();
+            sceneStory = storyRegistry.theStory ?? new Story();
             questDictionary = new Dictionary<string, Quest>();
             taskDictionary = new Dictionary<string, Task>();
-            completionEvents = new List<string>(sqt.theCompletionEvents ?? new List<string>());
-            gameStates = new List<string>(sqt.theGameStates ?? new List<string>());
+            completionEvents = new List<string>(storyRegistry.theCompletionEvents ?? new List<string>());
+            gameStates = new List<string>(storyRegistry.theGameStates ?? new List<string>());
 
-            if (sqt.theQuests != null)
+            if (storyRegistry.theQuests != null)
             {
-                foreach (Quest quest in sqt.theQuests)
+                foreach (Quest quest in storyRegistry.theQuests)
                 {
                     if (!string.IsNullOrWhiteSpace(quest.Title))
                     {
@@ -193,9 +103,9 @@ public class QuestHelper
                 }
             }
 
-            if (sqt.theTasks != null)
+            if (storyRegistry.theTasks != null)
             {
-                foreach (Task task in sqt.theTasks)
+                foreach (Task task in storyRegistry.theTasks)
                 {
                     if (!string.IsNullOrWhiteSpace(task.Title))
                     {
@@ -203,7 +113,6 @@ public class QuestHelper
                     }
                 }
             }
-
             return true;
         }
         catch (Exception ex)
@@ -213,7 +122,7 @@ public class QuestHelper
         }
     }
 
-    private StoryQuestsTasks LoadStoryQuestTaskInfo()
+    private static StoryRegistry LoadStoryRegistry()
     {
         try
         {
@@ -226,7 +135,7 @@ public class QuestHelper
                 return null;
             }
 
-            return JsonUtility.FromJson<StoryQuestsTasks>(textAssetJsonStoryQuestsTasks.text);
+            return JsonUtility.FromJson<StoryRegistry>(textAssetJsonStoryQuestsTasks.text);
         }
         catch (Exception ex)
         {

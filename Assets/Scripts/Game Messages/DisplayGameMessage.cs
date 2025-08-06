@@ -1,10 +1,5 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Xml;
 using UnityEngine;
 using UnityEngine.UIElements;
-using Invector.vCharacterController;
 
 /// <summary>
 /// Provides functionality for displaying game messages to the player, including speaker icons, message text, and
@@ -35,6 +30,9 @@ public class DisplayGameMessage : Singleton<DisplayGameMessage>
         HookUpUIElements(globals);
         RegisterButtonCallbacks();
         HideGameMessageUI(globals);
+
+        UnityEngine.Cursor.lockState = CursorLockMode.None;
+        UnityEngine.Cursor.visible = false;
     }
 
     protected override void OnDestroy()
@@ -73,6 +71,8 @@ public class DisplayGameMessage : Singleton<DisplayGameMessage>
         var gameMessageDocument = globals.PlayerInteraction.GameMessageDocument;
         if (gameMessageDocument != null && gameMessageDocument.rootVisualElement != null)
         {
+            UnityEngine.Cursor.visible = true;
+
             gameMessageDocument.rootVisualElement.visible = true;
         }
     }

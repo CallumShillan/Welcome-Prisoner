@@ -1528,7 +1528,7 @@ Transform:
   m_GameObject: {fileID: 354434349}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.8000001, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3327,6 +3327,8 @@ MonoBehaviour:
   speakerIconTexture: {fileID: 2800000, guid: 3548b12a08b3739429d84423e1fdfc1e, type: 3}
   gameMessageTitle: Pick up induction instructions
   shouldBeShown: 1
+  whenShown: 0
+  significantEvent: --IRRELEVANT--
 --- !u!4 &665658197 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5420402570278324762, guid: 60feec981df572747a38d0567c32d87e, type: 3}
@@ -3549,7 +3551,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5420402570278324762, guid: 60feec981df572747a38d0567c32d87e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.3000001
+      value: 1.11
       objectReference: {fileID: 0}
     - target: {fileID: 5420402570278324762, guid: 60feec981df572747a38d0567c32d87e, type: 3}
       propertyPath: m_LocalPosition.z
@@ -5348,7 +5350,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   questToInitiate: Your induction
   taskToInitiate: ReportToReception
-  significantEvent: GAME_STARTED
+  significantEvent: PRISONER_INDUCTED_AND_EVIDENCE_FOUND
 --- !u!1001 &983223539
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6264,6 +6266,7 @@ Transform:
   m_Children:
   - {fileID: 5112216893846789225}
   - {fileID: 664645361}
+  - {fileID: 1888984154}
   - {fileID: 1247869180}
   - {fileID: 330389501}
   - {fileID: 515524396}
@@ -8552,6 +8555,7 @@ MonoBehaviour:
     gameMessageDocument: {fileID: 1076824564}
     actionHintTextMesh: {fileID: 1476976478}
   actionIcon: {fileID: 1110334312}
+  voiceMessageAutioSource: {fileID: 354434350}
 --- !u!114 &1744042777
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9637,6 +9641,141 @@ Transform:
   - {fileID: 48113775}
   m_Father: {fileID: 470716819}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1888984153
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1207159105}
+    m_Modifications:
+    - target: {fileID: 7377543126995429242, guid: 1edce8191e32aae41a3b9d0f31d92698, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 490922758}
+    - target: {fileID: 7377543126995429242, guid: 1edce8191e32aae41a3b9d0f31d92698, type: 3}
+      propertyPath: speakerImage
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7377543126995429242, guid: 1edce8191e32aae41a3b9d0f31d92698, type: 3}
+      propertyPath: speakerSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 4125ce023f9f42e40ba95a577ec53caf, type: 3}
+    - target: {fileID: 7377543126995429242, guid: 1edce8191e32aae41a3b9d0f31d92698, type: 3}
+      propertyPath: taskToInititate
+      value: Report to reception
+      objectReference: {fileID: 0}
+    - target: {fileID: 7377543126995429242, guid: 1edce8191e32aae41a3b9d0f31d92698, type: 3}
+      propertyPath: gameMessageTitle
+      value: Welcome Prisoner
+      objectReference: {fileID: 0}
+    - target: {fileID: 7377543126995429242, guid: 1edce8191e32aae41a3b9d0f31d92698, type: 3}
+      propertyPath: questToInititate
+      value: Your induction
+      objectReference: {fileID: 0}
+    - target: {fileID: 7377543126995429242, guid: 1edce8191e32aae41a3b9d0f31d92698, type: 3}
+      propertyPath: significantEvent
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7377543126995429242, guid: 1edce8191e32aae41a3b9d0f31d92698, type: 3}
+      propertyPath: textMeshPlayerMovementPaused
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8751194716608836051, guid: 30cc22347d622b842876af1e22f00684, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8751194716608836051, guid: 30cc22347d622b842876af1e22f00684, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.007
+      objectReference: {fileID: 0}
+    - target: {fileID: 8751194716608836051, guid: 30cc22347d622b842876af1e22f00684, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8751194716608836051, guid: 30cc22347d622b842876af1e22f00684, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 2.679
+      objectReference: {fileID: 0}
+    - target: {fileID: 8751194716608836051, guid: 30cc22347d622b842876af1e22f00684, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 8751194716608836051, guid: 30cc22347d622b842876af1e22f00684, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8751194716608836051, guid: 30cc22347d622b842876af1e22f00684, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 8751194716608836051, guid: 30cc22347d622b842876af1e22f00684, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8751194716608836051, guid: 30cc22347d622b842876af1e22f00684, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8751194716608836051, guid: 30cc22347d622b842876af1e22f00684, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 8751194716608836051, guid: 30cc22347d622b842876af1e22f00684, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9068993215978735180, guid: 30cc22347d622b842876af1e22f00684, type: 3}
+      propertyPath: m_Name
+      value: WarningIfPdaNotPickedUp
+      objectReference: {fileID: 0}
+    - target: {fileID: 9068993215978735180, guid: 30cc22347d622b842876af1e22f00684, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 9068993215978735180, guid: 30cc22347d622b842876af1e22f00684, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9068993215978735180, guid: 30cc22347d622b842876af1e22f00684, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 9068993215978735180, guid: 30cc22347d622b842876af1e22f00684, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1888984156}
+  m_SourcePrefab: {fileID: 100100000, guid: 30cc22347d622b842876af1e22f00684, type: 3}
+--- !u!4 &1888984154 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8751194716608836051, guid: 30cc22347d622b842876af1e22f00684, type: 3}
+  m_PrefabInstance: {fileID: 1888984153}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1888984155 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9068993215978735180, guid: 30cc22347d622b842876af1e22f00684, type: 3}
+  m_PrefabInstance: {fileID: 1888984153}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1888984156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1888984155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37fe41d7b6e3eda4b8be2858933f34fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speakerIconTexture: {fileID: 2800000, guid: 3548b12a08b3739429d84423e1fdfc1e, type: 3}
+  gameMessageTitle: Repeat - Pick up PDA
+  shouldBeShown: 1
+  whenShown: 2
+  significantEvent: PDA_ACQUIRED
 --- !u!1001 &1897284812
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11282,6 +11421,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6136236755384684072, guid: 35e6ee8db5f71cc4893077a7bee0261b, type: 3}
+      propertyPath: m_Animations.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6136236755384684072, guid: 35e6ee8db5f71cc4893077a7bee0261b, type: 3}
+      propertyPath: 'm_Animations.Array.data[0]'
+      value: 
+      objectReference: {fileID: 7400000, guid: d25919c390640184c9652736b34f88d6, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -11923,9 +12070,6 @@ PrefabInstance:
       addedObject: {fileID: 978084079}
     - targetCorrespondingSourceObject: {fileID: 9068993215978735180, guid: 30cc22347d622b842876af1e22f00684, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 5112216893846789229}
-    - targetCorrespondingSourceObject: {fileID: 9068993215978735180, guid: 30cc22347d622b842876af1e22f00684, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 5112216893846789231}
   m_SourcePrefab: {fileID: 100100000, guid: 30cc22347d622b842876af1e22f00684, type: 3}
 --- !u!1 &4781637877468802038 stripped
@@ -11938,22 +12082,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8751194716608836051, guid: 30cc22347d622b842876af1e22f00684, type: 3}
   m_PrefabInstance: {fileID: 4575730989615263162}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &5112216893846789229
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4781637877468802038}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e4cba3a778d99741baaba8c7e3a7964, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shouldBePlayed: 1
-  shouldLoop: 0
-  audioSource: {fileID: 354434350}
-  audioClip: {fileID: 8300000, guid: ee9b102dc05942047accc82d8a6d6877, type: 3}
 --- !u!114 &5112216893846789231
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11969,6 +12097,8 @@ MonoBehaviour:
   speakerIconTexture: {fileID: 2800000, guid: 3548b12a08b3739429d84423e1fdfc1e, type: 3}
   gameMessageTitle: Welcome Prisoner
   shouldBeShown: 1
+  whenShown: 0
+  significantEvent: --IRRELEVANT--
 --- !u!1001 &5131226747603791760
 PrefabInstance:
   m_ObjectHideFlags: 0

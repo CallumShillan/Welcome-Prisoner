@@ -23,6 +23,7 @@ public class Story
     public string LongDescription = string.Empty;
     public string CurrentQuestTitle = string.Empty;
     public List<string> QuestTitles = null;
+    public List<string> TaskTitles = null;
 
     public Story()
     {

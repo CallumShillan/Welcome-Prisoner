@@ -231,6 +231,7 @@
         }
     ],
     "theCompletionEvents": [
+        "--IRRELEVANT--",
         "PRISONER_INDUCTED_AND_EVIDENCE_FOUND",
         "PRISONER_INDUCTED",
         "START_SEARCH_FOR_EVIDENCE",
