@@ -19,7 +19,7 @@ public class TriggerMessageDisplay : MonoBehaviour
         [Description("Always")]
         Always,
 
-        [Description("Event Occurred")]
+        [Description("Event HAS Occurred")]
         EventOccurred,
 
         [Description("Event NOT Occurred")]
@@ -32,6 +32,7 @@ public class TriggerMessageDisplay : MonoBehaviour
 
     // The title of the game message that will be displayed.
     [SerializeField, Tooltip("The game message title")]
+    [MessageAudioPreview]
     private string gameMessageTitle = string.Empty;
 
     // Whether the game message should be shown when the player collides with the trigger.

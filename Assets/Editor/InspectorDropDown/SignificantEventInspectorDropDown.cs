@@ -1,5 +1,6 @@
 using UnityEditor;
 using UnityEngine;
+using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Linq;
@@ -11,14 +12,27 @@ public class SignificantEventDropdownDrawer : PropertyDrawer
     {
         //QuestHelper questHelper = new QuestHelper();
 //        questHelper.LoadStoryGraph(); // Ensure quests are loaded
-        List<string> eventOptions = QuestHelper.CompletionEvents;
+        List<string> displayedOptions = QuestHelper.CompletionEvents;
+        displayedOptions.Sort((a, b) =>
+        {
+            bool aPrefixed = a.StartsWith("--");
+            bool bPrefixed = b.StartsWith("--");
 
-        int currentIndex = eventOptions.IndexOf(property.stringValue);
+            // Move "--" prefixed strings to the top
+            if (aPrefixed && !bPrefixed) return -1;
+            if (!aPrefixed && bPrefixed) return 1;
+
+            // Otherwise do a standard alphabetical comparison
+            return string.Compare(a, b, StringComparison.OrdinalIgnoreCase);
+        });
+
+
+        int currentIndex = displayedOptions.IndexOf(property.stringValue);
         if (currentIndex == -1) currentIndex = 0;
 
         EditorGUI.BeginProperty(position, label, property);
-        int selectedIndex = EditorGUI.Popup(position, label.text, currentIndex, eventOptions.ToArray());
-        property.stringValue = eventOptions[selectedIndex];
+        int selectedIndex = EditorGUI.Popup(position, label.text, currentIndex, displayedOptions.ToArray());
+        property.stringValue = displayedOptions[selectedIndex];
         EditorGUI.EndProperty();
     }
 }
@@ -28,16 +42,15 @@ public class QuestDropdownDrawer : PropertyDrawer
 {
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {
-//        QuestHelper questHelper = new QuestHelper();
-//        questHelper.LoadStoryGraph(); // Ensure quests are loaded
-        List<string> eventOptions = QuestHelper.QuestTitles;
+        List<string> displayedOptions = QuestHelper.QuestTitles;
+        displayedOptions.Sort();
 
-        int currentIndex = eventOptions.IndexOf(property.stringValue);
+        int currentIndex = displayedOptions.IndexOf(property.stringValue);
         if (currentIndex == -1) currentIndex = 0;
 
         EditorGUI.BeginProperty(position, label, property);
-        int selectedIndex = EditorGUI.Popup(position, label.text, currentIndex, eventOptions.ToArray());
-        property.stringValue = eventOptions[selectedIndex];
+        int selectedIndex = EditorGUI.Popup(position, label.text, currentIndex, displayedOptions.ToArray());
+        property.stringValue = displayedOptions[selectedIndex];
         EditorGUI.EndProperty();
     }
 }
@@ -55,27 +68,25 @@ public class TaskDropdownDrawer : PropertyDrawer
 {
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {
-        List<string> options = null;
+        List<string> displayedOptions = null;
 
-//        QuestHelper questHelper = new QuestHelper();
-//        questHelper.LoadStoryGraph();
-
-        // Access the 'taskToInitiate' sibling property
+        // Access the 'questToInitiate' sibling property as we only want to list the tasks that the quest has, not every single task
         SerializedProperty questToInitiateProp = property.serializedObject.FindProperty("questToInitiate");
 
-        // Optional: Get its value if it's a string, int, enum, etc.
+        // Get its value
         string questToInitiateValue = questToInitiateProp?.stringValue;
 
-
+        // Get the quest chosen in the Inspector, and its tasks
         Quest quest = QuestHelper.QuestDictionary[questToInitiateValue];
-        options = quest.TaskTitles;
+        displayedOptions = quest.TaskTitles;
+        displayedOptions.Sort();
 
-        int currentIndex = options.IndexOf(property.stringValue);
+        int currentIndex = displayedOptions.IndexOf(property.stringValue);
         if (currentIndex == -1) currentIndex = 0;
 
         EditorGUI.BeginProperty(position, label, property);
-        int selectedIndex = EditorGUI.Popup(position, label.text, currentIndex, options.ToArray());
-        property.stringValue = options[selectedIndex];
+        int selectedIndex = EditorGUI.Popup(position, label.text, currentIndex, displayedOptions.ToArray());
+        property.stringValue = displayedOptions[selectedIndex];
         EditorGUI.EndProperty();
     }
 }

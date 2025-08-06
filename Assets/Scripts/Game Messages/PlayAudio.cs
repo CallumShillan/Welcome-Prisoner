@@ -18,6 +18,7 @@ public class PlayAudio : MonoBehaviour
     private AudioSource audioSource;
 
     [SerializeField, Tooltip("The audio clip to play")]
+    [AudioClipPreview]
     private AudioClip audioClip;
 
     private void Awake()
