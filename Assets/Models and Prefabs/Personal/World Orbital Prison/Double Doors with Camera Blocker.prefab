@@ -261,14 +261,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   significantEvent: 
-  openAnimation: Open
-  closeAnimation: Close
-  lockedDoorRattleSound: {fileID: 8300000, guid: 9c0c7ab719bc32e458374dea340fb6e5, type: 3}
-  doorOpenAndCloseSound: {fileID: 8300000, guid: 93ffb9ff535af1842b2ad5f95d132a70, type: 3}
-  actionIcon: {fileID: 0}
-  actionHintTextMesh: {fileID: 0}
-  actionHintMessage: '{ACTION} {NAME}'
-  actionLockedMessage: '{NAME} is locked'
   doorIsLocked: 0
   doorIsOpen: 0
 --- !u!1 &7864364001736010114 stripped

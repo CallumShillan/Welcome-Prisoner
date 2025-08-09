@@ -63,8 +63,8 @@ public class PlayAudio : MonoBehaviour
 
         if(audioSource.isPlaying)
         {
-            // If single shot play is enabled and audio is already playing, do not play again
-            return;
+            // If audio is already playing, stop the current playback
+            audioSource.Stop();
         }
 
         shouldBePlayed = false;

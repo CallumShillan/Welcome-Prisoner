@@ -34,10 +34,14 @@ public static class QuestHelper
 
     private static StoryRegistry storyRegistry = null;
 
+    private static FileSystemWatcher jsonStoryRegistryWatcher;
+
+    private static string jsonRegistryAsset = string.Empty;
+
     static QuestHelper()
     {
-        // Load the story graph when the class is initialized
-        LoadStoryGraph();
+        // Initialize the quest helper when the class is first accessed
+        LoadStoryGraph(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
     }
 
     public static bool SaveStoryGraph()
@@ -75,11 +79,12 @@ public static class QuestHelper
         }
     }
 
-    public static bool LoadStoryGraph()
+    public static bool LoadStoryGraph(string sceneName)
     {
+        bool returnValue = false;
         try
         {
-            storyRegistry = LoadStoryRegistry();
+            storyRegistry = LoadStoryRegistry(sceneName);
             if (storyRegistry == null)
             {
                 GameLog.WarningMessage("QuestHelper LoadStoryGraph() didn't hydrate data and returned an empty StoryQuestsTasks object.");
@@ -113,22 +118,25 @@ public static class QuestHelper
                     }
                 }
             }
-            return true;
+            returnValue = true;
         }
         catch (Exception ex)
         {
             GameLog.ExceptionMessage(null, $"QuestHelper LoadSceneQuests() exception: {ex}");
-            return false;
         }
+        finally
+        {
+            GameLog.NormalMessage($"QuestHelper LoadSceneQuests() completed with 'success' return value: {returnValue}");
+        }
+        return returnValue;
     }
 
-    private static StoryRegistry LoadStoryRegistry()
+    private static StoryRegistry LoadStoryRegistry(string sceneName)
     {
         try
         {
-            string sceneName = SceneManager.GetActiveScene().name;
-            string jsonResourceFile = $"GameQuests/{sceneName}/{sceneName}";
-            TextAsset textAssetJsonStoryQuestsTasks = Resources.Load<TextAsset>(jsonResourceFile);
+            jsonRegistryAsset = Path.Combine("GameQuests", sceneName, sceneName);
+            TextAsset textAssetJsonStoryQuestsTasks = Resources.Load<TextAsset>(jsonRegistryAsset);
 
             if (textAssetJsonStoryQuestsTasks == null)
             {

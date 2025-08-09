@@ -63,6 +63,10 @@ public class DoorInteractionHandler : MonoBehaviour, IActionInterface
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
     public bool AdvertiseInteraction()
     {
         if (Globals.Instance.ActionIcon != null)
@@ -72,9 +76,7 @@ public class DoorInteractionHandler : MonoBehaviour, IActionInterface
         if (Globals.Instance.DoorAudioVisuals.ActionHintMessage != null)
         {
             Globals.Instance.PlayerInteraction.ActionHintTextMesh.enabled = true;
-            Globals.Instance.PlayerInteraction.ActionHintTextMesh.text = Globals.Instance.DoorAudioVisuals.ActionHintMessage
-            .Replace(NamePlaceholder, name)
-            .Replace(ActionPlaceholder, doorIsOpen ? "Close" : "Open");
+            Globals.Instance.PlayerInteraction.ActionHintTextMesh.text = GameUtils.ActionNameHint(doorIsOpen ? "Close" : "Open", name, Globals.Instance.DoorAudioVisuals.ActionHintMessage);
         }
         return false;
     }
