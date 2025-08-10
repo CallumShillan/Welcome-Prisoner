@@ -32,6 +32,7 @@ public class TriggerMessageDisplay : MonoBehaviour
 
     // The title of the game message that will be displayed.
     [SerializeField, Tooltip("The game message title")]
+    [GameMessageFile]
     [MessageAudioPreview]
     private string gameMessageTitle = string.Empty;
 
