@@ -1,6 +1,7 @@
 ﻿using UnityEditor;
 using UnityEngine;
 using System.IO;
+using System;
 
 public class ModelRefresher : EditorWindow
 {
@@ -46,7 +47,7 @@ public class ModelRefresher : EditorWindow
 
         if (GUILayout.Button("Browse...", GUILayout.Width(80)))
         {
-            string selected = EditorUtility.OpenFilePanel("Select Source Model", "", "fbx,blend");
+            string selected = EditorUtility.OpenFilePanel("Select Source Model", Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "fbx,blend");
             if (!string.IsNullOrEmpty(selected))
             {
                 sourcePath = selected;
