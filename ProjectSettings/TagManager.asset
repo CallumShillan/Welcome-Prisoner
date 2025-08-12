@@ -6,6 +6,8 @@ TagManager:
   tags:
   - InteractiveDoor
   - QuestActivityMarker
+  - SecurityCamera
+  - SecurityMonitor
   layers:
   - Default
   - TransparentFX
