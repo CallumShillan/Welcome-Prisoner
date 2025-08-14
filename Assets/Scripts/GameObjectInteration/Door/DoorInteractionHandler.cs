@@ -45,10 +45,11 @@ public class DoorInteractionHandler : MonoBehaviour, IActionInterface
             return;
         }
 
-        if (string.IsNullOrWhiteSpace(significantEvent))
-        {
-            GameLog.WarningMessage(this, "Significant event is not assigned or is empty.");
-        }
+        // Uncomment if not bored by these messages
+        //if (string.IsNullOrWhiteSpace(significantEvent))
+        //{
+        //    GameLog.WarningMessage(this, "Significant event is not assigned or is empty.");
+        //}
     }
 
     private void Start()
