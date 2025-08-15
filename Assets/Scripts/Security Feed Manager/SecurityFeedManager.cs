@@ -1,21 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 public class SecurityFeedManager : MonoBehaviour
 {
+    [SerializeField, Tooltip("How long to dwell on a given security camera"), Range(1, 3600)]
+    private int dwellTime = 60;
+
     [SerializeField, Tooltip("Tag for security cameras in the scene.")]
     private string cameraTag = string.Empty;
 
-    [SerializeField, Tooltip("Tag for security monitors in the scene.")]   
+    [SerializeField, Tooltip("Tag for security monitors in the scene.")]
     private string monitorTag = string.Empty;
 
-    [SerializeField, Tooltip("How long to dwell on a given security camera"), Range(1,3600)]
-    private int dwellTime = 60;
+    [Header("Material Locations")]
+    [SerializeField, Tooltip("Camera Feeds")]
+    [AssetsFolderLocation("Camera Feeds")]
+    private string cameraFeedMaterialsLocation = string.Empty;
 
-    private RenderTexture[] cameraFeeds;
-    private Renderer[] monitorRenderers;
+    [SerializeField, Tooltip("Where are the camera name materials?")]
+    [AssetsFolderLocation("Camera Names")]
+    private string cameraNameMaterialsLocation = string.Empty;
+
+    private GameObject[] securityCameras;
+    private GameObject[] securityMonitors;
 
     private void Awake()
     {
@@ -25,22 +35,11 @@ public class SecurityFeedManager : MonoBehaviour
             return;
         }
 
-        // Find all cameras by tag and extract their RenderTextures
-        var cameraObjects = GameObject.FindGameObjectsWithTag(cameraTag);
-        cameraFeeds = new RenderTexture[cameraObjects.Length];
-        for (int i = 0; i < cameraObjects.Length; i++)
-        {
-            var cam = cameraObjects[i].GetComponent<Camera>();
-            cameraFeeds[i] = cam.targetTexture;
-        }
+        // Find all cameras by tag
+        securityCameras = GameObject.FindGameObjectsWithTag(cameraTag);
 
-        // Find all monitors by tag and get their Renderer components
-        var monitorObjects = GameObject.FindGameObjectsWithTag(monitorTag);
-        monitorRenderers = new Renderer[monitorObjects.Length];
-        for (int i = 0; i < monitorObjects.Length; i++)
-        {
-            monitorRenderers[i] = monitorObjects[i].GetComponent<Renderer>();
-        }
+        // Find all monitors by tag
+        securityMonitors = GameObject.FindGameObjectsWithTag(monitorTag);
     }
 
     private void Start()
@@ -59,22 +58,54 @@ public class SecurityFeedManager : MonoBehaviour
 
     void AssignRandomFeeds()
     {
-        // Create a shuffled list of indices
-        List<int> shuffledIndices = new List<int>();
-        for (int i = 0; i < cameraFeeds.Length; i++)
-            shuffledIndices.Add(i);
-
-        // Fisher-Yates shuffle
-        for (int i = shuffledIndices.Count - 1; i > 0; i--)
+        // Step 1: Shuffle camera list
+        List<GameObject> shuffledCameras = new List<GameObject>(securityCameras);
+        for (int i = 0; i < shuffledCameras.Count; i++)
         {
-            int j = Random.Range(0, i + 1);
-            (shuffledIndices[i], shuffledIndices[j]) = (shuffledIndices[j], shuffledIndices[i]);
+            int swapIndex = Random.Range(i, shuffledCameras.Count);
+
+            // Swap the current camera with a random camera further down the list
+            if (swapIndex == i) continue; // No need to swap with itself
+            (shuffledCameras[i], shuffledCameras[swapIndex]) = (shuffledCameras[swapIndex], shuffledCameras[i]);
         }
 
-        // Assign first 9 shuffled feeds to monitors
-        for (int i = 0; i < monitorRenderers.Length; i++)
+
+        // Step 2: Assign cameras to monitors
+        for (int i = 0; i < securityMonitors.Length; i++)
         {
-            monitorRenderers[i].material.mainTexture = cameraFeeds[shuffledIndices[i]];
+            GameObject camera = shuffledCameras[i];
+            GameObject monitor = securityMonitors[i];
+
+            CameraInfo cameraInfo = camera.GetComponent<CameraInfo>();
+
+
+            ApplyMaterialToMesh(monitor, "CameraIdentifier", cameraInfo.CameraNameMaterial);
+            ApplyMaterialToMesh(monitor, "Screen", cameraInfo.CameraFeedMaterial);
+        }
+    }
+
+    private void ApplyMaterialToMesh(GameObject item, string meshName, Material material)
+    {
+        Transform meshTransform = item.transform.Find(meshName);
+        if (meshTransform != null)
+        {
+            if (material != null)
+            {
+                ApplyMaterial(meshTransform.gameObject, material);
+            }
+            else
+            {
+                Debug.LogWarning($"Material {material.name} not found for {meshName}");
+            }
+        }
+    }
+
+    private void ApplyMaterial(GameObject target, Material mat)
+    {
+        Renderer renderer = target.GetComponent<Renderer>();
+        if (renderer != null)
+        {
+            renderer.material = mat;
         }
     }
 
@@ -95,6 +126,8 @@ public class SecurityFeedManager : MonoBehaviour
         }
         return returnValue;
     }
+
+
 
     private bool TagExists(string tag)
     {

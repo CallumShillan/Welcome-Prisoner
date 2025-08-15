@@ -28,6 +28,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.x
       value: -90
       objectReference: {fileID: 0}
+    - target: {fileID: 1899896622504076065, guid: 35e6ee8db5f71cc4893077a7bee0261b, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 5851197167381383486, guid: 35e6ee8db5f71cc4893077a7bee0261b, type: 3}
       propertyPath: m_TargetTexture
       value: 
@@ -76,9 +80,37 @@ PrefabInstance:
       propertyPath: m_Name
       value: SecurityCamera(Corridor)
       objectReference: {fileID: 0}
+    - target: {fileID: 6838573825245850531, guid: 35e6ee8db5f71cc4893077a7bee0261b, type: 3}
+      propertyPath: m_TagString
+      value: SecurityCamera
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8230302673759622045, guid: 35e6ee8db5f71cc4893077a7bee0261b, type: 3}
+    - {fileID: 5500558841990140340, guid: 35e6ee8db5f71cc4893077a7bee0261b, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6838573825245850531, guid: 35e6ee8db5f71cc4893077a7bee0261b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4112904589160526951}
   m_SourcePrefab: {fileID: 100100000, guid: 35e6ee8db5f71cc4893077a7bee0261b, type: 3}
+--- !u!1 &375269955874755431 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6838573825245850531, guid: 35e6ee8db5f71cc4893077a7bee0261b, type: 3}
+  m_PrefabInstance: {fileID: 6616426257466439876}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4112904589160526951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 375269955874755431}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d848a3dca2ea76a429e5baf7d57f085b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  securityCameraSuffix: SecurityCamera
+  cameraNameMaterial: {fileID: 0}
+  cameraFeedMaterial: {fileID: 0}

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8779287637802031304}
   m_Layer: 0
   m_Name: Camera
-  m_TagString: SecurityCamera
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -227,7 +227,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: e205e4bafd09c46459da2bd642921a40, type: 3}
       propertyPath: m_Name
-      value: Security Camera
+      value: SecurityCamera(Room)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: e205e4bafd09c46459da2bd642921a40, type: 3}
+      propertyPath: m_TagString
+      value: SecurityCamera
       objectReference: {fileID: 0}
     - target: {fileID: 9109010087893374290, guid: e205e4bafd09c46459da2bd642921a40, type: 3}
       propertyPath: m_LocalRotation.w
@@ -262,6 +266,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e205e4bafd09c46459da2bd642921a40, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8230302673759622045}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e205e4bafd09c46459da2bd642921a40, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5500558841990140340}
   m_SourcePrefab: {fileID: 100100000, guid: e205e4bafd09c46459da2bd642921a40, type: 3}
 --- !u!4 &643187444950471548 stripped
 Transform:
@@ -314,3 +321,18 @@ MonoBehaviour:
   randomizeSpeed: 1
   minSpeed: 0.9
   maxSpeed: 1.1
+--- !u!114 &5500558841990140340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6838573825245850531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d848a3dca2ea76a429e5baf7d57f085b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  securityCameraSuffix: SecurityCamera
+  cameraNameMaterial: {fileID: 0}
+  cameraFeedMaterial: {fileID: 0}
