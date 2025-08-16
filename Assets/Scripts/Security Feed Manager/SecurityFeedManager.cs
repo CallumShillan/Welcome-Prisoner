@@ -35,6 +35,8 @@ public class SecurityFeedManager : MonoBehaviour
             return;
         }
 
+
+
         // Find all cameras by tag
         securityCameras = GameObject.FindGameObjectsWithTag(cameraTag);
 

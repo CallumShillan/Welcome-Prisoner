@@ -48,6 +48,7 @@ public class PlayerInteraction
     public TextMeshProUGUI ActionHintTextMesh => actionHintTextMesh;
 }
 
+
 public class Globals : Singleton<Globals>
 {
     // The player GameObject that will be deactivated when the message is shown and reactivated when dismissed.
@@ -74,6 +75,29 @@ public class Globals : Singleton<Globals>
 
     private Dictionary<string, AudioClip> audioClips = new Dictionary<string, AudioClip>();
     public Dictionary<string, AudioClip> AudioClips => audioClips;
+
+    [SerializeField, Tooltip("The tag for security cameras in the scene.")]
+    private string cameraTag = "SecurityCamera";
+    public string CameraTag { get => cameraTag; }
+
+
+    private GameObject[] securityCameras;
+
+    public GameObject[] SecurityCameras
+    {
+        get
+        {
+            if (securityCameras == null)
+            {
+                securityCameras = GameObject.FindGameObjectsWithTag("SecurityCamera");
+                if (securityCameras.Length == 0)
+                {
+                    Debug.LogWarning("No security cameras found with the tag 'SecurityCamera'.");
+                }
+            }
+            return securityCameras;
+        }
+    }
 
 
     public AudioSource CurrentAudioSource { get => currentAudioSource; set => currentAudioSource = value; }

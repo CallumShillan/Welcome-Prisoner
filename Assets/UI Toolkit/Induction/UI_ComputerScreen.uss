@@ -1,0 +1,54 @@
+:root {
+    width: 3842px;
+    height: 2048px;
+}
+
+.outer {
+    flex-grow: 1;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(33, 57, 238);
+}
+
+.inner {
+    width: 90%;
+    height: 90%;
+}
+
+.ui-button {
+    width: 40%;
+    height: 40%;
+    font-size: 96px;
+    border-top-width: 20px;
+    border-right-width: 20px;
+    border-bottom-width: 20px;
+    border-left-width: 20px;
+    border-top-left-radius: 100px;
+    border-top-right-radius: 100px;
+    border-bottom-right-radius: 100px;
+    border-bottom-left-radius: 100px;
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
+}
+
+.ui-button:hover {
+    width: 40%;
+    height: 40%;
+    font-size: 96px;
+    border-top-width: 20px;
+    border-right-width: 20px;
+    border-bottom-width: 20px;
+    border-left-width: 20px;
+    border-top-left-radius: 100px;
+    border-top-right-radius: 100px;
+    border-bottom-right-radius: 100px;
+    border-bottom-left-radius: 100px;
+    border-left-color: rgb(255, 0, 0);
+    border-right-color: rgb(255, 0, 0);
+    border-top-color: rgb(255, 0, 0);
+    border-bottom-color: rgb(255, 0, 0);
+    scale: 1.1 1.1;
+}

@@ -1,29 +1,9 @@
 fileFormatVersion: 2
-guid: 8e4368991a55af64aaf50dde79479662
+guid: caf83a656fe89ed489e1254882eb8649
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: TV_Bolt
-    second: {fileID: 2100000, guid: c4df4b33bca5880438676695644b3f65, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: TV_Led
-    second: {fileID: 2100000, guid: d81386cd08bbdf1428421284bd9d8eda, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: TV_Plastic Base 01
-    second: {fileID: 2100000, guid: 646c57cc4d5f1b1459df896f0682fbd0, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: TV_Screen
-    second: {fileID: 2100000, guid: a942dcbe5f6dd4743ad323b4bada86d2, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -55,7 +35,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
-    addColliders: 1
+    addColliders: 0
     useSRGBMaterialColor: 1
     sortHierarchyByName: 1
     importPhysicalCameras: 1
@@ -89,7 +69,7 @@ ModelImporter:
     strictVertexDataChecks: 0
   tangentSpace:
     normalSmoothAngle: 60
-    normalImportMode: 1
+    normalImportMode: 0
     tangentImportMode: 3
     normalCalculationMode: 4
     legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
