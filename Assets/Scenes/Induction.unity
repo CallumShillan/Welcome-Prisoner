@@ -2517,11 +2517,11 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 589269760}
     m_Modifications:
     - target: {fileID: 7073110487229358409, guid: 4ea562ec95eaea847b12a5f688b1895d, type: 3}
       propertyPath: m_Name
-      value: Wall Mounted Screen (1)
+      value: Security Feed Projection Screen Controller
       objectReference: {fileID: 0}
     - target: {fileID: 7171283209607144781, guid: 4ea562ec95eaea847b12a5f688b1895d, type: 3}
       propertyPath: m_Name
@@ -2585,6 +2585,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1378636776}
   m_SourcePrefab: {fileID: 100100000, guid: 4ea562ec95eaea847b12a5f688b1895d, type: 3}
+--- !u!4 &387505422 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7594032350004329459, guid: 4ea562ec95eaea847b12a5f688b1895d, type: 3}
+  m_PrefabInstance: {fileID: 387505421}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &394146615
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5124,6 +5129,7 @@ Transform:
   - {fileID: 216490392}
   - {fileID: 3509812030112853281}
   - {fileID: 3765055792880514208}
+  - {fileID: 387505422}
   m_Father: {fileID: 1342303235}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &589689191
@@ -12221,6 +12227,10 @@ MonoBehaviour:
   uiDocument: {fileID: 1409044589}
   mainCamera: {fileID: 963194227}
   renderTexture: {fileID: 8400000, guid: e9757443a86bbbe4d851ef6f4e2eed03, type: 2}
+  interactionLayerMask:
+    serializedVersion: 2
+    m_Bits: 256
+  excludeLayerMaskName: 
 --- !u!64 &1378636776
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -14641,6 +14651,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 950542499}
+  mainCamera: {fileID: 963194227}
   doorAudioVisuals:
     openAnimation: Open
     closeAnimation: Close
@@ -14651,6 +14662,7 @@ MonoBehaviour:
   playerInteraction:
     gameMessageDocument: {fileID: 1076824564}
     actionHintTextMesh: {fileID: 1476976478}
+  cursorIcon: {fileID: 912887778}
   actionIcon: {fileID: 1110334312}
   voiceMessageAutioSource: {fileID: 354434350}
   cameraTag: SecurityCamera
@@ -19558,4 +19570,3 @@ SceneRoots:
   - {fileID: 1535546459}
   - {fileID: 1598084690}
   - {fileID: 2016124133}
-  - {fileID: 387505421}

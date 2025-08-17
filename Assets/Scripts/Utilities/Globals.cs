@@ -56,6 +56,10 @@ public class Globals : Singleton<Globals>
     private GameObject player = null;
     public GameObject Player { get => player; }
 
+    [SerializeField, Tooltip("The main camera")]
+    private Camera mainCamera = null;
+    public Camera MainCamera { get => mainCamera; }
+
     [SerializeField, Tooltip("Door animations and sounds")]
     private DoorAudioVisuals doorAudioVisuals = new DoorAudioVisuals();
     public DoorAudioVisuals DoorAudioVisuals { get => doorAudioVisuals; }
@@ -65,6 +69,10 @@ public class Globals : Singleton<Globals>
     public PlayerInteraction PlayerInteraction => playerInteraction;
 
     [Header("Fields with types that cannot be serialized in container classes")]
+    [SerializeField, Tooltip("The icon displayed for an action")]
+    private UnityEngine.UI.Image cursorIcon = null;
+    public UnityEngine.UI.Image CursorIcon => cursorIcon;
+
     [SerializeField, Tooltip("The icon displayed for an action")]
     private UnityEngine.UI.Image actionIcon = null;
     public UnityEngine.UI.Image ActionIcon => actionIcon;

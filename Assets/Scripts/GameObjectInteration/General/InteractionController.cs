@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.Assertions;
 using TMPro;
+using UnityEngine;
+using UnityEngine.Assertions;
+using UnityEngine.UI;
+//using UnityEngine.UIElements;
 
 public class InteractionController : MonoBehaviour
 {
@@ -207,7 +208,7 @@ public class InteractionController : MonoBehaviour
     // Thanks to https://answers.unity.com/questions/411793/selecting-a-game-object-with-a-mouse-click-on-it.html for help with identifying which object has been subject to a mouse-click
     private void Update()
     {
-        if(pdaEventHandler is not null)
+        if (pdaEventHandler is not null)
         {
             if (pdaEventHandler.ShowingPda)
             {
@@ -236,125 +237,120 @@ public class InteractionController : MonoBehaviour
                     pdaEventHandler.DisplayPdaApp(PdaAppId.PDAHomePage);
                     continuedUserDialogueActionInterface = null;
                     break;
-
             }
 
             // The work associated with this Update() has completed, so RETURN and end the processing
             return;
         }
 
-        //if (Time.time >= nextRaycastTime)
-        //{
-            nextRaycastTime = Time.time + raycastInterval;
+        nextRaycastTime = Time.time + raycastInterval;
 
-            //GameLog.NormalMessage(this, "Processing the normal game object interaction mechanisms");
+        //GameLog.NormalMessage(this, "Processing the normal game object interaction mechanisms");
 
-            // When a raycast is sent out, this variable is used to record the game object it hit (if any)
-            GameObject hitObject = null;
+        // When a raycast is sent out, this variable is used to record the game object it hit (if any)
+        GameObject hitObject = null;
 
-            // The action interface of the hit object
-            IActionInterface hitObjectActionInterface = null;
+        // The action interface of the hit object
+        IActionInterface hitObjectActionInterface = null;
 
-            // Whether the hit object has other interactions (e.g., an inventory management system) or if it provides a single-shot interaction (e.g., opening/closing a door, turning a light on/off)
-            bool objectHasOtherInterations = false;
+        // Whether the hit object has other interactions (e.g., an inventory management system) or if it provides a single-shot interaction (e.g., opening/closing a door, turning a light on/off)
+        bool objectHasOtherInterations = false;
 
-            // Determine the layers we want the raycast to report on
-            int interactableGameObjectsLayerMask = 1 << LayerMask.NameToLayer(excludeLayerMaskName) | interactionLayerMask.value;
+        // Determine the layers we want the raycast to report on
+        int interactableGameObjectsLayerMask = 1 << LayerMask.NameToLayer(excludeLayerMaskName) | interactionLayerMask.value;
 
-            // When sending a ray out, this variable reports back on what was hit, if anything
-            RaycastHit raycastHitObject = new RaycastHit();
+        // When sending a ray out, this variable reports back on what was hit, if anything
+        RaycastHit raycastHitObject = new RaycastHit();
 
-            // Send the ray from the camera through the cursor icon for a certain distance - we only look for Game Objects that have been tagged as being interactable
-            if (Physics.Raycast(Camera.main.ScreenPointToRay(iconCursor.transform.position), out raycastHitObject, rayDistance, interactableGameObjectsLayerMask))
+        // Send the ray from the camera through the cursor icon for a certain distance - we only look for Game Objects that have been tagged as being interactable
+        if (Physics.Raycast(Camera.main.ScreenPointToRay(iconCursor.transform.position), out raycastHitObject, rayDistance, interactableGameObjectsLayerMask))
+        {
+            // If we're here, it's because the ray hit an interactable object, so now we need to handle this situation
+
+            // Determine the object that we hit
+            hitObject = raycastHitObject.collider.gameObject;
+
+            // Record the ID of the object we hit to be used as the key when it is inserted in the action cache
+            int objectID = hitObject.GetInstanceID();
+
+            // Enable the Action Icon so the player knows there is an action that can be performed
+            interactionIndicatorIcon.enabled = true;
+
+            // Get the Action Interface for the hit object
+            hitObjectActionInterface = GetActionInterface(hitObject);
+            if (hitObjectActionInterface is not null)
             {
-                // If we're here, it's because the ray hit an interactable object, so now we need to handle this situation
-
-                // Determine the object that we hit
-                hitObject = raycastHitObject.collider.gameObject;
-
-                // Record the ID of the object we hit to be used as the key when it is inserted in the action cache
-                int objectID = hitObject.GetInstanceID();
-
-                // Enable the Action Icon so the player knows there is an action that can be performed
-                interactionIndicatorIcon.enabled = true;
-
-                // Get the Action Interface for the hit object
-                hitObjectActionInterface = GetActionInterface(hitObject);
-                if (hitObjectActionInterface is not null)
+                // We only want to advertise the action when when the user is looking at something new
+                if (hitObject != lastHitObject)
                 {
-                    // We only want to advertise the action when when the user is looking at something new
-                    if (hitObject != lastHitObject)
-                    {
-                        // Advertise the action that can be performed
-                        unknownActionIcon.enabled = false;
-                        interactionIndicatorIcon.enabled = true;
-                        textMeshActionHint.enabled = true;
-
-                        // Let the hit object advertise its interaction mechansim as it needs to (e.g., left-click, right-click, press E, and so on)
-                        // Also, record whether the object has indicated it is capable of further interactions
-                        objectHasOtherInterations = hitObjectActionInterface.AdvertiseInteraction();
-                    }
-                    else
-                    {
-                        //GameLog.LogMessage(LogType.Log, hitObject,  "No need to advertise the possible actions as these are already being shown");
-                    }
-
-                    // If the user wants to interact with the object
-                    if (Input.GetKeyDown(primaryInteractionKey))
-                    {
-                        GameLog.Message(LogType.Warning, hitObject, "Performing primary action");
-                        if (hitObjectActionInterface.PerformInteraction())
-                        {
-                            GameLog.Message(LogType.Warning, hitObject, "Allowing for further interactions");
-
-                            // As we're doing continued interactions, we need to disable the player so they don't respond to the keystrokes and, say, move around
-                            player.SetActive(false);
-                            continuedUserDialogueActionInterface = hitObjectActionInterface;
-                        }
-                    }
-                }
-                else
-                {
-                    // Indicate we don't know how to advertise or perform actions
-                    interactionIndicatorIcon.enabled = false;
-                    unknownActionIcon.enabled = true;
-                    textMeshActionHint.text = unknownActionDescription;
+                    // Advertise the action that can be performed
+                    unknownActionIcon.enabled = false;
+                    interactionIndicatorIcon.enabled = true;
                     textMeshActionHint.enabled = true;
-                }
 
-                if (objectHasOtherInterations)
-                {
-                    //GameLog.LogMessage(LogType.Log, hitObject, "Object has other interactions, so setting Last Hit Object to null so that other action advertisement will occur");
-                    lastHitObject = null;
+                    // Let the hit object advertise its interaction mechansim as it needs to (e.g., left-click, right-click, press E, and so on)
+                    // Also, record whether the object has indicated it is capable of further interactions
+                    objectHasOtherInterations = hitObjectActionInterface.AdvertiseInteraction();
                 }
                 else
                 {
-                    //GameLog.LogMessage(LogType.Log, hitObject, "Setting Last Hit Object to {0} (id={1})", new object[] { hitObject.name, hitObject.GetInstanceID() });
-                    lastHitObject = hitObject;
+                    //GameLog.LogMessage(LogType.Log, hitObject,  "No need to advertise the possible actions as these are already being shown");
+                }
+
+                // If the user wants to interact with the object
+                if (Input.GetKeyDown(primaryInteractionKey))
+                {
+                    GameLog.Message(LogType.Warning, hitObject, "Performing primary action");
+                    if (hitObjectActionInterface.PerformInteraction())
+                    {
+                        GameLog.Message(LogType.Warning, hitObject, "Allowing for further interactions");
+
+                        // As we're doing continued interactions, we need to disable the player so they don't respond to the keystrokes and, say, move around
+                        player.SetActive(false);
+                        continuedUserDialogueActionInterface = hitObjectActionInterface;
+                    }
                 }
             }
             else
             {
-                // The raycast didn't hit an interactable game object, so hide all interaction icons
-                lastHitObject = null;
-
+                // Indicate we don't know how to advertise or perform actions
                 interactionIndicatorIcon.enabled = false;
-                unknownActionIcon.enabled = false;
-                textMeshActionHint.enabled = false;
+                unknownActionIcon.enabled = true;
+                textMeshActionHint.text = unknownActionDescription;
+                textMeshActionHint.enabled = true;
             }
 
-            // Record when "right now" is
-            long ticksRightNow = DateTime.Now.Ticks;
-
-            // Check if we should clean the cache, and do so, if needed
-            if (ticksRightNow > (ticksSinceLastCacheClean + (TimeSpan.TicksPerSecond * cacheClearanceInterval)))
+            if (objectHasOtherInterations)
             {
-                GameLog.NormalMessage(this, "Time to clean the Action Cache as ticksRightNow = " + ticksRightNow.ToString() + " and ticksSinceLastCacheClean = " + ticksSinceLastCacheClean.ToString());
-                ticksSinceLastCacheClean = ticksRightNow;
-                CleanCache(ticksRightNow);
+                //GameLog.LogMessage(LogType.Log, hitObject, "Object has other interactions, so setting Last Hit Object to null so that other action advertisement will occur");
+                lastHitObject = null;
             }
-        //}
+            else
+            {
+                //GameLog.LogMessage(LogType.Log, hitObject, "Setting Last Hit Object to {0} (id={1})", new object[] { hitObject.name, hitObject.GetInstanceID() });
+                lastHitObject = hitObject;
+            }
+        }
+        else
+        {
+            // The raycast didn't hit an interactable game object, so hide all interaction icons
+            lastHitObject = null;
 
+            interactionIndicatorIcon.enabled = false;
+            unknownActionIcon.enabled = false;
+            textMeshActionHint.enabled = false;
+        }
+
+        // Record when "right now" is
+        long ticksRightNow = DateTime.Now.Ticks;
+
+        // Check if we should clean the cache, and do so, if needed
+        if (ticksRightNow > (ticksSinceLastCacheClean + (TimeSpan.TicksPerSecond * cacheClearanceInterval)))
+        {
+            GameLog.NormalMessage(this, "Time to clean the Action Cache as ticksRightNow = " + ticksRightNow.ToString() + " and ticksSinceLastCacheClean = " + ticksSinceLastCacheClean.ToString());
+            ticksSinceLastCacheClean = ticksRightNow;
+            CleanCache(ticksRightNow);
+        }
     }
 
     /// <summary>
