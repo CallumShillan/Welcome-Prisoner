@@ -1,3 +1,4 @@
+using Invector.vCharacterController;
 using Unity.Burst.CompilerServices;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -26,7 +27,6 @@ public class ComputerScreenForwarder : MonoBehaviour
     private VisualElement myCursor;
     private Transform playerOriginalTransform;
 
-    private bool playerMoved = false;
 
     void Start()
     {
@@ -43,7 +43,6 @@ public class ComputerScreenForwarder : MonoBehaviour
         int interactableGameObjectsLayerMask = 1 << LayerMask.NameToLayer(excludeLayerMaskName) | interactionLayerMask.value;
 
         Ray cameraThroughCursor = Camera.main.ScreenPointToRay(Input.mousePosition);
-        Debug.DrawRay(cameraThroughCursor.origin, cameraThroughCursor.direction * 100.0f, Color.red);
 
         uiDocument.panelSettings.SetScreenToPanelSpaceFunction((Vector2 screenPosition) =>
         {
@@ -52,33 +51,12 @@ public class ComputerScreenForwarder : MonoBehaviour
             if (!Physics.Raycast(cameraThroughCursor, out RaycastHit hit, 5.0f, interactableGameObjectsLayerMask))
             {
                 Globals.Instance.Player.SetActive(true);
-                return invalidPosition;
-            }
-
-            if(hit.collider.gameObject != gameObject)
-            {
-                Globals.Instance.Player.transform.SetLocalPositionAndRotation(playerOriginalTransform.position, playerOriginalTransform.rotation);
-                Globals.Instance.Player.SetActive(true);
                 Globals.Instance.CursorIcon.enabled = true;
                 return invalidPosition;
             }
 
-
-            if(!playerMoved)
-            {
-                playerMoved = true;
-                playerOriginalTransform = Globals.Instance.Player.transform;
-
-                Vector3 playerPosition = Globals.Instance.Player.transform.position;
-                Vector3 screenPosition1 = hit.point + hit.normal * 1f; // Offset slightly to avoid z-fighting
-                screenPosition1.z = playerPosition.z; // Keep the player's z position
-
-                Globals.Instance.Player.transform.LookAt(hit.transform);
-                Globals.Instance.Player.transform.position = screenPosition1;
-            }
-
-            //Globals.Instance.Player.SetActive(false);
             Globals.Instance.CursorIcon.enabled = false;
+            Globals.Instance.Player.SetActive(false);
 
             Vector2 uv = hit.textureCoord;
 
@@ -86,45 +64,8 @@ public class ComputerScreenForwarder : MonoBehaviour
             int pixelY = Mathf.FloorToInt((1f - uv.y) * renderTexture.height); // Flip Y
 
             Vector2 pixelPos = new Vector2(pixelX, pixelY);
-            
-            if (myCursor != null)
-            {
-                myCursor.style.left = pixelPos.x;
-                myCursor.style.top = pixelPos.y;
-            }
 
             return pixelPos;
         });
     }
-
-
-    void ForwardPointerEvents(Vector2 pixelPos)
-    {
-        // Hover
-        var moveEvent = PointerMoveEvent.GetPooled();
-        // Forward pointer move
-        root.SendEvent(moveEvent);
-
-        // Click
-        if (Input.GetMouseButtonDown(0))
-        {
-            var downEvent = PointerDownEvent.GetPooled();
-            root.SendEvent(downEvent);
-        }
-
-        if (Input.GetMouseButtonUp(0))
-        {
-            var upEvent = PointerUpEvent.GetPooled();
-            root.SendEvent(upEvent);
-        }
-
-        // Scroll
-        float scroll = Input.mouseScrollDelta.y;
-        if (Mathf.Abs(scroll) > 0.01f)
-        {
-            var wheelEvent = WheelEvent.GetPooled();
-            root.SendEvent(wheelEvent);
-        }
-    }
-
 }

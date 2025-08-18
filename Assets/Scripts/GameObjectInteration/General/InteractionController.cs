@@ -202,7 +202,7 @@ public class InteractionController : MonoBehaviour
 
         ticksSinceLastCacheClean = DateTime.Now.Ticks;
 
-        Cursor.visible = false;
+        Cursor.visible = true;
     }
 
     // Thanks to https://answers.unity.com/questions/411793/selecting-a-game-object-with-a-mouse-click-on-it.html for help with identifying which object has been subject to a mouse-click
@@ -263,7 +263,10 @@ public class InteractionController : MonoBehaviour
         RaycastHit raycastHitObject = new RaycastHit();
 
         // Send the ray from the camera through the cursor icon for a certain distance - we only look for Game Objects that have been tagged as being interactable
-        if (Physics.Raycast(Camera.main.ScreenPointToRay(iconCursor.transform.position), out raycastHitObject, rayDistance, interactableGameObjectsLayerMask))
+        Ray cameraThroughCursorRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+        //Ray cameraThroughCursorRay = Camera.main.ScreenPointToRay(iconCursor.transform.position)
+
+        if (Physics.Raycast(cameraThroughCursorRay, out raycastHitObject, rayDistance, interactableGameObjectsLayerMask))
         {
             // If we're here, it's because the ray hit an interactable object, so now we need to handle this situation
 
