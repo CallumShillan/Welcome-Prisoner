@@ -46,6 +46,15 @@ public class PlayerInteraction
     [SerializeField, Tooltip("The text mesh to display the hint")]
     private TextMeshProUGUI actionHintTextMesh = null;
     public TextMeshProUGUI ActionHintTextMesh => actionHintTextMesh;
+
+    [SerializeField, Tooltip("Whether a world space UI Application has exited")]
+    private bool uiApplicationExited = false;
+    public bool UiApplicationExited
+    {
+        get => uiApplicationExited;
+        set => uiApplicationExited = value;
+    }
+
 }
 
 
@@ -70,8 +79,8 @@ public class Globals : Singleton<Globals>
 
     [Header("Fields with types that cannot be serialized in container classes")]
     [SerializeField, Tooltip("The icon displayed for an action")]
-    private UnityEngine.UI.Image cursorIcon = null;
-    public UnityEngine.UI.Image CursorIcon => cursorIcon;
+    private GameObject cursorIcon = null;
+    public GameObject CursorIcon => cursorIcon;
 
     [SerializeField, Tooltip("The icon displayed for an action")]
     private UnityEngine.UI.Image actionIcon = null;

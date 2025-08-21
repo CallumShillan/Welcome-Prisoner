@@ -35,10 +35,6 @@ public class InteractionController : MonoBehaviour
     private KeyCode primaryInteractionKey = KeyCode.Mouse0;
 
     [SerializeField]
-    [Tooltip("The cursor icon, always shown")]
-    private Image iconCursor = null;
-
-    [SerializeField]
     [Tooltip("The icon to show a known action is available")]
     private Image interactionIndicatorIcon;
 
@@ -100,9 +96,6 @@ public class InteractionController : MonoBehaviour
             // We should have a primary interaction key
             Assert.IsTrue(primaryInteractionKey != KeyCode.None, "The Primary Interaction Key cannot be KeyCode.None");
 
-            // The cursor icon should not be null
-            Assert.IsNotNull(iconCursor, "The cursor icon should not be null");
-
             // The action prompt icon should not be null
             Assert.IsNotNull(interactionIndicatorIcon, "The action prompt icon should not be null");
 
@@ -143,11 +136,6 @@ public class InteractionController : MonoBehaviour
             if (primaryInteractionKey == KeyCode.None)
             {
                 throw new ArgumentOutOfRangeException("Cannot be set to 'None'", nameof(primaryInteractionKey));
-            }
-
-            if (iconCursor is null)
-            {
-                throw new ArgumentNullException("Must be set", nameof(iconCursor));
             }
 
             if (interactionIndicatorIcon is null)
@@ -202,7 +190,7 @@ public class InteractionController : MonoBehaviour
 
         ticksSinceLastCacheClean = DateTime.Now.Ticks;
 
-        Cursor.visible = true;
+        Cursor.visible = false;
     }
 
     // Thanks to https://answers.unity.com/questions/411793/selecting-a-game-object-with-a-mouse-click-on-it.html for help with identifying which object has been subject to a mouse-click
@@ -230,7 +218,15 @@ public class InteractionController : MonoBehaviour
                     // For continued interaction, the player was disabled so they didn't respond to user input and move about
                     // As the player has finished interacting with the object, we need to re-enable them
                     Cursor.visible = false;
+                    Globals.Instance.CursorIcon.SetActive(true);
                     player.SetActive(true);
+                    break;
+
+                case InteractionStatus.Continuing:
+                    GameLog.NormalMessage(this, "Continuing user interaction with the object", string.Empty);
+                    player.SetActive(false);
+                    interactionIndicatorIcon.enabled = false;
+                    textMeshActionHint.enabled = false;
                     break;
 
                 case InteractionStatus.ShowPdaHomeScreen:
@@ -263,8 +259,8 @@ public class InteractionController : MonoBehaviour
         RaycastHit raycastHitObject = new RaycastHit();
 
         // Send the ray from the camera through the cursor icon for a certain distance - we only look for Game Objects that have been tagged as being interactable
-        Ray cameraThroughCursorRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-        //Ray cameraThroughCursorRay = Camera.main.ScreenPointToRay(iconCursor.transform.position)
+        //Ray cameraThroughCursorRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Ray cameraThroughCursorRay = Camera.main.ScreenPointToRay(Globals.Instance.CursorIcon.transform.position);
 
         if (Physics.Raycast(cameraThroughCursorRay, out raycastHitObject, rayDistance, interactableGameObjectsLayerMask))
         {
@@ -310,6 +306,9 @@ public class InteractionController : MonoBehaviour
 
                         // As we're doing continued interactions, we need to disable the player so they don't respond to the keystrokes and, say, move around
                         player.SetActive(false);
+                        interactionIndicatorIcon.enabled = false;
+                        textMeshActionHint.enabled = false;
+                        Globals.Instance.CursorIcon.SetActive(false);
                         continuedUserDialogueActionInterface = hitObjectActionInterface;
                     }
                 }

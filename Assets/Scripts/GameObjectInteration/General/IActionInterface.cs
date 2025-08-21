@@ -23,7 +23,7 @@ public interface IActionInterface
     /// <summary>
     /// Continue a user interface dialogue with the user
     /// </summary>
-    /// <returns>TRUE if they have finished interacting, FALSE if the user wants to continue interacting</returns>
+    /// <returns>InteractionStatus</returns>
     InteractionStatus ContinueInteraction()
     {
         return (InteractionStatus.Completed);

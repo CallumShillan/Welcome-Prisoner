@@ -1,6 +1,7 @@
 :root {
-    width: 3842px;
-    height: 2048px;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
 }
 
 .outer {
@@ -17,9 +18,9 @@
 }
 
 .ui-button {
-    width: 40%;
-    height: 40%;
-    font-size: 96px;
+    width: 45%;
+    height: 45%;
+    font-size: 150px;
     border-top-width: 20px;
     border-right-width: 20px;
     border-bottom-width: 20px;
@@ -35,9 +36,9 @@
 }
 
 .ui-button:hover {
-    width: 40%;
-    height: 40%;
-    font-size: 96px;
+    width: 45%;
+    height: 45%;
+    font-size: 150px;
     border-top-width: 20px;
     border-right-width: 20px;
     border-bottom-width: 20px;
@@ -51,4 +52,5 @@
     border-top-color: rgb(255, 0, 0);
     border-bottom-color: rgb(255, 0, 0);
     scale: 1.1 1.1;
+    -unity-font-style: bold;
 }

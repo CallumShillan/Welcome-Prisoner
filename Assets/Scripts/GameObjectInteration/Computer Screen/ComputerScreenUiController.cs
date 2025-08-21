@@ -52,6 +52,11 @@ public class ComputerScreenUiController : MonoBehaviour
             DisplaySecurityCamera();
         };
 
+        root.Q<Button>("buttonExit").clicked += () =>
+        {
+            Globals.Instance.PlayerInteraction.UiApplicationExited = true;
+        };
+
         statusLabel = root.Q<Label>("StatusLabel");
         DisplaySecurityCamera();
     }

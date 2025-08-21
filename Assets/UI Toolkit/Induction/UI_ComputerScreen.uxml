@@ -1,15 +1,16 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI%20Toolkit/Induction/UI_ComputerScreen.uss?fileID=7433441132597879392&amp;guid=ead5cedd83985ab429281f4aa447d826&amp;type=3#UI_ComputerScreen" />
-    <ui:VisualElement class="outer" style="flex-grow: 1; background-color: rgb(0, 255, 0); width: 100%; flex-direction: row; height: 100%;">
-        <ui:VisualElement name="VisualElement" style="background-color: rgb(255, 255, 255); width: 95%; height: 100%; flex-direction: column;">
-            <ui:Label text="Select security camera to display" style="font-size: 96px;" />
-            <ui:Label text="Label" name="StatusLabel" style="font-size: 96px;" />
-            <ui:VisualElement style="flex-grow: 1; flex-direction: row; width: 100%; align-items: center; justify-content: space-around; align-self: auto;">
-                <ui:Button text="&lt;&lt; Previous Camera" name="buttonPrev" class="ui-button" />
-                <ui:Button text="Next Camera &gt;&gt;" name="buttonNext" class="ui-button" />
-                <ui:VisualElement name="Cursor" style="flex-grow: 1; cursor: url(&quot;project://database/Assets/Materials%20+%20Textures/Personal/Icons/Cursor.jpg?fileID=2800000&amp;guid=3a505bd42d16a9349b5ac58deb6f0202&amp;type=3#Cursor&quot;); background-image: url(&quot;project://database/Assets/Materials%20+%20Textures/Personal/Icons/Cursor.jpg?fileID=2800000&amp;guid=3a505bd42d16a9349b5ac58deb6f0202&amp;type=3#Cursor&quot;); background-color: rgba(255, 0, 0, 0); background-size: 96px 100%; width: 96px; height: 96px; opacity: 1; position: absolute; top: 192px; left: 1690px;" />
+    <ui:VisualElement class="outer" style="flex-grow: 1; background-color: rgb(0, 255, 0); width: 100%; flex-direction: column; height: 100%;">
+        <ui:VisualElement name="VisualElement" style="background-color: rgb(255, 255, 255); width: 100%; flex-direction: row; flex-grow: 0; justify-content: space-around; align-self: center; align-content: auto; height: 20%; align-items: center;">
+            <ui:VisualElement style="flex-grow: 0; width: auto; flex-shrink: 1; align-self: center; align-content: auto;">
+                <ui:Label text="Security Camera Viewer" style="font-size: 96px; flex-shrink: 0;" />
+                <ui:Label name="StatusLabel" style="font-size: 96px; flex-shrink: 1;" />
             </ui:VisualElement>
+            <ui:Button text="EXIT" name="buttonExit" tooltip="Exit the application" class="ui-button" style="background-color: rgb(255, 0, 0); color: rgb(255, 255, 255); border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); flex-grow: 0; flex-shrink: 1; height: 50%; width: 20%;" />
         </ui:VisualElement>
-        <ui:VisualElement name="VisualElement" style="flex-grow: 1; width: 10%; height: 50%; background-color: rgb(0, 0, 0);" />
+        <ui:VisualElement name="VisualElement" style="flex-grow: 1; flex-direction: row; width: 100%; align-items: center; justify-content: space-around; align-self: auto; background-color: rgb(255, 255, 255);">
+            <ui:Button text="&lt;&lt; Previous Camera" name="buttonPrev" class="ui-button" />
+            <ui:Button text="Next Camera &gt;&gt;" name="buttonNext" class="ui-button" />
+        </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
