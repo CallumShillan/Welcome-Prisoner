@@ -87,7 +87,8 @@ public class ComputerScreenUiController : MonoBehaviour
             renderer.material = cameraInfo.CameraFeedMaterial;
         }
 
-        statusLabel.text = $"Camera: {camera.name}";
+        string cameraName = GameUtils.SplitPascalCase(camera.name);
+        statusLabel.text = cameraName;
     }
 }
 
