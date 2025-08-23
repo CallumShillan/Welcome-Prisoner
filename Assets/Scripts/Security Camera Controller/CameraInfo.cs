@@ -14,9 +14,13 @@ public class CameraInfo : MonoBehaviour
     [SerializeField, Tooltip("Material used to render the live camera feed on the monitor.")]
     private Material cameraFeedMaterial;
 
+    [SerializeField, Tooltip("Material used to render the live camera feed on the monitor.")]
+    private RenderTexture cameraRenderTexture;
+
     // Public getters for runtime access
     public Material CameraNameMaterial => cameraNameMaterial;
     public Material CameraFeedMaterial => cameraFeedMaterial;
+    public RenderTexture CameraRenderTexture => cameraRenderTexture;
 
     [ContextMenu("Auto-Assign Materials")]
     public void AutoAssignMaterials()
@@ -25,14 +29,19 @@ public class CameraInfo : MonoBehaviour
 
         string namePath = $"SecurityCameras/CameraNames/{cameraName}";
         string feedPath = $"SecurityCameras/CameraFeeds/{cameraName}Feed";
+        string renderTexturePath = $"SecurityCameras/CameraRenderTextures/{cameraName}Feed";
 
         cameraNameMaterial = Resources.Load<Material>(namePath);
         cameraFeedMaterial = Resources.Load<Material>(feedPath);
+        cameraRenderTexture = Resources.Load<RenderTexture>(renderTexturePath);
 
         if (cameraNameMaterial == null)
             Debug.LogWarning($"Camera name material not found at: Resources/{namePath}");
 
         if (cameraFeedMaterial == null)
             Debug.LogWarning($"Camera feed material not found at: Resources/{feedPath}");
+
+        if (cameraRenderTexture == null)
+            Debug.LogWarning($"Camera render texture not found at: Resources/{renderTexturePath}");
     }
 }

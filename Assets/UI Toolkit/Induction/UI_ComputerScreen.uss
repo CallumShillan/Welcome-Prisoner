@@ -2,6 +2,8 @@
     width: 100%;
     height: 100%;
     overflow: visible;
+    color: rgb(0, 0, 0);
+    font-size: 50px;
 }
 
 .outer {
@@ -17,9 +19,32 @@
     height: 90%;
 }
 
+.ui-tab-label {
+    font-size: 52px;
+    unity-font-style: bold;
+    color: black;
+}
+
+.unity-tab-view__content-container {
+    flex-grow: 1;
+}
+
+.unity-tab__content-container {
+    flex-grow: 1;
+}
+
+.ui-tab__header-underline {
+    font-size: 52px;
+    unity-font-style: bold;
+    color: red;
+    -unity-font-style: bold;
+    border-bottom-width: 5px;
+}
+
 .ui-button {
-    width: 45%;
-    height: 45%;
+    font-size: 150px;
+    width: 50%;
+    height: 100%;
     font-size: 150px;
     border-top-width: 20px;
     border-right-width: 20px;
@@ -33,24 +58,10 @@
     border-right-color: rgb(0, 0, 0);
     border-top-color: rgb(0, 0, 0);
     border-bottom-color: rgb(0, 0, 0);
+    background-color: rgb(255, 255, 255);
 }
 
 .ui-button:hover {
-    width: 45%;
-    height: 45%;
-    font-size: 150px;
-    border-top-width: 20px;
-    border-right-width: 20px;
-    border-bottom-width: 20px;
-    border-left-width: 20px;
-    border-top-left-radius: 100px;
-    border-top-right-radius: 100px;
-    border-bottom-right-radius: 100px;
-    border-bottom-left-radius: 100px;
-    border-left-color: rgb(255, 0, 0);
-    border-right-color: rgb(255, 0, 0);
-    border-top-color: rgb(255, 0, 0);
-    border-bottom-color: rgb(255, 0, 0);
-    scale: 1.1 1.1;
+    border-color: rgb(255, 0, 0);
     -unity-font-style: bold;
 }

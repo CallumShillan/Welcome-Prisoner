@@ -6,7 +6,7 @@ RenderTexture:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Camera Render Texture - Cells Landing
+  m_Name: Security Office
   m_ImageContentsHash:
     serializedVersion: 2
     Hash: 00000000000000000000000000000000
