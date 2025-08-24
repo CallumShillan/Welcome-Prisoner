@@ -121,6 +121,7 @@ public class ComputerScreenUiController : MonoBehaviour
             container.style.alignItems = Align.Center;
 
             var nameLabel = new Label();
+            nameLabel.style.fontSize = 150;
             nameLabel.style.flexGrow = 1;
 
             var activeToggle = new Toggle("Active");

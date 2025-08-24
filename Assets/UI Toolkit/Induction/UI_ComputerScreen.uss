@@ -20,7 +20,7 @@
 }
 
 .ui-tab-label {
-    font-size: 52px;
+    font-size: 100px;
     unity-font-style: bold;
     color: black;
 }

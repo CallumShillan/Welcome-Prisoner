@@ -1,36 +1,40 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI%20Toolkit/Induction/Stylesheet.uss?fileID=7433441132597879392&amp;guid=b2d9f9a52ce45b243855b1280b07a326&amp;type=3#Stylesheet" />
-    <ui:GroupBox name="PdaHomePage" style="background-color: rgba(0, 0, 255, 0); align-items: center; justify-content: center; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; flex-grow: 1; flex-shrink: 1; width: 100%; height: 100%; align-self: center;">
+    <ui:GroupBox name="PdaHomePage" style="flex-grow: 1; background-color: rgb(255, 0, 0);">
         <ui:GroupBox name="PageControls-Group" style="flex-grow: 1; flex-direction: row; width: 100%; background-color: rgba(0, 255, 0, 0); justify-content: space-around; height: 50%; align-self: center; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0;">
-            <ui:GroupBox style="align-items: center; justify-content: center;">
-                <ui:Button name="btn-QuestDetails" tooltip="Task Details" class="btn-home-screen-icon" style="background-image: url(&quot;project://database/Assets/Textures/Icons/Progress.png?fileID=2800000&amp;guid=9d6f5f0a70c3d004b84d2461307981d3&amp;type=3#Progress&quot;);" />
-                <ui:Label text="Tasks" display-tooltip-when-elided="true" />
+            <ui:GroupBox class="groupBox">
+                <ui:Button name="btn-QuestDetails" tooltip="Task Details" class="btn-home-screen-icon" style="background-image: url(&quot;project://database/Assets/Materials%20+%20Textures/Personal/Icons/Progress.png?fileID=2800000&amp;guid=9d6f5f0a70c3d004b84d2461307981d3&amp;type=3#Progress&quot;);" />
+                <ui:Label text="Tasks" display-tooltip-when-elided="true" class="homepageLabels" />
             </ui:GroupBox>
-            <ui:GroupBox style="align-items: center; justify-content: center;">
-                <ui:Button name="btn-EbookReader" tooltip="Library of read documents" class="btn-home-screen-icon" style="background-image: url(&quot;project://database/Assets/Textures/Icons/Library.png?fileID=2800000&amp;guid=1b10a21c99d3156458f462864e6f4a20&amp;type=3#Library&quot;);" />
-                <ui:Label text="Library" display-tooltip-when-elided="true" class="lbl-home-screen-icon" />
+            <ui:GroupBox style="align-items: center; justify-content: center; flex-grow: 1;">
+                <ui:Button name="btn-EbookReader" tooltip="Library of read documents" class="btn-home-screen-icon" style="background-image: url(&quot;project://database/Assets/Materials%20+%20Textures/Personal/Icons/Library.png?fileID=2800000&amp;guid=1b10a21c99d3156458f462864e6f4a20&amp;type=3#Library&quot;);" />
+                <ui:Label text="Library" display-tooltip-when-elided="true" class="lbl-home-screen-icon homepageLabels" />
             </ui:GroupBox>
-            <ui:GroupBox style="align-items: center; justify-content: center;">
-                <ui:Button name="btn-MessageReader" tooltip="Personal notes" class="btn-home-screen-icon" style="background-image: url(&quot;project://database/Assets/Textures/Icons/Note.png?fileID=2800000&amp;guid=0a4740324ed95d242bad5e7aee693bdf&amp;type=3#Note&quot;);" />
-                <ui:Label text="Messages" display-tooltip-when-elided="true" />
+            <ui:GroupBox style="align-items: center; justify-content: center; flex-grow: 1;">
+                <ui:Button name="btn-MessageReader" tooltip="Personal notes" class="btn-home-screen-icon" style="background-image: url(&quot;project://database/Assets/Materials%20+%20Textures/Personal/Icons/Note.png?fileID=2800000&amp;guid=0a4740324ed95d242bad5e7aee693bdf&amp;type=3#Note&quot;);" />
+                <ui:Label text="Messages" display-tooltip-when-elided="true" class="homepageLabels" />
             </ui:GroupBox>
-            <ui:GroupBox style="align-items: center; justify-content: center;">
-                <ui:Button name="btn-PDATemplate" tooltip="Map" class="btn-home-screen-icon" style="background-image: url(&quot;project://database/Assets/Textures/Icons/Map.png?fileID=2800000&amp;guid=23194de3d0d85e24a9222ef325eae9b9&amp;type=3#Map&quot;);" />
-                <ui:Label text="Map" display-tooltip-when-elided="true" class="lbl-home-screen-icon" />
+            <ui:GroupBox style="align-items: center; justify-content: center; flex-grow: 1;">
+                <ui:Button name="btn-PDATemplate" tooltip="Map" class="btn-home-screen-icon" style="background-image: url(&quot;project://database/Assets/Materials%20+%20Textures/Personal/Icons/Map.png?fileID=2800000&amp;guid=23194de3d0d85e24a9222ef325eae9b9&amp;type=3#Map&quot;);" />
+                <ui:Label text="Map" display-tooltip-when-elided="true" class="lbl-home-screen-icon homepageLabels" />
             </ui:GroupBox>
         </ui:GroupBox>
         <ui:GroupBox name="PageControls-Group" style="flex-direction: row; width: 100%; justify-content: space-around; height: 50%; align-self: center; background-color: rgba(255, 0, 0, 0); margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;">
-            <ui:GroupBox style="align-items: center; justify-content: center;">
-                <ui:Button name="btn-ExitGame" tooltip="Hints" class="btn-home-screen-icon" style="background-image: url(&quot;project://database/Assets/Textures/Icons/Exit.png?fileID=2800000&amp;guid=402ee6c923cda0547a71aa38df0bb502&amp;type=3#Exit&quot;);" />
-                <ui:Label text="Quit Game" display-tooltip-when-elided="true" class="lbl-home-screen-icon" />
+            <ui:GroupBox class="groupBox" style="align-items: center; justify-content: center;">
+                <ui:Button name="btn-ExitGame" tooltip="Hints" class="btn-home-screen-icon" style="background-image: url(&quot;project://database/Assets/Materials%20+%20Textures/Personal/Icons/Exit.png?fileID=2800000&amp;guid=402ee6c923cda0547a71aa38df0bb502&amp;type=3#Exit&quot;);" />
+                <ui:Label text="Quit Game" display-tooltip-when-elided="true" class="lbl-home-screen-icon homepageLabels" />
             </ui:GroupBox>
-            <ui:GroupBox style="align-items: center; justify-content: center;">
-                <ui:Button name="btn-Options" tooltip="Options" class="btn-home-screen-icon" style="background-image: url(&quot;project://database/Assets/Textures/Icons/Options.png?fileID=2800000&amp;guid=4a95c76f16f5676459ee1c86262ecf3a&amp;type=3#Options&quot;);" />
-                <ui:Label text="Options" display-tooltip-when-elided="true" class="lbl-home-screen-icon" />
+            <ui:GroupBox class="groupBox" style="align-items: center; justify-content: center;">
+                <ui:Button name="btn-Options" tooltip="Options" class="btn-home-screen-icon" style="background-image: url(&quot;project://database/Assets/Materials%20+%20Textures/Personal/Icons/Options.png?fileID=2800000&amp;guid=4a95c76f16f5676459ee1c86262ecf3a&amp;type=3#Options&quot;);" />
+                <ui:Label text="Options" display-tooltip-when-elided="true" class="lbl-home-screen-icon homepageLabels" />
             </ui:GroupBox>
-            <ui:GroupBox style="align-items: center; justify-content: center;">
-                <ui:Button name="btn-LoadSave" tooltip="Load / Save" class="btn-home-screen-icon" style="background-image: url(&quot;project://database/Assets/Textures/Icons/LoadSave.png?fileID=2800000&amp;guid=599054663bbbe8c44b145999a2beb0cb&amp;type=3#LoadSave&quot;);" />
-                <ui:Label text="Load/Save" display-tooltip-when-elided="true" class="lbl-home-screen-icon" />
+            <ui:GroupBox class="groupBox" style="align-items: center; justify-content: center;">
+                <ui:Button name="btn-LoadSave" tooltip="Load / Save" class="btn-home-screen-icon" style="background-image: url(&quot;project://database/Assets/Materials%20+%20Textures/Personal/Icons/LoadSave.png?fileID=2800000&amp;guid=599054663bbbe8c44b145999a2beb0cb&amp;type=3#LoadSave&quot;);" />
+                <ui:Label text="Load/Save" display-tooltip-when-elided="true" class="lbl-home-screen-icon homepageLabels" />
+            </ui:GroupBox>
+            <ui:GroupBox class="groupBox" style="align-items: center; justify-content: center;">
+                <ui:Button name="btn-LoadSave" tooltip="Load / Save" class="btn-home-screen-icon" style="background-image: url(&quot;project://database/Assets/Materials%20+%20Textures/Personal/Icons/Thumbs%20Up.jpg?fileID=2800000&amp;guid=309fd66c4b1bcc548adfe6ec0fed5316&amp;type=3#Thumbs Up&quot;);" />
+                <ui:Label text="Credits" display-tooltip-when-elided="true" class="lbl-home-screen-icon homepageLabels" />
             </ui:GroupBox>
         </ui:GroupBox>
     </ui:GroupBox>

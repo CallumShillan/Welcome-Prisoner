@@ -1,15 +1,15 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI%20Toolkit/Induction/UI_ComputerScreen.uss?fileID=7433441132597879392&amp;guid=ead5cedd83985ab429281f4aa447d826&amp;type=3" />
-    <ui:VisualElement style="flex-grow: 1;">
+    <ui:VisualElement style="flex-grow: 1; background-color: rgb(127, 127, 127);">
         <ui:VisualElement style="flex-grow: 0; flex-direction: row; justify-content: flex-end; padding-top: 0%; padding-right: 0%; padding-bottom: 0%; padding-left: 0%; margin-top: 1%; margin-right: 1%; margin-bottom: 1%; margin-left: 1%;">
             <ui:Button text="EXIT" name="buttonExit" tooltip="Exit the application" class="ui-button" style="background-color: rgb(255, 0, 0); border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); width: 100%;" />
         </ui:VisualElement>
-        <ui:TabView class="unity-tab-view__content-container ui-tab-label">
+        <ui:TabView class="unity-tab-view__content-container ui-tab-label" style="opacity: 1;">
             <ui:Tab label="Cameras" name="tabCameras" class="unity-tab__content-container">
                 <ui:VisualElement name="VisualElement" class="outer" style="flex-grow: 1; background-color: rgba(0, 255, 0, 0); width: 100%; flex-direction: column; height: 100%; font-size: 150px;">
-                    <ui:VisualElement name="VisualElement" style="background-color: rgba(255, 0, 0, 0); width: 100%; flex-direction: row; flex-grow: 0; justify-content: space-between; align-self: center; align-content: auto; height: 20%; align-items: center; margin-top: 0%; margin-right: 0%; margin-bottom: 0%; margin-left: 0%; padding-top: 0%; padding-right: 1%; padding-bottom: 0%; padding-left: 1%; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-bottom-width: 4px;">
+                    <ui:VisualElement name="VisualElement" style="background-color: rgba(255, 0, 0, 0); width: 100%; flex-direction: row; flex-grow: 0; justify-content: space-between; align-self: center; align-content: auto; height: 20%; align-items: center; margin-top: 0%; margin-right: 0%; margin-bottom: 0%; margin-left: 0%; padding-top: 0%; padding-right: 1%; padding-bottom: 0%; padding-left: 1%; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-bottom-width: 0; border-top-width: 6px; border-right-width: 0; border-left-width: 0;">
                         <ui:VisualElement name="VisualElement" style="flex-grow: 1; width: auto; flex-shrink: 1; align-self: center; align-content: auto;">
-                            <ui:Label name="StatusLabel" text="security camera" style="flex-shrink: 1;" />
+                            <ui:Label name="StatusLabel" text="security camera name" style="flex-shrink: 1;" />
                         </ui:VisualElement>
                     </ui:VisualElement>
                     <ui:VisualElement name="VisualElement" style="flex-grow: 1; flex-direction: column; width: 100%; align-items: center; justify-content: space-around; align-self: auto;">
@@ -21,9 +21,9 @@
                     </ui:VisualElement>
                 </ui:VisualElement>
             </ui:Tab>
-            <ui:Tab label="Turn On/Off" name="tabTurnOnOff">
-                <ui:VisualElement name="CameraControlListContainer" >
-                 <ui:ListView name="CameraControlListView" />
+            <ui:Tab label="| Turn On/Off" name="tabTurnOnOff">
+                <ui:VisualElement name="CameraControlListContainer">
+                    <ui:ListView name="CameraControlListView" />
                 </ui:VisualElement>
             </ui:Tab>
         </ui:TabView>
