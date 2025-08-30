@@ -52,6 +52,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bar Stool and Seated Claudia
       objectReference: {fileID: 0}
+    - target: {fileID: 6317559105699549515, guid: 8b523fe2b4c2ab04a9c3e49eb2de4c38, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
