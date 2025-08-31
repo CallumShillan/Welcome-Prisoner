@@ -37,26 +37,18 @@ public class QuestManager : MonoBehaviour
     /// </summary>
     private void Awake()
     {
-        try
-        {
-            // Get all activity markers in the scene
-            allActivityMarkerGameObjects = GameObject.FindGameObjectsWithTag(questActivityMarkerTag) ?? Array.Empty<GameObject>();
-            allActivityMarkers = new Dictionary<string, GameObject>(allActivityMarkerGameObjects.Length);
+        // Get all activity markers in the scene
+        allActivityMarkerGameObjects = GameObject.FindGameObjectsWithTag(questActivityMarkerTag) ?? Array.Empty<GameObject>();
+        allActivityMarkers = new Dictionary<string, GameObject>(allActivityMarkerGameObjects.Length);
 
-            // Mark all activity markers as inactive and store them in the dictionary
-            foreach (GameObject marker in allActivityMarkerGameObjects)
-            {
-                marker.SetActive(false);
-                allActivityMarkers[marker.name] = marker;
-            }
-
-            //questHelper.LoadStoryGraph();
-        }
-        catch (Exception ex)
+        // Mark all activity markers as inactive and store them in the dictionary
+        foreach (GameObject marker in allActivityMarkerGameObjects)
         {
-            GameLog.ExceptionMessage($"QuestManager() exception: {ex.ToString()}");
+            marker.SetActive(false);
+            allActivityMarkers[marker.name] = marker;
         }
-        GameLog.NormalMessage("QuestManager() finished");
+
+        //questHelper.LoadStoryGraph();
     }
 
     /// <summary>
@@ -95,8 +87,14 @@ public class QuestManager : MonoBehaviour
                 GameLog.ErrorMessage($"QuestManager CurrentTaskName: TaskDictionary does not have a task called '{value}'");
                 return;
             }
+
             currentTaskName = value;
             QuestHelper.TaskDictionary[currentTaskName].State = StoryState.Active;
+
+            if ((allActivityMarkers != null) && (allActivityMarkers.TryGetValue(currentTaskName, out GameObject marker)))
+            {
+                marker.SetActive(true);
+            }
         }
     }
 
@@ -191,9 +189,7 @@ public class QuestManager : MonoBehaviour
             allSignificantEvents.Add(significantEvent, DateTime.Now);
         }
 
-        Quest currentQuest = GetCurrentQuest;
-
-        foreach (string questTitle in OutstandingQuests)
+        foreach (string questTitle in QuestManager.OutstandingQuests)
         {
             Quest singleQuest = GetQuest(questTitle);
             if ((singleQuest == null) || (singleQuest.TaskTitles == null))

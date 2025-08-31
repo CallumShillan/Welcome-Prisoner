@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 3770881e493f4db4e9f6d3122338e412, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -10
+      value: -5.5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3770881e493f4db4e9f6d3122338e412, type: 3}
       propertyPath: m_LocalPosition.y
@@ -18,23 +18,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3770881e493f4db4e9f6d3122338e412, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -5.5
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3770881e493f4db4e9f6d3122338e412, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3770881e493f4db4e9f6d3122338e412, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3770881e493f4db4e9f6d3122338e412, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3770881e493f4db4e9f6d3122338e412, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3770881e493f4db4e9f6d3122338e412, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -42,7 +42,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3770881e493f4db4e9f6d3122338e412, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3770881e493f4db4e9f6d3122338e412, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -75,6 +75,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 3770881e493f4db4e9f6d3122338e412, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 2489159159464621496, guid: 3770881e493f4db4e9f6d3122338e412, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2489159159464621496, guid: 3770881e493f4db4e9f6d3122338e412, type: 3}
       propertyPath: m_LocalPosition.y
@@ -200,6 +204,26 @@ PrefabInstance:
     - target: {fileID: 8671839202964230171, guid: 193b3f315f8fa5d4180bde8172f2a2b9, type: 3}
       propertyPath: m_Name
       value: Fluorescent Light
+      objectReference: {fileID: 0}
+    - target: {fileID: 9115424693376937526, guid: 193b3f315f8fa5d4180bde8172f2a2b9, type: 3}
+      propertyPath: m_Range
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9115424693376937526, guid: 193b3f315f8fa5d4180bde8172f2a2b9, type: 3}
+      propertyPath: m_Intensity
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9115424693376937526, guid: 193b3f315f8fa5d4180bde8172f2a2b9, type: 3}
+      propertyPath: m_AreaSize.y
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 9115424693376937526, guid: 193b3f315f8fa5d4180bde8172f2a2b9, type: 3}
+      propertyPath: m_BoundingSphereOverride.x
+      value: -3.777893e+22
+      objectReference: {fileID: 0}
+    - target: {fileID: 9115424693376937526, guid: 193b3f315f8fa5d4180bde8172f2a2b9, type: 3}
+      propertyPath: m_BoundingSphereOverride.z
+      value: 1.8e-43
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

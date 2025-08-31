@@ -75,6 +75,19 @@ public class DisplayGameMessage : Singleton<DisplayGameMessage>
 
             gameMessageDocument.rootVisualElement.visible = true;
         }
+
+        if (Globals.Instance.AudioClips.TryGetValue(gameMessageTitle, out var messageClip))
+        {
+            AudioSource audioSource = Globals.Instance.VoiceMessageAudioSource;
+            Globals.Instance.CurrentAudioSource = audioSource; // So, it can be stopped if user dismisses the message.
+            audioSource.clip = messageClip;
+            audioSource.loop = false;
+            audioSource.Play();
+        }
+        else
+        {
+            Debug.LogWarning($"Audio clip for '{gameMessageTitle}' not found in Globals.AudioClips. Did you forget to add it?");
+        }
     }
 
     #region Internal Support Methods

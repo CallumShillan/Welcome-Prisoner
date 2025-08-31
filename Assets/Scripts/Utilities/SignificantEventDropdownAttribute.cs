@@ -1,10 +1,10 @@
 using UnityEngine;
 
-public class StringDropdownAttribute : PropertyAttribute
+public class SignificantEventDropdownAttribute : PropertyAttribute
 {
     public string methodName;
 
-    public StringDropdownAttribute(string methodName)
+    public SignificantEventDropdownAttribute(string methodName)
     {
         this.methodName = methodName;
     }

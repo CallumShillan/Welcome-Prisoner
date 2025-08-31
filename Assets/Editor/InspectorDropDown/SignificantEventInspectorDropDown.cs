@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Linq;
 
-[CustomPropertyDrawer(typeof(StringDropdownAttribute))]
+[CustomPropertyDrawer(typeof(SignificantEventDropdownAttribute))]
 public class SignificantEventDropdownDrawer : PropertyDrawer
 {
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)

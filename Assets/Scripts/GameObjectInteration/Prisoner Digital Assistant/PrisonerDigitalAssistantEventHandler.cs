@@ -245,6 +245,15 @@ public class PrisonerDigitalAssistantEventHandler : MonoBehaviour
         UnityEngine.Cursor.visible = false;
 
         player.SetActive(true);
+
+        // As a result of using the PDA, there may be a game message to display    
+        if (Globals.Instance.AfterUseGameMessageSpeakerIconTexture != null && !string.IsNullOrEmpty(Globals.Instance.AfterUseGameMessageTitle))
+        {
+            DisplayGameMessage.Instance.ShowGameMessage(Globals.Instance.AfterUseGameMessageSpeakerIconTexture, Globals.Instance.AfterUseGameMessageTitle);
+            Globals.Instance.AfterUseGameMessageSpeakerIconTexture = null;
+            Globals.Instance.AfterUseGameMessageTitle = string.Empty;
+        }
+
     }
 
     public void UpdateTimeReadout(DateTime displayDateTime)

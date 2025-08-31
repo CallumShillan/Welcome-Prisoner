@@ -8,7 +8,7 @@ public class AnimationTrigger : MonoBehaviour, IActionInterface
     private const string ActionPlaceholder = "{ACTION}";
 
     [SerializeField, Tooltip("The significant event to raise")]
-    [StringDropdown("GetSignificantEvents")]
+    [SignificantEventDropdown("GetSignificantEvents")]
     private string significantEvent = string.Empty;
 
     [SerializeField, Tooltip("The name of this action")]
@@ -25,6 +25,17 @@ public class AnimationTrigger : MonoBehaviour, IActionInterface
 
     [SerializeField, Tooltip("Optional game object to initialy hide")]
     private GameObject gameObjectToHide = null;
+
+    [SerializeField, Tooltip("Should a quest+task be started?")]
+    private bool initiateQuest = false;
+
+    [SerializeField, Tooltip("The follow-on Quest to initiate, if needed")]
+    [QuestDropdown("GetQuestNames")]
+    private string questToInitiate = string.Empty;
+
+    [SerializeField, Tooltip("The follow-on Task to initiate, if needed")]
+    [TaskDropdown("GetTaskNames")]
+    private string taskToInitiate = string.Empty;
 
     private Animator theAnimator = null;
 
@@ -72,7 +83,15 @@ public class AnimationTrigger : MonoBehaviour, IActionInterface
         else
         {
             gameObjectToHide.SetActive(false);
-            GameLog.ErrorMessage(this, "Game object to hide has been set not active.");
+            GameLog.NormalMessage(this, $"Game object '{gameObjectToHide.name}' has been set not active so as to hide it.");
+        }
+
+        if (initiateQuest)
+        {
+            if (string.IsNullOrWhiteSpace(questToInitiate) || string.IsNullOrWhiteSpace(taskToInitiate))
+            {
+                GameLog.ErrorMessage(this, "If 'initiateQuest' is true, both 'questToInitiate' and 'taskToInitiate' must be set.");
+            }
         }
     }
 
@@ -119,6 +138,8 @@ public class AnimationTrigger : MonoBehaviour, IActionInterface
         {
             AudioSource.PlayClipAtPoint(audioToPlay, this.transform.position);
         }
+
+        GameUtils.InitiateQuestAndTask(questToInitiate, taskToInitiate);
 
         return true;
     }

@@ -46,7 +46,7 @@ public class TriggerMessageDisplay : MonoBehaviour
 
     // Significant Event to check condition against.
     [SerializeField, Tooltip("Significant Event to check condition against")]
-    [StringDropdown("GetSignificantEvents")]
+    [SignificantEventDropdown("GetSignificantEvents")]
     private string significantEvent = string.Empty;
 
     private bool triggerHandled = false;
@@ -116,20 +116,6 @@ public class TriggerMessageDisplay : MonoBehaviour
         if (shouldDisplayMessage)
         {
             DisplayGameMessage.Instance.ShowGameMessage(speakerIconTexture, gameMessageTitle);
-
-            if (Globals.Instance.AudioClips.TryGetValue(gameMessageTitle, out var messageClip))
-            {
-                AudioSource audioSource = Globals.Instance.VoiceMessageAudioSource;
-                Globals.Instance.CurrentAudioSource = audioSource; // So, it can be stopped if user dismisses the message.
-                audioSource.clip = messageClip;
-                audioSource.loop = false;
-                audioSource.Play();
-            }
-            else
-            {
-                Debug.LogWarning($"Audio clip for '{gameMessageTitle}' not found in Globals.AudioClips. Did you forget to add it?");
-            }
-
         }
     }
 }

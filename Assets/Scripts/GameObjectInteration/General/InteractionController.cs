@@ -220,6 +220,13 @@ public class InteractionController : MonoBehaviour
                     Cursor.visible = false;
                     Globals.Instance.CursorIcon.SetActive(true);
                     player.SetActive(true);
+
+                    if(Globals.Instance.AfterUseGameMessageSpeakerIconTexture != null && !string.IsNullOrEmpty(Globals.Instance.AfterUseGameMessageTitle))
+                    {
+                        DisplayGameMessage.Instance.ShowGameMessage(Globals.Instance.AfterUseGameMessageSpeakerIconTexture, Globals.Instance.AfterUseGameMessageTitle);
+                        Globals.Instance.AfterUseGameMessageSpeakerIconTexture = null;
+                        Globals.Instance.AfterUseGameMessageTitle = string.Empty;
+                    }
                     break;
 
                 case InteractionStatus.Continuing:

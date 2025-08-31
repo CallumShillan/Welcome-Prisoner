@@ -13,7 +13,7 @@ public class QuestTrigger : MonoBehaviour
 
     [SerializeField]
     [Tooltip("The Significant Event to raise, if needed")]
-    [StringDropdown("GetSignificantEvents")]
+    [SignificantEventDropdown("GetSignificantEvents")]
     private string significantEvent = string.Empty;
 
     [SerializeField]
@@ -74,18 +74,6 @@ public class QuestTrigger : MonoBehaviour
         // To be here means quest is either repeatable or not yet triggered, either way, we need to set it up
         questAlreadyTriggered = true;
 
-        // Determine if we have a quest and task to initiate
-        bool hasQuest = !string.IsNullOrWhiteSpace(questToInitiate);
-        bool hasTask = !string.IsNullOrWhiteSpace(taskToInitiate);
-
-        if (hasQuest && hasTask)
-        {
-            QuestManager.CurrentQuestName = questToInitiate;
-            QuestManager.CurrentTaskName = taskToInitiate;
-        }
-        else
-        {
-            GameLog.ErrorMessage($"QuestTrigger on '{gameObject.name}' has no Quest and Task set to trigger. Quest: {questToInitiate}. Task: {taskToInitiate}");
-        }
+        GameUtils.InitiateQuestAndTask(questToInitiate, taskToInitiate);
     }
 }

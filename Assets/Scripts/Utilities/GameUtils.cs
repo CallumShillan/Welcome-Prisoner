@@ -16,6 +16,22 @@ public static class GameUtils
 
     public static string SplitPascalCase(string input)
     {
-        return System.Text.RegularExpressions.Regex.Replace(input, "(\\B[A-Z])", " $1");
+        return Regex.Replace(input, "(\\B[A-Z])", " $1");
+    }
+
+    public static bool InitiateQuestAndTask(string questToInitiate, string taskToInitiate)
+    {
+        // Determine if we have a quest and task to initiate
+        bool hasQuest = !string.IsNullOrWhiteSpace(questToInitiate);
+        bool hasTask = !string.IsNullOrWhiteSpace(taskToInitiate);
+
+        if (hasQuest && hasTask)
+        {
+            QuestManager.CurrentQuestName = questToInitiate;
+            QuestManager.CurrentTaskName = taskToInitiate;
+            return true;
+        }
+
+        return false;
     }
 }

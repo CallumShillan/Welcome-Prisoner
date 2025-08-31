@@ -25,8 +25,7 @@
                 "ReportToReception",
                 "PickUpPDA",
                 "ReportToSecurity",
-                "HavePictureTaken",
-                "PickUpIdentityCard",
+                "GetYourIdentityCard",
                 "ReportToMedical",
                 "MedicalCheck",
                 "ReportToStorage",
@@ -62,7 +61,7 @@
         {
             "State": 0,
             "GameState": "Pending",
-            "CompletionEvent": "RECEPTION_ENTERED",
+            "CompletionEvent": "RECEPTION_DOOR_OPENED",
             "Title": "ReportToReception",
             "ShortDescription": "Upon arrival, prisoners should report to reception to pick up the steps for their Induction Process.",
             "LongDescription": "Arriving at reception marks the initial phase of a prisoner’s journey within the correctional facility.\r\nAs new inmates arrive, they are ushered into the intake area, a transitional space bridging the outside world and the confines of prison.\r\nHere, prison officials meticulously document each arrival, giving them the tasks for their Induction Process.\r\nPersonal belongings are systematically confiscated to maintain security and order within the facility; only approved items are retained.\r\nThis process is crucial for establishing authority and setting the tone for the inmates’ forthcoming incarceration period.\r\nIt is also during this stage that prisoners are stripped of their civilian identity and prepared for their new reality behind bars, a psychological shift that begins with relinquishing possessions and accepting the prison’s authority.\r\nThe reception step is a procedural necessity that ensures smooth inmate management and upholds institutional security.\r",
@@ -89,19 +88,10 @@
         {
             "State": 0,
             "GameState": "Pending",
-            "CompletionEvent": "PICTURE_TAKEN",
-            "Title": "HavePictureTaken",
-            "ShortDescription": "Stand in fron of the camera and have your picture taken.",
-            "LongDescription": "",
-            "IsActive": false
-        },
-        {
-            "State": 0,
-            "GameState": "Pending",
             "CompletionEvent": "IDENTITY_CARD_ACQUIRED",
-            "Title": "PickUpIdentityCard",
-            "ShortDescription": "Pick up your Idendity Card from the Security Officer's desk.",
-            "LongDescription": "Your Identity Card is more than just a name tag, it is your lifeline inside these walls.\r\nGuards scan it to verify who you are and where you are allowed to be. It grants access to certain areas, tracks your movements, and affects how staff treat you. Lose it, and you will raise suspicion.\r\nSteal someone else’s, and you might slip past checkpoints—but if you’re caught, expect lockdown. Some inmates forge cards to gain power or escape. Use yours wisely. Whether you play by the rules or bend them, this little piece of plastic could change everything.",
+            "Title": "GetYourIdentityCard",
+            "ShortDescription": "Have your picture taken so your PDAcan be been updated with your security card.",
+            "LongDescription": "Your PDA's Identity Card is more than just a name tag, it is your lifeline inside these walls.\r\nGuards scan it to verify who you are and where you are allowed to be. It grants access to certain areas, tracks your movements, and affects how staff treat you. Lose it, and you will raise suspicion.\r\nSteal someone else’s, and you might slip past checkpoints—but if you’re caught, expect lockdown. Some inmates forge cards to gain power or escape. Use yours wisely. Whether you play by the rules or bend them, this little piece of plastic could change everything.",
             "IsActive": false
         },
         {
@@ -245,7 +235,7 @@
         "PRISONER_INDUCTED_AND_EVIDENCE_FOUND",
         "PRISONER_INDUCTED",
         "START_SEARCH_FOR_EVIDENCE",
-        "RECEPTION_ENTERED",
+        "RECEPTION_DOOR_OPENED",
         "PDA_ACQUIRED",
         "SECURITY_ENTERED",
         "PICTURE_TAKEN",

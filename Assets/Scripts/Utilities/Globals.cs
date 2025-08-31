@@ -87,8 +87,31 @@ public class Globals : Singleton<Globals>
     public UnityEngine.UI.Image ActionIcon => actionIcon;
 
     [SerializeField, Tooltip("Used for playing the spoken audio of messages")]
-    private AudioSource voiceMessageAutioSource = null;
-    public AudioSource VoiceMessageAudioSource => voiceMessageAutioSource;
+    private AudioSource voiceMessageAudioSource = null;
+    public AudioSource VoiceMessageAudioSource => voiceMessageAudioSource;
+
+    [Header("After interaction message settings")]
+    // The texture used to represent the speaker's icon in the game message.
+    [SerializeField, Tooltip("The speaker's face icon texture")]
+    private Texture2D afterUseSpeakerIconTexture;
+    public Texture2D AfterUseGameMessageSpeakerIconTexture
+    {
+        get => afterUseSpeakerIconTexture;
+        set => afterUseSpeakerIconTexture = value;
+    }
+
+    // The title of the game message that will be displayed.
+    [SerializeField, Tooltip("The game message title")]
+    [GameMessageFile]
+    [MessageAudioPreview]
+    private string afterUseGameMessageTitle = string.Empty;
+    public string AfterUseGameMessageTitle
+    {
+        get => afterUseGameMessageTitle;
+        set => afterUseGameMessageTitle = value;
+    }
+
+
 
     private Dictionary<string, AudioClip> audioClips = new Dictionary<string, AudioClip>();
     public Dictionary<string, AudioClip> AudioClips => audioClips;
