@@ -179,7 +179,7 @@ public class QuestManager : MonoBehaviour
     /// </summary>
     public static void HandleSignificantEvent(string significantEvent)
     {
-        if (string.IsNullOrEmpty(significantEvent))
+        if (string.IsNullOrEmpty(significantEvent) || string.Equals(significantEvent, "--IRRELEVANT--"))
         {
             return;
         }

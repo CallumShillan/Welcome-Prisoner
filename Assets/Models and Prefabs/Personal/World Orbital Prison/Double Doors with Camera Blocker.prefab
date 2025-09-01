@@ -65,6 +65,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -4079817744994621341, guid: c7b83e927128ece4f96ed4fb595ee7eb, type: 3}
+      propertyPath: m_StaticShadowCaster
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -4079817744994621341, guid: c7b83e927128ece4f96ed4fb595ee7eb, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 3b34c03af18bf4f448992d72fcb6c856, type: 2}
@@ -78,7 +82,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 500981093843931169, guid: c7b83e927128ece4f96ed4fb595ee7eb, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 126
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c7b83e927128ece4f96ed4fb595ee7eb, type: 3}
       propertyPath: m_Name
@@ -118,7 +122,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4105342183039036831, guid: c7b83e927128ece4f96ed4fb595ee7eb, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 0
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 4933375084053782343, guid: c7b83e927128ece4f96ed4fb595ee7eb, type: 3}
       propertyPath: m_LocalPosition.y
@@ -130,7 +134,11 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 3b34c03af18bf4f448992d72fcb6c856, type: 2}
     - target: {fileID: 5043040995612286574, guid: c7b83e927128ece4f96ed4fb595ee7eb, type: 3}
       propertyPath: m_CastShadows
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5043040995612286574, guid: c7b83e927128ece4f96ed4fb595ee7eb, type: 3}
+      propertyPath: m_StaticShadowCaster
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5043040995612286574, guid: c7b83e927128ece4f96ed4fb595ee7eb, type: 3}
       propertyPath: m_Materials.Array.size
@@ -260,9 +268,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62872f3fff56ae849a4c451dc7f47f0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  significantEvent: 
   doorIsLocked: 0
   doorIsOpen: 0
+  significantEvent: 
 --- !u!1 &7864364001736010114 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4105342183039036831, guid: c7b83e927128ece4f96ed4fb595ee7eb, type: 3}

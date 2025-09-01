@@ -20,22 +20,11 @@ public class AnimationTrigger : MonoBehaviour, IActionInterface
     [SerializeField, Tooltip("The animation to play")]
     private string animationToPlay = string.Empty;
 
-    [SerializeField, Tooltip("Optional animation to play")]
+    [SerializeField, Tooltip("Optional audio to play")]
     private AudioClip audioToPlay = null;
 
-    [SerializeField, Tooltip("Optional game object to initialy hide")]
+    [SerializeField, Tooltip("Optional game object to initially hide")]
     private GameObject gameObjectToHide = null;
-
-    [SerializeField, Tooltip("Should a quest+task be started?")]
-    private bool initiateQuest = false;
-
-    [SerializeField, Tooltip("The follow-on Quest to initiate, if needed")]
-    [QuestDropdown("GetQuestNames")]
-    private string questToInitiate = string.Empty;
-
-    [SerializeField, Tooltip("The follow-on Task to initiate, if needed")]
-    [TaskDropdown("GetTaskNames")]
-    private string taskToInitiate = string.Empty;
 
     private Animator theAnimator = null;
 
@@ -85,14 +74,6 @@ public class AnimationTrigger : MonoBehaviour, IActionInterface
             gameObjectToHide.SetActive(false);
             GameLog.NormalMessage(this, $"Game object '{gameObjectToHide.name}' has been set not active so as to hide it.");
         }
-
-        if (initiateQuest)
-        {
-            if (string.IsNullOrWhiteSpace(questToInitiate) || string.IsNullOrWhiteSpace(taskToInitiate))
-            {
-                GameLog.ErrorMessage(this, "If 'initiateQuest' is true, both 'questToInitiate' and 'taskToInitiate' must be set.");
-            }
-        }
     }
 
     /// <summary>
@@ -138,8 +119,6 @@ public class AnimationTrigger : MonoBehaviour, IActionInterface
         {
             AudioSource.PlayClipAtPoint(audioToPlay, this.transform.position);
         }
-
-        GameUtils.InitiateQuestAndTask(questToInitiate, taskToInitiate);
 
         return true;
     }

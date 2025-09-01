@@ -17,19 +17,6 @@ public class DoorInteractionHandler : MonoBehaviour, IActionInterface
     [SignificantEventDropdown("GetSignificantEvents")]
     private string significantEvent = string.Empty;
 
-    [SerializeField, Tooltip("Should a quest+task be started?")]
-    private bool initiateQuest = false;
-
-    [SerializeField]
-    [Tooltip("The follow-on Quest to initiate, if needed")]
-    [QuestDropdown("GetQuestNames")]
-    private string questToInitiate = string.Empty;
-
-    [SerializeField]
-    [Tooltip("The follow-on Task to initiate, if needed")]
-    [TaskDropdown("GetTaskNames")]
-    private string taskToInitiate = string.Empty;
-
     private Animator objectAnimator;
 
     public bool IsDoorLocked
@@ -56,14 +43,6 @@ public class DoorInteractionHandler : MonoBehaviour, IActionInterface
         if (objectAnimator == null)
         {
             GameLog.ErrorMessage(this, $"Unable to get the animator for door '{name}'. Did you forget to set one in the editor?");
-        }
-
-        if(initiateQuest)
-        {
-            if (string.IsNullOrWhiteSpace(questToInitiate) || string.IsNullOrWhiteSpace(taskToInitiate))
-            {
-                GameLog.ErrorMessage(this, "If 'initiateQuest' is true, both 'questToInitiate' and 'taskToInitiate' must be set.");
-            }
         }
 
         // Uncomment if not bored by these messages
@@ -143,11 +122,6 @@ public class DoorInteractionHandler : MonoBehaviour, IActionInterface
             GameLog.Message(LogType.Log, this, "Opening the door");
             objectAnimator.Play(Globals.Instance.DoorAudioVisuals.OpenAnimation, 0, 0.0f);
             doorIsOpen = true;
-        }
-
-        if (initiateQuest)
-        { 
-            GameUtils.InitiateQuestAndTask(questToInitiate, taskToInitiate);
         }
 
         return false; // No further interactions needed

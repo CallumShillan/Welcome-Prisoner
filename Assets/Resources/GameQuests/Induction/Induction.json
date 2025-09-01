@@ -79,7 +79,7 @@
         {
             "State": 0,
             "GameState": "Pending",
-            "CompletionEvent": "SECURITY_ENTERED",
+            "CompletionEvent": "SECURITY_DOOR_OPENED",
             "Title": "ReportToSecurity",
             "ShortDescription": "Go to the Security Office so you can pick up your Identity Card.",
             "LongDescription": "",
@@ -237,7 +237,7 @@
         "START_SEARCH_FOR_EVIDENCE",
         "RECEPTION_DOOR_OPENED",
         "PDA_ACQUIRED",
-        "SECURITY_ENTERED",
+        "SECURITY_DOOR_OPENED",
         "PICTURE_TAKEN",
         "IDENTITY_CARD_ACQUIRED",
         "MEDICAL_ENTERED",

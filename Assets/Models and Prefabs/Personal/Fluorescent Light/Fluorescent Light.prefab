@@ -102,7 +102,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: f10f72643ad49424e940b1a8f8ed3912, type: 3}
       propertyPath: m_Name
-      value: Corridor Fluorescent Light
+      value: Fluorescent Light
       objectReference: {fileID: 0}
     - target: {fileID: 6785061645393524300, guid: f10f72643ad49424e940b1a8f8ed3912, type: 3}
       propertyPath: m_LocalRotation.w
@@ -145,18 +145,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8292076221270657697}
     m_Modifications:
-    - target: {fileID: 824322426757138556, guid: 218afa43381493a40b8605712e1bd55f, type: 3}
-      propertyPath: m_Color.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 824322426757138556, guid: 218afa43381493a40b8605712e1bd55f, type: 3}
-      propertyPath: m_Color.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 824322426757138556, guid: 218afa43381493a40b8605712e1bd55f, type: 3}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1888773206979355153, guid: 218afa43381493a40b8605712e1bd55f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

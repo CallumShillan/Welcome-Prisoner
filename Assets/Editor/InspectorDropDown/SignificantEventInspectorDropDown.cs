@@ -12,7 +12,7 @@ public class SignificantEventDropdownDrawer : PropertyDrawer
     {
         //QuestHelper questHelper = new QuestHelper();
 //        questHelper.LoadStoryGraph(); // Ensure quests are loaded
-        List<string> displayedOptions = QuestHelper.CompletionEvents;
+        List<string> displayedOptions = new List<string>(QuestHelper.CompletionEvents);
         displayedOptions.Sort((a, b) =>
         {
             bool aPrefixed = a.StartsWith("--");
@@ -42,7 +42,7 @@ public class QuestDropdownDrawer : PropertyDrawer
 {
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {
-        List<string> displayedOptions = QuestHelper.QuestTitles;
+        List<string> displayedOptions = new List<string>(QuestHelper.QuestTitles);
         displayedOptions.Sort();
 
         int currentIndex = displayedOptions.IndexOf(property.stringValue);
@@ -78,7 +78,7 @@ public class TaskDropdownDrawer : PropertyDrawer
 
         // Get the quest chosen in the Inspector, and its tasks
         Quest quest = QuestHelper.QuestDictionary[questToInitiateValue];
-        displayedOptions = quest.TaskTitles;
+        displayedOptions = new List<string>(quest.TaskTitles);
         displayedOptions.Sort();
 
         int currentIndex = displayedOptions.IndexOf(property.stringValue);
