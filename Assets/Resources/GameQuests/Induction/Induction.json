@@ -26,10 +26,10 @@
                 "PickUpPDA",
                 "ReportToSecurity",
                 "GetYourIdentityCard",
-                "ReportToMedical",
-                "MedicalCheck",
                 "ReportToStorage",
                 "PersonalPropertyRemoved",
+                "ReportToMedical",
+                "MedicalCheck",
                 "CellAssignment"
             ],
             "IsActive": false
@@ -97,25 +97,7 @@
         {
             "State": 0,
             "GameState": "Pending",
-            "CompletionEvent": "MEDICAL_ENTERED",
-            "Title": "ReportToMedical",
-            "ShortDescription": "Go to the Medica Office so you can record have your medical check-up.",
-            "LongDescription": "",
-            "IsActive": false
-        },
-        {
-            "State": 0,
-            "GameState": "Pending",
-            "CompletionEvent": "MEDICAL_CHECK_COMPLETED",
-            "Title": "MedicalCheck",
-            "ShortDescription": "Go to the Medical room so a thorough medical examination can be conducted to assess your health and identify any immediate medical needs.",
-            "LongDescription": "The Medical Check step is a vital component of the prisoner induction process, ensuring the health and well-being of new inmates.\r\nUpon entry, prisoners undergo a comprehensive medical examination conducted by healthcare professionals. This assessment includes a review of medical history, current health status, and any necessary screenings or tests to detect communicable diseases or immediate health concerns.\r\nThe evaluation also identifies inmates who may require special medical attention or accommodations during their incarceration. Mental health screenings are part of this process, aiming to provide early intervention for those in need.\r\nThe information gathered is crucial for creating individualized healthcare plans and integrating health considerations into overall prison management.\r\nThis step underscores the facility’s commitment to maintaining a safe and healthy environment for all inmates, staff, and visitors, while also upholding the human rights of those incarcerated.\r\nThe Medical Check step is a vital component of the prisoner induction process, ensuring the health and well-being of new inmates.\r\nUpon entry, prisoners undergo a comprehensive medical examination conducted by healthcare professionals. This assessment includes a review of medical history, current health status, and any necessary screenings or tests to detect communicable diseases or immediate health concerns.\r\nThe evaluation also identifies inmates who may require special medical attention or accommodations during their incarceration. Mental health screenings are part of this process, aiming to provide early intervention for those in need.\r\nThe information gathered is crucial for creating individualized healthcare plans and integrating health considerations into overall prison management.\r\nThis step underscores the facility’s commitment to maintaining a safe and healthy environment for all inmates, staff, and visitors, while also upholding the human rights of those incarcerated.\r",
-            "IsActive": false
-        },
-        {
-            "State": 0,
-            "GameState": "Pending",
-            "CompletionEvent": "STORAGE_ENTERED",
+            "CompletionEvent": "STORAGE_DOOR_OPENED",
             "Title": "ReportToStorage",
             "ShortDescription": "Go to the Storage room so your personal possessions can be inventoried, and prohibited items are stored or disposed of.",
             "LongDescription": "",
@@ -128,6 +110,24 @@
             "Title": "PersonalPropertyRemoved",
             "ShortDescription": "Go to the Personal Property room so your personal possessions can be inventoried, and prohibited items are stored or disposed of.",
             "LongDescription": "The Property Inventory step in the prisoner induction process is a systematic approach to managing inmates’ personal belongings.\r\nUpon arrival, prisoners’ items are thoroughly examined and catalogued by prison staff. Essential items permitted within the facility are recorded and stored for inmate use, while contraband or unauthorized possessions are either disposed of or kept in secure storage until release.\r\nThis meticulous inventory ensures that each item is accounted for, preventing the introduction of prohibited materials that could compromise safety or security. The process also serves to respect inmates’ property rights by safeguarding their personal effects.\r\nIt’s a clear message that while the prison controls the environment, it also acknowledges the ownership rights of inmates, balancing security needs with individual rights.\r\nThis step is crucial for maintaining order and discipline within the facility, as well as providing a sense of personal responsibility and ownership to the inmates.\r\nThe Property Inventory step in the prisoner induction process is a systematic approach to managing inmates’ personal belongings.\r\nUpon arrival, prisoners’ items are thoroughly examined and catalogued by prison staff. Essential items permitted within the facility are recorded and stored for inmate use, while contraband or unauthorized possessions are either disposed of or kept in secure storage until release.\r\nThis meticulous inventory ensures that each item is accounted for, preventing the introduction of prohibited materials that could compromise safety or security. The process also serves to respect inmates’ property rights by safeguarding their personal effects.\r\nIt’s a clear message that while the prison controls the environment, it also acknowledges the ownership rights of inmates, balancing security needs with individual rights.\r\nThis step is crucial for maintaining order and discipline within the facility, as well as providing a sense of personal responsibility and ownership to the inmates.\r\n",
+            "IsActive": false
+        },
+        {
+            "State": 0,
+            "GameState": "Pending",
+            "CompletionEvent": "MEDICAL_DOOR_OPENED",
+            "Title": "ReportToMedical",
+            "ShortDescription": "Go to the Medica Office so you can record have your medical check-up.",
+            "LongDescription": "",
+            "IsActive": false
+        },
+        {
+            "State": 0,
+            "GameState": "Pending",
+            "CompletionEvent": "MEDICAL_CHECK_COMPLETED",
+            "Title": "MedicalCheck",
+            "ShortDescription": "Go to the Medical room so a thorough medical examination can be conducted to assess your health and identify any immediate medical needs.",
+            "LongDescription": "The Medical Check step is a vital component of the prisoner induction process, ensuring the health and well-being of new inmates.\r\nUpon entry, prisoners undergo a comprehensive medical examination conducted by healthcare professionals. This assessment includes a review of medical history, current health status, and any necessary screenings or tests to detect communicable diseases or immediate health concerns.\r\nThe evaluation also identifies inmates who may require special medical attention or accommodations during their incarceration. Mental health screenings are part of this process, aiming to provide early intervention for those in need.\r\nThe information gathered is crucial for creating individualized healthcare plans and integrating health considerations into overall prison management.\r\nThis step underscores the facility’s commitment to maintaining a safe and healthy environment for all inmates, staff, and visitors, while also upholding the human rights of those incarcerated.\r\nThe Medical Check step is a vital component of the prisoner induction process, ensuring the health and well-being of new inmates.\r\nUpon entry, prisoners undergo a comprehensive medical examination conducted by healthcare professionals. This assessment includes a review of medical history, current health status, and any necessary screenings or tests to detect communicable diseases or immediate health concerns.\r\nThe evaluation also identifies inmates who may require special medical attention or accommodations during their incarceration. Mental health screenings are part of this process, aiming to provide early intervention for those in need.\r\nThe information gathered is crucial for creating individualized healthcare plans and integrating health considerations into overall prison management.\r\nThis step underscores the facility’s commitment to maintaining a safe and healthy environment for all inmates, staff, and visitors, while also upholding the human rights of those incarcerated.\r",
             "IsActive": false
         },
         {
@@ -178,7 +178,7 @@
         {
             "State": 0,
             "GameState": "Pending",
-            "CompletionEvent": "SECURITY_CAMERS_DISABLED",
+            "CompletionEvent": "SECURITY_CAMERAS_DISABLED",
             "Title": "DisableSecurityCameras",
             "ShortDescription": "Once inside the restricted area, find the control panel for the security cameras and disable them to avoid detection.",
             "LongDescription": "Inside the restricted area, locate the control panel for the security cameras. Disabling the cameras will prevent you from being detected while you continue your mission. Look for a manual override switch or a computer terminal that controls the camera system. Be quick and efficient to avoid raising any alarms.",
@@ -240,16 +240,16 @@
         "SECURITY_DOOR_OPENED",
         "PICTURE_TAKEN",
         "IDENTITY_CARD_ACQUIRED",
-        "MEDICAL_ENTERED",
-        "MEDICAL_CHECK_COMPLETED",
-        "STORAGE_ENTERED",
+        "STORAGE_DOOR_OPENED",
         "PROPERTY_INVENTORIED",
+        "MEDICAL_DOOR_OPENED",
+        "MEDICAL_CHECK_COMPLETED",
         "CELL_ASSIGNMENT_COMPLETE",
         "SECURITY_CARD_FOUND",
         "WHITEBOARD_OBSERVED",
         "KEY_LOCATED",
         "RESTRICTED_AREA_ACCESSED",
-        "SECURITY_CAMERS_DISABLED",
+        "SECURITY_CAMERAS_DISABLED",
         "PRISON_OFFICER_DESK_SEARCHED",
         "COMPUTER_TERMINAL_CHECKED",
         "ADDITIONAL_SECURITY_BYPASSED",

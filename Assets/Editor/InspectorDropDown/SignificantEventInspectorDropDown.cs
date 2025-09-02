@@ -5,14 +5,18 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Linq;
 
+/// <summary>
+/// Custom property drawer for fields marked with <see cref="SignificantEventDropdownAttribute"/>.
+/// Displays a dropdown menu in the inspector populated with significant event names from the global story list.
+/// Events prefixed with "--" are prioritized to appear at the top, followed by a case-insensitive alphabetical sort.
+/// Ensures the current property value is selected if valid, and updates the string property based on user selection.
+/// </summary>
 [CustomPropertyDrawer(typeof(SignificantEventDropdownAttribute))]
 public class SignificantEventDropdownDrawer : PropertyDrawer
 {
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {
-        //QuestHelper questHelper = new QuestHelper();
-//        questHelper.LoadStoryGraph(); // Ensure quests are loaded
-        List<string> displayedOptions = new List<string>(QuestHelper.CompletionEvents);
+        List<string> displayedOptions = Globals.Instance.CompletionEvents;
         displayedOptions.Sort((a, b) =>
         {
             bool aPrefixed = a.StartsWith("--");
@@ -37,12 +41,18 @@ public class SignificantEventDropdownDrawer : PropertyDrawer
     }
 }
 
+/// <summary>
+/// Custom property drawer for fields marked with <see cref="QuestDropdownAttribute"/>.
+/// Renders a dropdown in the inspector populated with quest names from the global story list.
+/// Automatically selects the current value if present, or defaults to the first entry.
+/// Updates the serialized string property based on user selection.
+/// </summary>
 [CustomPropertyDrawer(typeof(QuestDropdownAttribute))]
 public class QuestDropdownDrawer : PropertyDrawer
 {
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {
-        List<string> displayedOptions = new List<string>(QuestHelper.QuestTitles);
+        List<string> displayedOptions = Globals.Instance.QuestTitles;
         displayedOptions.Sort();
 
         int currentIndex = displayedOptions.IndexOf(property.stringValue);

@@ -69,6 +69,45 @@ public class Globals : Singleton<Globals>
     private Camera mainCamera = null;
     public Camera MainCamera { get => mainCamera; }
 
+    private List<string> questTitles = null;
+    public List<string> QuestTitles
+    {
+        get
+        {
+            if (questTitles == null)
+            {
+                questTitles = QuestHelper.QuestTitles;
+            }
+            return questTitles;
+        }
+    }
+
+    //private List<string> taskTitles = null;
+    //public List<string> TaskTitles
+    //{
+    //    get
+    //    {
+    //        if (taskTitles == null)
+    //        {
+    //            taskTitles = QuestHelper.TaskTitles;
+    //        }
+    //        return taskTitles;
+    //    }
+    //}
+
+    private List<string> completionEvents = null;
+    public List<string> CompletionEvents
+    {
+        get
+        {
+            if (completionEvents.Count == 0)
+            {
+                completionEvents = QuestHelper.CompletionEvents;
+            }
+            return completionEvents;
+        }
+    }
+
     [SerializeField, Tooltip("Door animations and sounds")]
     private DoorAudioVisuals doorAudioVisuals = new DoorAudioVisuals();
     public DoorAudioVisuals DoorAudioVisuals { get => doorAudioVisuals; }
