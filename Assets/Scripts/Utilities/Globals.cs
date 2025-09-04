@@ -100,7 +100,7 @@ public class Globals : Singleton<Globals>
     {
         get
         {
-            if (completionEvents.Count == 0)
+            if (completionEvents == null || completionEvents.Count == 0)
             {
                 completionEvents = QuestHelper.CompletionEvents;
             }
