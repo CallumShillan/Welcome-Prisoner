@@ -127,57 +127,6 @@ public class PrisonerDigitalAssistantEventHandler : MonoBehaviour
         }
         buttonPowerControl.RegisterCallback<ClickEvent>(ev => { ClosePDA(); });
 
-        // Loop through all PDA Apps
-        foreach (PrisonerDigitalAssistantApp pdaApp in allPdaApps)
-        {
-            // Remember the PDA App's Visual Tree Asset and Identifier 
-            VisualTreeAsset appVisualTreeAsset = pdaApp.appVisualTreeAsset;
-            PdaAppId pdaAppIdentifier = pdaApp.pdaAppID;
-
-            // Check we got a Visual Tree Asset for the PDA App
-            if(appVisualTreeAsset is null)
-            {
-                GameLog.ErrorMessage(this, $"Visual Tree Asset for PDA App {pdaAppIdentifier} is null. Did you forget to set it in the Inspector?");
-                return;
-            }
-
-            // Get a Template Container to hold the App's Visual Tree Asset
-            TemplateContainer pdaAppTemplateContainer = appVisualTreeAsset.Instantiate();
-            if(pdaAppTemplateContainer is null)
-            {
-                GameLog.ErrorMessage(this, $"Unable to instantiate the Visual Tree Asset for PDA App {pdaAppIdentifier}");
-                return;
-            }
-
-            // Add the App's Template Container to the PDA App Host
-            pdaAppHost.Add(pdaAppTemplateContainer);
-
-            // Add the App's Template Container to the dictionary of allPdaAppVisualTrees
-            allPdaAppVisualTrees.Add(pdaAppIdentifier, pdaAppTemplateContainer);
-
-            // Wire up the PDA Apps
-            switch (pdaAppIdentifier)
-            {
-                case PdaAppId.PDAHomePage:
-                    PdaHomePageHelper.WireUp(pdaAppTemplateContainer, this);
-                    break;
-                case PdaAppId.MessageReader:
-                    MessageReaderHelper.WireUp(pdaAppTemplateContainer, this, "Messages", "Please select a message from the LHS ...");
-                    break;
-                case PdaAppId.EbookReader:
-                    EBookReaderHelper.WireUp(pdaAppTemplateContainer, this);
-                    break;
-                case PdaAppId.QuestDetails:
-                    QuestDetailsHelper.WireUp(pdaAppTemplateContainer, this);
-                    break;
-                case PdaAppId.ExitGame:
-                    ExitGameHelper.WireUp(pdaAppTemplateContainer, this);
-                    break;
-                default:
-                    break;
-            }
-        }
-
         // Hide the PDA display
         pdaRootVisualElement.style.display = DisplayStyle.None;
     }
@@ -196,30 +145,74 @@ public class PrisonerDigitalAssistantEventHandler : MonoBehaviour
         if (!showingPda)
         {
             // Remove the CSS Class that hides the PDA Frame so that the opacity transition will trigger making the UI fade in
-            pdaAppHost.RemoveFromClassList("pop-animation-hide");
+            //pdaAppHost.RemoveFromClassList("pop-animation-hide");
+            pdaRootVisualElement.style.display = DisplayStyle.Flex;
         }
 
-        // Display the PDA, and add the PDA App's root Visual Element into the PDA App host
-        pdaRootVisualElement.style.display = DisplayStyle.Flex;
-        pdaAppHost.Clear();
-        pdaAppHost.Add(allPdaAppVisualTrees[pdaAppIdToShow]);
+        PrisonerDigitalAssistantApp pdaApp = allPdaApps.Find(app => app.pdaAppID == pdaAppIdToShow);
 
-        // Allow the relevant helper to get ready for display and use
-        switch (pdaAppIdToShow)
+        // Remember the PDA App's Visual Tree Asset and Identifier 
+        VisualTreeAsset appVisualTreeAsset = pdaApp.appVisualTreeAsset;
+        PdaAppId pdaAppIdentifier = pdaApp.pdaAppID;
+
+        // Check we got a Visual Tree Asset for the PDA App
+        if (appVisualTreeAsset is null)
         {
+            GameLog.ErrorMessage(this, $"Visual Tree Asset for PDA App {pdaAppIdentifier} is null. Did you forget to set it in the Inspector?");
+            return;
+        }
+
+        // Get a Template Container to hold the App's Visual Tree Asset
+        //TemplateContainer pdaAppTemplateContainer = appVisualTreeAsset.Instantiate();
+        VisualElement pdaAppVisualElement = appVisualTreeAsset.CloneTree();
+        if (pdaAppVisualElement is null)
+        {
+            GameLog.ErrorMessage(this, $"Unable to instantiate the Visual Tree Asset for PDA App {pdaAppIdentifier}");
+            return;
+        }
+
+        // Add the App's Template Container to the dictionary of allPdaAppVisualTrees
+        if(!allPdaAppVisualTrees.ContainsKey(pdaAppIdentifier))
+        {
+            allPdaAppVisualTrees.Add(pdaAppIdentifier, pdaAppVisualElement);
+        }
+
+        // Wire up the PDA Apps
+        switch (pdaAppIdentifier)
+        {
+            case PdaAppId.PDAHomePage:
+                PdaHomePageHelper.WireUp(pdaAppVisualElement, this);
+                break;
             case PdaAppId.MessageReader:
+                MessageReaderHelper.WireUp(pdaAppVisualElement, this, "Messages", "Please select a message from the LHS ...");
                 MessageReaderHelper.CreateNavigationForKnownMessages();
-                break;
+            break;
             case PdaAppId.EbookReader:
-                //ABCD
+                EBookReaderHelper.WireUp(pdaAppVisualElement, this);
                 //EBookReaderHelper.CreateNavigationForKnownBooks();
-                break;
+            break;
             case PdaAppId.QuestDetails:
+                QuestDetailsHelper.WireUp(pdaAppVisualElement, this);
                 QuestDetailsHelper.CreateNavigationForKnownQuests();
+            break;
+            case PdaAppId.ExitGame:
+                ExitGameHelper.WireUp(pdaAppVisualElement, this);
                 break;
             default:
                 break;
         }
+
+        // Display the PDA, and add the PDA App's root Visual Element into the PDA App host
+        //pdaRootVisualElement.style.display = DisplayStyle.Flex;
+        pdaAppVisualElement.name = "homepage-root"; // Match USS selector
+        pdaAppVisualElement.style.flexGrow = 1;
+        pdaAppVisualElement.style.flexShrink = 1;
+        pdaAppVisualElement.style.flexBasis = new StyleLength(StyleKeyword.Undefined);
+        pdaAppVisualElement.style.width = new StyleLength(Length.Percent(100));
+        pdaAppVisualElement.style.height = new StyleLength(Length.Percent(100));
+
+        pdaAppHost.Clear();
+        pdaAppHost.Add(allPdaAppVisualTrees[pdaAppIdToShow]);
 
         showingPda = true;
     }

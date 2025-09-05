@@ -18896,6 +18896,10 @@ PrefabInstance:
       propertyPath: pdaAppHostUIDocument
       value: 
       objectReference: {fileID: 1407796097}
+    - target: {fileID: 2701235557972164505, guid: 2dfc6dd5bf76b974d835defb38a0b062, type: 3}
+      propertyPath: allPdaApps.Array.data[0].appVisualTreeAsset
+      value: 
+      objectReference: {fileID: 9197481963319205126, guid: d5fdd127b62ec724497a702f4a79b4aa, type: 3}
     - target: {fileID: 6164079743572523089, guid: 2dfc6dd5bf76b974d835defb38a0b062, type: 3}
       propertyPath: m_Name
       value: PrisonerDigitalAssistant

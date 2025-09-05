@@ -1,4 +1,41 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="project://database/Assets/UI%20Toolkit/Induction/Stylesheet.uss?fileID=7433441132597879392&amp;guid=b2d9f9a52ce45b243855b1280b07a326&amp;type=3#Stylesheet" />
-    <ui:GroupBox name="PdaHomePage" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; flex-grow: 1; flex-shrink: 1; width: 100%; height: 100%; background-color: rgb(194, 123, 123);" />
+    <Style src="project://database/Assets/UI%20Toolkit/Induction/PDA.uss?fileID=7433441132597879392&amp;guid=584da900d9e50ca44b91fa341611031a&amp;type=3#PDA" />
+    <ui:VisualElement name="homepage-root" class="homepage-root">
+        <ui:VisualElement name="topAppGrid" class="app-grid" style="flex-grow: 1; align-items: center; flex-direction: row;">
+            <ui:VisualElement class="app-element">
+                <ui:Button name="btn-QuestDetails" tooltip="List of tasks and activities" class="app-icon" style="background-image: url(&quot;project://database/Assets/Materials%20+%20Textures/Personal/Icons/Progress.png?fileID=2800000&amp;guid=9d6f5f0a70c3d004b84d2461307981d3&amp;type=3#Progress&quot;);" />
+                <ui:Label text="Tasks" display-tooltip-when-elided="true" class="homepageLabels" style="flex-grow: 1; width: 100%;" />
+            </ui:VisualElement>
+            <ui:VisualElement class="app-element">
+                <ui:Button name="btn-EbookReader" tooltip="Library of read documents" class="app-icon" style="background-image: url(&quot;project://database/Assets/Materials%20+%20Textures/Personal/Icons/Books.png?fileID=2800000&amp;guid=149d9815ff1ed5744a2c137c110f58dc&amp;type=3#Books&quot;);" />
+                <ui:Label text="Library" display-tooltip-when-elided="true" class="lbl-home-screen-icon homepageLabels" style="flex-grow: 1; flex-shrink: 0;" />
+            </ui:VisualElement>
+            <ui:VisualElement class="app-element">
+                <ui:Button name="btn-MessageReader" tooltip="Personal messages" class="app-icon" style="background-image: url(&quot;project://database/Assets/Materials%20+%20Textures/Personal/Icons/Messages.png?fileID=2800000&amp;guid=6d93549771d427a4b830e7e0b05a1310&amp;type=3#Messages&quot;);" />
+                <ui:Label text="Messages" display-tooltip-when-elided="true" class="homepageLabels" />
+            </ui:VisualElement>
+            <ui:VisualElement class="app-element">
+                <ui:Button name="btn-Map" tooltip="Map" class="app-icon" style="background-image: url(&quot;project://database/Assets/Materials%20+%20Textures/Personal/Icons/Map.png?fileID=2800000&amp;guid=23194de3d0d85e24a9222ef325eae9b9&amp;type=3#Map&quot;);" />
+                <ui:Label text="Map" display-tooltip-when-elided="true" class="lbl-home-screen-icon homepageLabels" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="bottomAppGrid" class="app-grid" style="flex-grow: 1; align-items: center; flex-direction: row;">
+            <ui:VisualElement name="VisualElement" class="app-element">
+                <ui:Button name="btn-ExitGame" tooltip="Hints" class="app-icon" style="background-image: url(&quot;project://database/Assets/Materials%20+%20Textures/Personal/Icons/Exit.png?fileID=2800000&amp;guid=402ee6c923cda0547a71aa38df0bb502&amp;type=3#Exit&quot;);" />
+                <ui:Label text="Quit Game" display-tooltip-when-elided="true" class="lbl-home-screen-icon homepageLabels" />
+            </ui:VisualElement>
+            <ui:VisualElement class="app-element">
+                <ui:Button name="btn-Options" tooltip="Options" class="app-icon" style="background-image: url(&quot;project://database/Assets/Materials%20+%20Textures/Personal/Icons/Options.png?fileID=2800000&amp;guid=4a95c76f16f5676459ee1c86262ecf3a&amp;type=3#Options&quot;);" />
+                <ui:Label text="Options" display-tooltip-when-elided="true" class="lbl-home-screen-icon homepageLabels" />
+            </ui:VisualElement>
+            <ui:VisualElement class="app-element">
+                <ui:Button name="btn-LoadSave" tooltip="Load / Save" class="app-icon" style="background-image: url(&quot;project://database/Assets/Materials%20+%20Textures/Personal/Icons/Load-Save.png?fileID=2800000&amp;guid=2208d0da4edea5f49808e14fb58902b7&amp;type=3#Load-Save&quot;);" />
+                <ui:Label text="Load/Save" display-tooltip-when-elided="true" class="lbl-home-screen-icon homepageLabels" />
+            </ui:VisualElement>
+            <ui:VisualElement class="app-element">
+                <ui:Button name="btn-Credits" tooltip="Load / Save" emoji-fallback-support="false" class="app-icon" style="background-image: url(&quot;project://database/Assets/Materials%20+%20Textures/Personal/Icons/Thumbs%20Up2.png?fileID=2800000&amp;guid=75c0cca834599324b8fa240f4467f4c1&amp;type=3#Thumbs Up2&quot;);" />
+                <ui:Label text="Credits" display-tooltip-when-elided="true" class="lbl-home-screen-icon homepageLabels" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
 </ui:UXML>

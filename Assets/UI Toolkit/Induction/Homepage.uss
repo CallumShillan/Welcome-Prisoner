@@ -1,0 +1,19 @@
+.homepage-root {
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 16px;
+}
+
+.homepage-title {
+  font-size: 18px;
+  color: white;
+  margin-bottom: 12px;
+}
+
+.app-grid {
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}

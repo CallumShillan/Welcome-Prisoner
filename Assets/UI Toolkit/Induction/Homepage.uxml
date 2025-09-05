@@ -1,0 +1,11 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/Induction/Homepage.uss?fileID=7433441132597879392&amp;guid=37c798b789342e743b762e078a4a889d&amp;type=3#Homepage" />
+    <ui:VisualElement name="homepage-root" class="homepage-root" style="background-color: rgb(0, 255, 51);">
+        <ui:Label text="📱 Apps" class="homepage-title" />
+        <ui:VisualElement class="app-grid">
+            <ui:Button name="app-maps" text="🗺️ Maps" />
+            <ui:Button name="app-notes" text="📝 Notes" />
+            <ui:Button name="app-settings" text="⚙️ Settings" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
