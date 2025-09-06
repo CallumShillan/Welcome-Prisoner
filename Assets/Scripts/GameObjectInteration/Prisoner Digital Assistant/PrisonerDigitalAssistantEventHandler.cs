@@ -192,8 +192,7 @@ public class PrisonerDigitalAssistantEventHandler : MonoBehaviour
                 //EBookReaderHelper.CreateNavigationForKnownBooks();
             break;
             case PdaAppId.QuestDetails:
-                QuestDetailsHelper.WireUp(pdaAppVisualElement, this);
-                QuestDetailsHelper.CreateNavigationForKnownQuests();
+                TaskAppHelper.WireUp(pdaAppVisualElement, this);
             break;
             case PdaAppId.ExitGame:
                 ExitGameHelper.WireUp(pdaAppVisualElement, this);

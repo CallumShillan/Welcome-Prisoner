@@ -47,8 +47,7 @@ public class QuestManager : MonoBehaviour
             marker.SetActive(false);
             allActivityMarkers[marker.name] = marker;
         }
-
-        //questHelper.LoadStoryGraph();
+        //QuestHelper.LoadStoryGraph();
     }
 
     /// <summary>

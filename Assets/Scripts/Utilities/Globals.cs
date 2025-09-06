@@ -5,6 +5,22 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 [Serializable]
+public class UiStyles
+{
+    [SerializeField, Tooltip("The USS style class for a quest button")]
+    private string questButtonClass = "quest-button";
+    public string QuestButtonClass => questButtonClass;
+
+    [SerializeField, Tooltip("The USS style class for task data label")]
+    private string taskLabelClass = "task-label";
+    public string TaskLabelClass => taskLabelClass;
+
+    [SerializeField, Tooltip("The quest ListView fixed item height")]
+    private int questListviewFixedItemHeight = 60;
+    public int QuestListviewFixedItemHeight => questListviewFixedItemHeight;
+}
+
+[Serializable]
 public class DoorAudioVisuals
 {
     [SerializeField, Tooltip("The animation to open the door")]
@@ -107,6 +123,10 @@ public class Globals : Singleton<Globals>
             return completionEvents;
         }
     }
+
+    [SerializeField, Tooltip("Door animations and sounds")]
+    private UiStyles uiStyles = new UiStyles();
+    public UiStyles UiStyles { get => uiStyles; }
 
     [SerializeField, Tooltip("Door animations and sounds")]
     private DoorAudioVisuals doorAudioVisuals = new DoorAudioVisuals();

@@ -64,10 +64,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.x
       value: -90
       objectReference: {fileID: 0}
-    - target: {fileID: -6754674874353905211, guid: 62c7e439e64c4c640b94e3fc81cb0297, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 2147483647
-      objectReference: {fileID: 0}
     - target: {fileID: -3584497630037689987, guid: 62c7e439e64c4c640b94e3fc81cb0297, type: 3}
       propertyPath: m_CastShadows
       value: 1
@@ -103,14 +99,6 @@ PrefabInstance:
     - target: {fileID: 2489159159464621496, guid: 62c7e439e64c4c640b94e3fc81cb0297, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: -90
-      objectReference: {fileID: 0}
-    - target: {fileID: 2511811754567536238, guid: 62c7e439e64c4c640b94e3fc81cb0297, type: 3}
-      propertyPath: m_CastShadows
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2511811754567536238, guid: 62c7e439e64c4c640b94e3fc81cb0297, type: 3}
-      propertyPath: m_StaticShadowCaster
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2511811754567536238, guid: 62c7e439e64c4c640b94e3fc81cb0297, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'

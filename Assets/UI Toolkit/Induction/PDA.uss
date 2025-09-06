@@ -66,7 +66,7 @@
     flex-basis: 0%;
     background-color: rgb(255, 255, 255);
     flex-direction: column;
-    font-size: 64px;
+    font-size: 42px;
     width: 100%;
     height: 100%;
 }
@@ -96,6 +96,13 @@
     width: 10%;
 }
 
+.homepageLabels {
+    flex-grow: 1;
+    flex-direction: column;
+    width: 100%;
+    -unity-text-align: upper-center;
+}
+
 .app-icon {
     background-image: none;
     background-color: rgb(255, 255, 255);
@@ -118,32 +125,54 @@
     border-left-width: 10px;
 }
 
-.homepageLabels {
-    flex-grow: 1;
-    flex-direction: column;
-    width: 100%;
-    -unity-text-align: upper-center;
-}
-
 .app-icon:hover {
     background-image: none;
     background-color: rgba(191, 191, 191, 0.75);
-    flex-grow: 0;
-    flex-shrink: 0;
-    width: 100%;
-    height: 100%;
-    -unity-background-scale-mode: scale-to-fit;
-    display: flex;
-    opacity: 1;
-    background-size: contain;
-    background-position-x: center;
-    scale: 1 1;
-    border-top-width: 10px;
-    border-right-width: 10px;
-    border-bottom-width: 10px;
-    border-left-width: 10px;
     border-left-color: rgb(0, 0, 0);
     border-right-color: rgb(0, 0, 0);
     border-top-color: rgb(0, 0, 0);
     border-bottom-color: rgb(0, 0, 0);
+}
+
+.quest-button {
+    background-color: rgb(255, 255, 255);
+    font-size: 24px;
+    border-top-width: 2px;
+    border-right-width: 2px;
+    border-bottom-width: 2px;
+    border-left-width: 2px;
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
+    -unity-text-align: middle-left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.quest-button:hover {
+    background-color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
+}
+
+.quest-listview-item-container {
+    padding-top: 1px;
+    padding-bottom: 1px;
+}
+
+.quest-listview-item-container:hover {
+    background-color: transparent;
+}
+
+.task-label {
+    font-size: 12px;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    margin-right: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-bottom: 0;
 }
