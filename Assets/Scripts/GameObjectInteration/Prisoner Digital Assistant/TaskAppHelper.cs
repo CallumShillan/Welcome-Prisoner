@@ -62,12 +62,16 @@ public static class TaskAppHelper
             GameLog.ErrorMessage($"Unable to find button 'taskTreeView' in Root Visual Element '{rootVisualElementName}'");
             return;
         }
-        taskTreeview.columns.Add(new Column { title = "Title", width = 150, resizable = true });
+        taskTreeview.AddToClassList("tasks-treeview");
+        taskTreeview.columns.Add(new Column { title = "Active", width = 100, resizable = true });
+        taskTreeview.columns.Add(new Column { title = "Title", width = 300, resizable = true });
         taskTreeview.columns.Add(new Column { title = "Short Description", width = 500, resizable = true });
-        taskTreeview.columns.Add(new Column { title = "Status", width = 100, resizable = true });
+        taskTreeview.columns.Add(new Column { title = "Status", width = 150, resizable = true });
+        //taskTreeview.fixedItemHeight = 64;
+        taskTreeview.virtualizationMethod = CollectionVirtualizationMethod.DynamicHeight;
 
         taskTreeview.style.flexGrow = 1;
-        taskTreeview.style.height = 500;
+        taskTreeview.style.height = 1;
 
         foreach (var column in taskTreeview.columns)
         {
@@ -76,10 +80,11 @@ public static class TaskAppHelper
                 VisualElement container = new VisualElement();
 
                 Label taskLabel = new Label();
+                taskLabel.AddToClassList(Globals.Instance.UiStyles.TaskLabelClass);
                 taskLabel.name = "taskLabel";
 
-                container.AddToClassList(Globals.Instance.UiStyles.TaskLabelClass);
-                taskLabel.AddToClassList(Globals.Instance.UiStyles.TaskLabelClass);
+                //container.AddToClassList("quest-listview-item-container");;
+                //taskLabel.AddToClassList(Globals.Instance.UiStyles.TaskLabelClass);
 
                 container.Add(taskLabel);
 
@@ -88,12 +93,15 @@ public static class TaskAppHelper
 
             column.bindCell = (element, item) =>
             {
-                var label = element.Q<Label>("taskLabel" );
+                var label = element.Q<Label>("taskLabel");
                 var task = taskTreeview.GetItemDataForIndex<Task>(item);
                 if (label is not null && task is not null)
                 {
                     switch (column.title)
                     {
+                        case "Active":
+                            label.text = task.IsActive ? "Yes" : "No";
+                            break;
                         case "Title":
                             label.text = GameUtils.SplitPascalCase(task.Title);
                             break;

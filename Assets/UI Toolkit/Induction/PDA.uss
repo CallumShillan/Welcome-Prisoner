@@ -16,7 +16,6 @@
     background-color: rgb(220, 220, 220);
     padding-left: 0;
     padding-right: 0;
-    border-bottom: 1px solid rgb(68, 68, 68);
     width: 100%;
     padding-top: 0;
     padding-bottom: 0;
@@ -80,7 +79,6 @@
 .app-grid {
     flex-wrap: wrap;
     justify-content: space-around;
-    gap: 12px;
     margin-top: 0;
     margin-right: 0;
     margin-bottom: 0;
@@ -165,14 +163,19 @@
     background-color: transparent;
 }
 
-.task-label {
-    font-size: 12px;
-    margin-top: 0;
-    margin-bottom: 0;
-    padding-left: 0;
-    padding-right: 0;
-    margin-right: 0;
-    margin-left: 0;
-    padding-top: 0;
-    padding-bottom: 0;
+.tasks-treeview .unity-label {
+    font-size: 24px;
+    height: 32px;
+    flex-grow: 1;
+    flex-shrink: 0;
+    align-self: stretch;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.tasks-treeview .unity-multi-column-header__column .unity-label {
+    font-size: 24px;
+    letter-spacing: 2px;
+    -unity-font-style: bold;
 }
