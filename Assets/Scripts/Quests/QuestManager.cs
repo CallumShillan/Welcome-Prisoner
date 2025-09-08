@@ -69,7 +69,9 @@ public class QuestManager : MonoBehaviour
                 return;
             }
             currentQuestName = value;
-            QuestHelper.QuestDictionary[currentQuestName].State = StoryState.Active;
+            Quest currentQuest = QuestHelper.QuestDictionary[value];
+            currentQuest.State = StoryState.Active;
+            currentQuest.IsActive = true;
         }
     }
 
@@ -88,7 +90,9 @@ public class QuestManager : MonoBehaviour
             }
 
             currentTaskName = value;
-            QuestHelper.TaskDictionary[currentTaskName].State = StoryState.Active;
+            Task currentTask = QuestHelper.TaskDictionary[value];
+            currentTask.State = StoryState.Active;
+            currentTask.IsActive = true;
 
             if ((allActivityMarkers != null) && (allActivityMarkers.TryGetValue(currentTaskName, out GameObject marker)))
             {
@@ -210,6 +214,7 @@ public class QuestManager : MonoBehaviour
                 if (allSignificantEvents.ContainsKey(singleTask.CompletionEvent))
                 {
                     singleTask.State = StoryState.Completed;
+                    singleTask.IsActive = false;
                     if ((allActivityMarkers != null) && (allActivityMarkers.TryGetValue(singleTask.Title, out GameObject marker)))
                     {
                         marker.SetActive(false);
@@ -225,6 +230,7 @@ public class QuestManager : MonoBehaviour
                     }
                     singleQuest.CurrentTaskTitle = singleTask.Title;
                     singleTask.State = StoryState.Active;
+                    singleTask.IsActive = true;
                 }
 
                 if (singleTask.State != StoryState.Completed)
@@ -236,6 +242,7 @@ public class QuestManager : MonoBehaviour
             if (allSubtasksHaveBeenCompleted)
             {
                 singleQuest.State = StoryState.Completed;
+                singleQuest.IsActive = false;
             }
         }
     }

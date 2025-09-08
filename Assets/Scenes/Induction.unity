@@ -2868,15 +2868,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5931371482009740278, guid: d5c96dfc71ff2e64a81b8e59412fc7fd, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.55
+      value: -2.5500004
       objectReference: {fileID: 0}
     - target: {fileID: 5931371482009740278, guid: d5c96dfc71ff2e64a81b8e59412fc7fd, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.000000059604616
       objectReference: {fileID: 0}
     - target: {fileID: 5931371482009740278, guid: d5c96dfc71ff2e64a81b8e59412fc7fd, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.00000019278377
       objectReference: {fileID: 0}
     - target: {fileID: 5931371482009740278, guid: d5c96dfc71ff2e64a81b8e59412fc7fd, type: 3}
       propertyPath: m_LocalRotation.w
@@ -15428,7 +15428,8 @@ MonoBehaviour:
   player: {fileID: 950542499}
   mainCamera: {fileID: 963194227}
   uiStyles:
-    questButton: quest-button
+    questButtonClass: quest-button
+    taskLabelClass: task-label
     questListviewFixedItemHeight: 50
   doorAudioVisuals:
     openAnimation: Open
