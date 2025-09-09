@@ -2,12 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 public static class TaskAppHelper
 {
-    private static VisualElement theRootVisualElement = null;
+    private static VisualElement theTaskListVisualElement = null;
+
     private static ListView questListView = null;
     private static Label questNameTitle = null;
     private static MultiColumnTreeView taskTreeview = null;
@@ -16,15 +18,15 @@ public static class TaskAppHelper
 
     public static void WireUp(VisualElement rootVisualElement, PrisonerDigitalAssistantEventHandler pdaEventHandler)
     {
-        string rootVisualElementName = rootVisualElement.name;
-
         if (rootVisualElement is null)
         {
-            GameLog.ErrorMessage($"Root Visual Element '{rootVisualElementName}' is null, cannot wire up Task App");
+            GameLog.ErrorMessage($"Root Visual Element is null, cannot wire up Task App");
             return;
         }
 
-        theRootVisualElement = rootVisualElement;
+        string rootVisualElementName = rootVisualElement.name;
+
+        theTaskListVisualElement = rootVisualElement;
 
         questListView = rootVisualElement.Q<ListView>("activeQuestsListView");
         if (questListView is null)
@@ -39,7 +41,7 @@ public static class TaskAppHelper
         //List<string> questNames = QuestManager.ActiveOrCompletedQuests;
         List<string> questNames = QuestManager.SceneStory.QuestTitles;
 
-        if(yetToWireUp)
+        if (yetToWireUp)
         {
             questListView.makeItem = () =>
             {
@@ -76,12 +78,12 @@ public static class TaskAppHelper
                 GameLog.ErrorMessage($"Unable to find button 'taskTreeView' in Root Visual Element '{rootVisualElementName}'");
                 return;
             }
+
             taskTreeview.AddToClassList("tasks-treeview");
             taskTreeview.columns.Add(new Column { title = "Active", width = 100, resizable = true });
             taskTreeview.columns.Add(new Column { title = "Title", width = 300, resizable = true });
             taskTreeview.columns.Add(new Column { title = "Short Description", width = 500, resizable = true });
             taskTreeview.columns.Add(new Column { title = "Status", width = 150, resizable = true });
-            //taskTreeview.fixedItemHeight = 64;
             taskTreeview.virtualizationMethod = CollectionVirtualizationMethod.DynamicHeight;
 
             taskTreeview.style.flexGrow = 1;
@@ -96,9 +98,6 @@ public static class TaskAppHelper
                     Label taskLabel = new Label();
                     taskLabel.AddToClassList(Globals.Instance.UiStyles.TaskLabelClass);
                     taskLabel.name = "taskLabel";
-
-                    //container.AddToClassList("quest-listview-item-container");;
-                    //taskLabel.AddToClassList(Globals.Instance.UiStyles.TaskLabelClass);
 
                     container.Add(taskLabel);
 
@@ -115,18 +114,23 @@ public static class TaskAppHelper
                         {
                             case "Active":
                                 label.text = task.IsActive ? "Yes" : "No";
+                                label.userData = task.Title;
                                 break;
                             case "Title":
                                 label.text = GameUtils.SplitPascalCase(task.Title);
+                                label.userData = task.Title;
                                 break;
                             case "Short Description":
                                 label.text = task.ShortDescription;
+                                label.userData = task.Title;
                                 break;
                             case "Status":
                                 label.text = task.State.ToString();
+                                label.userData = task.Title;
                                 break;
                             default:
                                 label.text = "huh";
+                                label.userData = "huh";
                                 break;
                         }
                     }
@@ -135,29 +139,15 @@ public static class TaskAppHelper
 
             taskTreeview.RegisterCallback<MouseDownEvent>(evt =>
             {
-                if (evt.clickCount == 2)
+                if (evt.clickCount == 1)
                 {
-                    // Find the row container that was clicked
                     var row = evt.target as VisualElement;
-                    while (row != null && !row.ClassListContains("unity-tree-view__row"))
+                    string clickedTaskTitle = row.userData as string;
+
+                    Task clickedTask = QuestHelper.TaskDictionary[clickedTaskTitle];
+                    if (clickedTask is not null)
                     {
-                        row = row.parent;
-                    }
-
-                    if (row == null)
-                        return;
-
-                    // Get the index from the row's userData
-                    if (row.userData is TreeViewItemData<object> itemData)
-                    {
-                        var selectedTask = itemData.data as Task;
-
-                        // Extract the Title column value
-                        string taskTitle = selectedTask.Title;
-                        if (!string.IsNullOrEmpty(taskTitle))
-                        {
-                            ShowMessage(taskTitle + "\nShort Description " + selectedTask.ShortDescription + "\nLong Description " + selectedTask.LongDescription + "\nCompletion Event: " + selectedTask.CompletionEvent.ToString());
-                        }
+                        ShowMessage(clickedTask.Title, "\nShort Description " + clickedTask.ShortDescription + "\nLong Description " + clickedTask.LongDescription + "\nCompletion Event: " + clickedTask.CompletionEvent.ToString());
                     }
                 }
             });
@@ -168,65 +158,60 @@ public static class TaskAppHelper
         questListView.itemsSource = questNames;
         questListView.Rebuild();
         questListView.selectionType = SelectionType.None;
-
     }
 
-    private static void ShowMessage(string messageText)
+    private static void ShowMessage(string messageTitle, string messageText)
     {
-        var overlay = new VisualElement();
-        overlay.style.position = Position.Absolute;
-        overlay.style.top = 0;
-        overlay.style.left = 0;
-        overlay.style.right = 0;
-        overlay.style.bottom = 0;
-        overlay.style.backgroundColor = new Color(0, 0, 0, 0.5f); // semi-transparent
+        UIDocument detailedTaskViewUiDocument = Globals.Instance.GameMessageUiDocument;
 
-        var dialog = new VisualElement();
-        dialog.style.width = 300;
-        dialog.style.marginTop = 100;
-        dialog.style.marginLeft = Length.Percent(50);
-        dialog.style.translate = new Translate(-150, 0, 0); // center horizontally
-        dialog.style.backgroundColor = Color.gray;
-        dialog.style.paddingTop = 10;
-        dialog.style.paddingBottom = 10;
-        dialog.style.paddingLeft = 15;
-        dialog.style.paddingRight = 15;
-        dialog.style.borderTopLeftRadius = 6;
-        dialog.style.borderBottomRightRadius = 6;
+        detailedTaskViewUiDocument.panelSettings.sortingOrder = 999;
 
-        var label = new Label(messageText);
-        label.style.unityTextAlign = TextAnchor.MiddleCenter;
-        label.style.marginBottom = 10;
+        VisualElement detailedTaskViewRootVisualElement = detailedTaskViewUiDocument.rootVisualElement;
+        detailedTaskViewRootVisualElement.style.display = DisplayStyle.Flex;
 
-        var okButton = new Button(() =>
+        Debug.Log($"ShowMessage called with title: {messageTitle}, text: {messageText}");
+        Debug.Log($"Root display: {detailedTaskViewRootVisualElement.style.display}, childCount: {detailedTaskViewRootVisualElement.childCount}");
+        Debug.Log($"Resolved display: {detailedTaskViewRootVisualElement.resolvedStyle.display}");
+
+        // Hide the speaker icon
+        var speakerIcon = detailedTaskViewRootVisualElement.Q<VisualElement>("SpeakerIconTexture");
+        if (speakerIcon != null)
         {
-            overlay.RemoveFromHierarchy(); // dismiss
-        })
+            speakerIcon.style.display = DisplayStyle.None;
+        }
+
+        // Set label texts
+        var titleLabel = detailedTaskViewRootVisualElement.Q<Label>("SpeakerAndMessageTitle");
+        if (titleLabel != null)
         {
-            text = "OK"
-        };
-        okButton.style.alignSelf = Align.Center;
+            titleLabel.text = messageTitle;
+        }
 
-        dialog.Add(label);
-        dialog.Add(okButton);
-        overlay.Add(dialog);
+        var messageLabel = detailedTaskViewRootVisualElement.Q<Label>("Message");
+        if (messageLabel != null)
+        {
+            messageLabel.text = messageText;
+        }
 
-        theRootVisualElement.Add(overlay);
+        // Hook up dismiss button
+        var dismissButton = detailedTaskViewRootVisualElement.Q<Button>("DismissButton");
+        if (dismissButton != null)
+        {
+            dismissButton.clicked -= DismissHandler;
+            dismissButton.clicked += DismissHandler;
+        }
+        theTaskListVisualElement.parent.parent.style.display = DisplayStyle.None;
+        Globals.Instance.GameMessageUiDocument.rootVisualElement.style.display = DisplayStyle.Flex;
+        Globals.Instance.GameMessageUiDocument.rootVisualElement.visible = true;
     }
-
-
-    private static string GetColumnValue(object item, string columnName)
+    private static void DismissHandler()
     {
-        if (item is Task task)
-            return task.Title;
-
-        // If using a dictionary or dynamic structure:
-        if (item is IDictionary<string, object> dict && dict.TryGetValue(columnName, out var value))
-            return value?.ToString();
-
-        return null;
+        Globals.Instance.GameMessageUiDocument.rootVisualElement.style.display = DisplayStyle.None;
+        theTaskListVisualElement.parent.parent.style.display = DisplayStyle.Flex;
+        Globals.Instance.Player.SetActive(false);
+        Globals.Instance.GameMessageUiDocument.rootVisualElement.visible = false;
+        Debug.Log("DismissHandler called");
     }
-
 
     public static void DisplayQuest(string questTitle)
     {

@@ -15445,7 +15445,8 @@ MonoBehaviour:
   cursorIcon: {fileID: 912887776}
   actionIcon: {fileID: 1110334312}
   voiceMessageAudioSource: {fileID: 354434350}
-  afterUseSpeakerIconTexture: {fileID: 2800000, guid: 3548b12a08b3739429d84423e1fdfc1e, type: 3}
+  gameMessageUiDocument: {fileID: 1076824564}
+  afterUseSpeakerIconTexture: {fileID: 0}
   afterUseGameMessageTitle: Have your Identity Card profile picture taken
   cameraTag: SecurityCamera
 --- !u!114 &1744042777

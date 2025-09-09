@@ -149,6 +149,10 @@ public class Globals : Singleton<Globals>
     private AudioSource voiceMessageAudioSource = null;
     public AudioSource VoiceMessageAudioSource => voiceMessageAudioSource;
 
+    [SerializeField, Tooltip("Used for playing the spoken audio of messages")]
+    private UIDocument gameMessageUiDocument = null;
+    public UIDocument GameMessageUiDocument => gameMessageUiDocument;
+
     [Header("After interaction message settings")]
     // The texture used to represent the speaker's icon in the game message.
     [SerializeField, Tooltip("The speaker's face icon texture")]
@@ -273,6 +277,12 @@ public class Globals : Singleton<Globals>
             if (VoiceMessageAudioSource == null)
             {
                 GameLog.ErrorMessage(this, "Globals: VoiceMessageAudioSource is not set.");
+            }
+
+            // --- GameMessageUiDocument checks ---
+            if (GameMessageUiDocument == null)
+            {
+                GameLog.ErrorMessage(this, "Globals: GameMessageUiDocument is not set.");
             }
         }
         catch (Exception ex)
