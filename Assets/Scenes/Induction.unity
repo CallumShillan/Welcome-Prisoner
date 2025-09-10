@@ -14406,6 +14406,7 @@ RectTransform:
   - {fileID: 995519747}
   - {fileID: 1195608934}
   - {fileID: 1076824563}
+  - {fileID: 1556615921}
   - {fileID: 1409044588}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -14550,6 +14551,74 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1965983873632052085, guid: c8600888c3b14204bbbb0b036330ba10, type: 3}
   m_PrefabInstance: {fileID: 1547701013}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1556615920
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1556615921}
+  - component: {fileID: 1556615923}
+  - component: {fileID: 1556615922}
+  m_Layer: 3
+  m_Name: TaskDetails
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 2147483647
+  m_IsActive: 1
+--- !u!4 &1556615921
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1556615920}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1535546459}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1556615922
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1556615920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47238492e5dee5140b7dee1c0af57630, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1556615923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1556615920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PanelSettings: {fileID: 11400000, guid: 76c41a59f86198e43b9aea30a0ae5f71, type: 2}
+  m_ParentUI: {fileID: 0}
+  sourceAsset: {fileID: 9197481963319205126, guid: a9a3b3d423eaa6c44bf0d060a635c694, type: 3}
+  m_SortingOrder: 0
+  m_Position: 0
+  m_WorldSpaceSizeMode: 1
+  m_WorldSpaceWidth: 1920
+  m_WorldSpaceHeight: 1080
+  m_PivotReferenceSize: 0
+  m_Pivot: 0
+  m_WorldSpaceCollider: {fileID: 0}
 --- !u!1 &1572764085
 GameObject:
   m_ObjectHideFlags: 0
@@ -15446,6 +15515,7 @@ MonoBehaviour:
   actionIcon: {fileID: 1110334312}
   voiceMessageAudioSource: {fileID: 354434350}
   gameMessageUiDocument: {fileID: 1076824564}
+  taskDetailsUiDocument: {fileID: 1556615923}
   afterUseSpeakerIconTexture: {fileID: 0}
   afterUseGameMessageTitle: Have your Identity Card profile picture taken
   cameraTag: SecurityCamera

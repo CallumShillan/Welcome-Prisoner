@@ -149,9 +149,13 @@ public class Globals : Singleton<Globals>
     private AudioSource voiceMessageAudioSource = null;
     public AudioSource VoiceMessageAudioSource => voiceMessageAudioSource;
 
-    [SerializeField, Tooltip("Used for playing the spoken audio of messages")]
+    [SerializeField, Tooltip("Used to display game messages")]
     private UIDocument gameMessageUiDocument = null;
     public UIDocument GameMessageUiDocument => gameMessageUiDocument;
+
+    [SerializeField, Tooltip("Used to display task details")]
+    private UIDocument taskDetailsUiDocument = null;
+    public UIDocument TaskDetailsUiDocument => taskDetailsUiDocument;
 
     [Header("After interaction message settings")]
     // The texture used to represent the speaker's icon in the game message.

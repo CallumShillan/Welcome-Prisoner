@@ -147,7 +147,7 @@ public static class TaskAppHelper
                     Task clickedTask = QuestHelper.TaskDictionary[clickedTaskTitle];
                     if (clickedTask is not null)
                     {
-                        ShowMessage(clickedTask.Title, "\nShort Description " + clickedTask.ShortDescription + "\nLong Description " + clickedTask.LongDescription + "\nCompletion Event: " + clickedTask.CompletionEvent.ToString());
+                        ShowTaskDetails(clickedTask);
                     }
                 }
             });
@@ -160,41 +160,36 @@ public static class TaskAppHelper
         questListView.selectionType = SelectionType.None;
     }
 
-    private static void ShowMessage(string messageTitle, string messageText)
+    private static void ShowTaskDetails(Task taskToDisplay)
     {
-        UIDocument detailedTaskViewUiDocument = Globals.Instance.GameMessageUiDocument;
+        UIDocument detailedTaskViewUiDocument = Globals.Instance.TaskDetailsUiDocument;
 
         detailedTaskViewUiDocument.panelSettings.sortingOrder = 999;
 
         VisualElement detailedTaskViewRootVisualElement = detailedTaskViewUiDocument.rootVisualElement;
         detailedTaskViewRootVisualElement.style.display = DisplayStyle.Flex;
 
-        Debug.Log($"ShowMessage called with title: {messageTitle}, text: {messageText}");
-        Debug.Log($"Root display: {detailedTaskViewRootVisualElement.style.display}, childCount: {detailedTaskViewRootVisualElement.childCount}");
-        Debug.Log($"Resolved display: {detailedTaskViewRootVisualElement.resolvedStyle.display}");
-
-        // Hide the speaker icon
-        var speakerIcon = detailedTaskViewRootVisualElement.Q<VisualElement>("SpeakerIconTexture");
-        if (speakerIcon != null)
-        {
-            speakerIcon.style.display = DisplayStyle.None;
-        }
-
         // Set label texts
-        var titleLabel = detailedTaskViewRootVisualElement.Q<Label>("SpeakerAndMessageTitle");
+        var titleLabel = detailedTaskViewRootVisualElement.Q<Label>("taskDetail_title_label");
         if (titleLabel != null)
         {
-            titleLabel.text = messageTitle;
+            titleLabel.text = taskToDisplay.Title;
         }
 
-        var messageLabel = detailedTaskViewRootVisualElement.Q<Label>("Message");
-        if (messageLabel != null)
+        var shortDescription = detailedTaskViewRootVisualElement.Q<Label>("taskDetail_shortDescription_label");
+        if (shortDescription != null)
         {
-            messageLabel.text = messageText;
+            shortDescription.text = taskToDisplay.ShortDescription;
+        }
+
+        var longDescription = detailedTaskViewRootVisualElement.Q<Label>("taskDetail_longDescription_label");
+        if (longDescription != null)
+        {
+            longDescription.text = taskToDisplay.LongDescription;
         }
 
         // Hook up dismiss button
-        var dismissButton = detailedTaskViewRootVisualElement.Q<Button>("DismissButton");
+        var dismissButton = detailedTaskViewRootVisualElement.Q<Button>("taskDetails_Dismiss_Button");
         if (dismissButton != null)
         {
             dismissButton.clicked -= DismissHandler;
@@ -210,7 +205,6 @@ public static class TaskAppHelper
         theTaskListVisualElement.parent.parent.style.display = DisplayStyle.Flex;
         Globals.Instance.Player.SetActive(false);
         Globals.Instance.GameMessageUiDocument.rootVisualElement.visible = false;
-        Debug.Log("DismissHandler called");
     }
 
     public static void DisplayQuest(string questTitle)
