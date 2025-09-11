@@ -71,7 +71,7 @@ public class PrisonerDigitalAssistantInteractionHandler : MonoBehaviour, IAction
         // Register that significant event
         QuestManager.HandleSignificantEvent(significantEvent);
 
-        // No need to continue advertising the interation
+        // No need to continue advertising the interaction
         actionIcon.enabled = false;
         actionHintTextMesh.enabled = false;
 
@@ -89,7 +89,8 @@ public class PrisonerDigitalAssistantInteractionHandler : MonoBehaviour, IAction
         Globals.Instance.AfterUseGameMessageTitle = gameMessageTitle;
         Globals.Instance.AfterUseGameMessageSpeakerIconTexture = speakerIconTexture;
 
-        return (true); // As we DO need further interactions to display the PDA
+        //return (true); // As we DO need further interactions to display the PDA
+        return (false); // As we DO need further interactions to display the PDA
     }
 
     public InteractionStatus ContinueInteraction()

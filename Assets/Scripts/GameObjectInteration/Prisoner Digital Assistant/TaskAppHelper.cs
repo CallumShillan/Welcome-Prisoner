@@ -167,13 +167,12 @@ public static class TaskAppHelper
         detailedTaskViewUiDocument.panelSettings.sortingOrder = 999;
 
         VisualElement detailedTaskViewRootVisualElement = detailedTaskViewUiDocument.rootVisualElement;
-        detailedTaskViewRootVisualElement.style.display = DisplayStyle.Flex;
 
         // Set label texts
         var titleLabel = detailedTaskViewRootVisualElement.Q<Label>("taskDetail_title_label");
         if (titleLabel != null)
         {
-            titleLabel.text = taskToDisplay.Title;
+            titleLabel.text = GameUtils.SplitPascalCase(taskToDisplay.Title);
         }
 
         var shortDescription = detailedTaskViewRootVisualElement.Q<Label>("taskDetail_shortDescription_label");
@@ -195,16 +194,21 @@ public static class TaskAppHelper
             dismissButton.clicked -= DismissHandler;
             dismissButton.clicked += DismissHandler;
         }
-        theTaskListVisualElement.parent.parent.style.display = DisplayStyle.None;
-        Globals.Instance.GameMessageUiDocument.rootVisualElement.style.display = DisplayStyle.Flex;
-        Globals.Instance.GameMessageUiDocument.rootVisualElement.visible = true;
+
+        GameUtils.SetPickingModeRecursive(theTaskListVisualElement.parent.parent, PickingMode.Ignore);
+        detailedTaskViewRootVisualElement.style.display = DisplayStyle.Flex;
+        detailedTaskViewRootVisualElement.visible = true;
     }
     private static void DismissHandler()
     {
-        Globals.Instance.GameMessageUiDocument.rootVisualElement.style.display = DisplayStyle.None;
-        theTaskListVisualElement.parent.parent.style.display = DisplayStyle.Flex;
+        UIDocument detailedTaskViewUiDocument = Globals.Instance.TaskDetailsUiDocument;
+
+        detailedTaskViewUiDocument.rootVisualElement.style.display = DisplayStyle.None;
+        detailedTaskViewUiDocument.rootVisualElement.visible = false;
+
+        GameUtils.SetPickingModeRecursive(theTaskListVisualElement.parent.parent, PickingMode.Position);
+
         Globals.Instance.Player.SetActive(false);
-        Globals.Instance.GameMessageUiDocument.rootVisualElement.visible = false;
     }
 
     public static void DisplayQuest(string questTitle)

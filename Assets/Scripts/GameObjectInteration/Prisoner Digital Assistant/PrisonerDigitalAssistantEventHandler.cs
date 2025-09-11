@@ -127,7 +127,8 @@ public class PrisonerDigitalAssistantEventHandler : MonoBehaviour
         }
         buttonPowerControl.RegisterCallback<ClickEvent>(ev => { ClosePDA(); });
 
-        // Hide the PDA display
+        // Hide the PDA display and any other ui documents
+        Globals.Instance.TaskDetailsUiDocument.rootVisualElement.style.display = DisplayStyle.None;
         pdaRootVisualElement.style.display = DisplayStyle.None;
     }
 

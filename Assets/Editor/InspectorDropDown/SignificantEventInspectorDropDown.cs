@@ -16,7 +16,7 @@ public class SignificantEventDropdownDrawer : PropertyDrawer
 {
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {
-        List<string> displayedOptions = Globals.Instance.CompletionEvents;
+        List<string> displayedOptions = EditorUtilities.Instance.CompletionEvents;
         displayedOptions.Sort((a, b) =>
         {
             bool aPrefixed = a.StartsWith("--");
@@ -52,7 +52,7 @@ public class QuestDropdownDrawer : PropertyDrawer
 {
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {
-        List<string> displayedOptions = Globals.Instance.QuestTitles;
+        List<string> displayedOptions = EditorUtilities.Instance.QuestTitles;
         displayedOptions.Sort();
 
         int currentIndex = displayedOptions.IndexOf(property.stringValue);
