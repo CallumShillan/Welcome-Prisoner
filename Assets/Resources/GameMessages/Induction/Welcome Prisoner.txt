@@ -1,11 +1,5 @@
 Welcome, Prisoner.
 
-You have been tried and found guilty of your crimes, and you have been sentenced to serve time, here, in the World Orbital Prison.
-
 I am your Prison Governor, and I am the Operating System of this facility.
 
-You are our first inmate and you will find various Synthetic Human Interfaces throughout the facility that you can interact with. They will provide detailed instructions and guidance for you, as and when needed.
-
-As your first task, please go to the facility's reception, on your left. There you will be able to pick up your Prisoner Digital Assistant that you will use during the time that you serve with us.
-
-After picking up your PDA, your should review the Prisoner Induction Process to make sure you understand what is expected of you. Then, make your way to the Security Office to start your Prisoner Induction Process.
+Please report to the reception office, on your left. Pick up your Prisoner Digital Assistant and start your induction process.

@@ -26,29 +26,29 @@ public class InteractionController : MonoBehaviour
     [Tooltip("The name of a layer mask to exclude when looking for interactable objects")]
     private string excludeLayerMaskName;
 
-    [SerializeField]
-    [Tooltip("The player's Game Object")]
-    public GameObject player = null;
+    //[SerializeField]
+    //[Tooltip("The player's Game Object")]
+    //public GameObject player = null;
 
-    [SerializeField]
-    [Tooltip("The key used to trigger object interaction")]
-    private KeyCode primaryInteractionKey = KeyCode.Mouse0;
+    //[SerializeField]
+    //[Tooltip("The key used to trigger object interaction")]
+    //private KeyCode primaryInteractionKey = KeyCode.Mouse0;
 
-    [SerializeField]
-    [Tooltip("The icon to show a known action is available")]
-    private Image interactionIndicatorIcon;
+    //[SerializeField]
+    //[Tooltip("The icon to show a known action is available")]
+    //private Image interactionIndicatorIcon;
 
-    [SerializeField]
-    [Tooltip("The icon to show an action is unknown")]
-    private Image unknownActionIcon;
+    //[SerializeField]
+    //[Tooltip("The icon to show an action is unknown")]
+    //private Image unknownActionIcon;
 
-    [SerializeField]
-    [Tooltip("An description of the action")]
-    private string unknownActionDescription;
+    //[SerializeField]
+    //[Tooltip("An description of the action")]
+    //private string unknownActionDescription;
 
-    [SerializeField]
-    [Tooltip("The Text Mesh used to display the action description")]
-    private TextMeshProUGUI textMeshActionHint = null;
+    //[SerializeField]
+    //[Tooltip("The Text Mesh used to display the action description")]
+    //private TextMeshProUGUI textMeshActionHint = null;
 
     [SerializeField]
     [Tooltip("Number of seconds between cache clearances")]
@@ -90,24 +90,6 @@ public class InteractionController : MonoBehaviour
             // If a layer name has been provided, it must be a valid layer name
             Assert.IsTrue(string.IsNullOrEmpty(excludeLayerMaskName) ? true : LayerMask.NameToLayer(excludeLayerMaskName) != -1, "If a layer name has been provided, it must be a valid layer name");
 
-            // A Player has been specified
-            Assert.IsNotNull(player, "Player object must be defined");
-
-            // We should have a primary interaction key
-            Assert.IsTrue(primaryInteractionKey != KeyCode.None, "The Primary Interaction Key cannot be KeyCode.None");
-
-            // The action prompt icon should not be null
-            Assert.IsNotNull(interactionIndicatorIcon, "The action prompt icon should not be null");
-
-            // The action unknown icon should not be null
-            Assert.IsNotNull(unknownActionIcon, "The action unknown icon should not be null");
-
-            // There should be an Unknown Action Description
-            Assert.IsTrue(string.IsNullOrEmpty(unknownActionDescription) == false, "There should be an Unknown Action Description");
-
-            // The textmesh to render the hint should not be null
-            Assert.IsNotNull(textMeshActionHint, "The textmesh to render the hint should not be null");
-
             // The minimum cache clearance must be a positive value
             Assert.IsTrue(cacheClearanceInterval > 0, "The minimum cache clearance must be a positive value");
 
@@ -126,36 +108,6 @@ public class InteractionController : MonoBehaviour
             if (rayDistance <= 0.0f)
             {
                 throw new ArgumentOutOfRangeException("Must be a positive value", nameof(rayDistance));
-            }
-
-            if (player is null)
-            {
-                throw new ArgumentNullException("Must be set", nameof(player));
-            }
-
-            if (primaryInteractionKey == KeyCode.None)
-            {
-                throw new ArgumentOutOfRangeException("Cannot be set to 'None'", nameof(primaryInteractionKey));
-            }
-
-            if (interactionIndicatorIcon is null)
-            {
-                throw new ArgumentNullException("Must be set", nameof(interactionIndicatorIcon));
-            }
-
-            if (unknownActionIcon is null)
-            {
-                throw new ArgumentNullException("Must be set", nameof(unknownActionIcon));
-            }
-
-            if (string.IsNullOrEmpty(unknownActionDescription))
-            {
-                throw new ArgumentNullException("Must be provided", nameof(unknownActionDescription));
-            }
-
-            if (textMeshActionHint is null)
-            {
-                throw new ArgumentNullException("Must be provided", nameof(textMeshActionHint));
             }
 
             if (cacheClearanceInterval < 0)
@@ -188,6 +140,8 @@ public class InteractionController : MonoBehaviour
         }
         #endregion
 
+        HideInteractionCursors();
+
         ticksSinceLastCacheClean = DateTime.Now.Ticks;
 
         Cursor.visible = false;
@@ -196,6 +150,13 @@ public class InteractionController : MonoBehaviour
     // Thanks to https://answers.unity.com/questions/411793/selecting-a-game-object-with-a-mouse-click-on-it.html for help with identifying which object has been subject to a mouse-click
     private void Update()
     {
+        GameObject player = Globals.Instance.Player;
+        Image interactionIndicatorIcon = Globals.Instance.PlayerInteraction.InteractionIndicatorIcon;
+        Image unknownActionIcon = Globals.Instance.PlayerInteraction.UnknownActionIcon;
+        TextMeshProUGUI textMeshActionHint = Globals.Instance.PlayerInteraction.ActionHintTextMesh;
+
+        unknownActionIcon.enabled = false;
+
         if (pdaEventHandler is not null)
         {
             if (pdaEventHandler.ShowingPda)
@@ -220,13 +181,6 @@ public class InteractionController : MonoBehaviour
                     Cursor.visible = false;
                     Globals.Instance.CursorIcon.SetActive(true);
                     player.SetActive(true);
-
-                    if(Globals.Instance.AfterUseGameMessageSpeakerIconTexture != null && !string.IsNullOrEmpty(Globals.Instance.AfterUseGameMessageTitle))
-                    {
-                        DisplayGameMessage.Instance.ShowGameMessage(Globals.Instance.AfterUseGameMessageSpeakerIconTexture, Globals.Instance.AfterUseGameMessageTitle);
-                        Globals.Instance.AfterUseGameMessageSpeakerIconTexture = null;
-                        Globals.Instance.AfterUseGameMessageTitle = string.Empty;
-                    }
                     break;
 
                 case InteractionStatus.Continuing:
@@ -304,7 +258,7 @@ public class InteractionController : MonoBehaviour
                 }
 
                 // If the user wants to interact with the object
-                if (Input.GetKeyDown(primaryInteractionKey))
+                if (Input.GetKeyDown(Globals.Instance.PlayerInteraction.PrimaryInteractionKey))
                 {
                     GameLog.Message(LogType.Warning, hitObject, "Performing primary action");
                     if (hitObjectActionInterface.PerformInteraction())
@@ -325,7 +279,7 @@ public class InteractionController : MonoBehaviour
                 // Indicate we don't know how to advertise or perform actions
                 interactionIndicatorIcon.enabled = false;
                 unknownActionIcon.enabled = true;
-                textMeshActionHint.text = unknownActionDescription;
+                textMeshActionHint.text = Globals.Instance.PlayerInteraction.UnknownActionDescription;
                 textMeshActionHint.enabled = true;
             }
 
@@ -448,8 +402,8 @@ public class InteractionController : MonoBehaviour
 
     public void HideInteractionCursors()
     {
-        interactionIndicatorIcon.enabled = false;
-        unknownActionIcon.enabled = false;
-        textMeshActionHint.enabled = false;
+        Globals.Instance.PlayerInteraction.ActionIcon.enabled = false;
+        Globals.Instance.PlayerInteraction.UnknownActionIcon.enabled = false;
+        Globals.Instance.PlayerInteraction.ActionHintTextMesh.enabled = false;
     }
 }

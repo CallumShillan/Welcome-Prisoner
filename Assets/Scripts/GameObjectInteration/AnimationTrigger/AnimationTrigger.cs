@@ -77,22 +77,44 @@ public class AnimationTrigger : MonoBehaviour, IActionInterface
     }
 
     /// <summary>
-    /// 
+    /// Displays interaction hints and enables the action icon for the player.
     /// </summary>
-    /// <returns></returns>
+    /// <remarks>This method updates the player's interaction UI to indicate that an interaction is available. It
+    /// enables the action icon and displays a hint message, if applicable.</remarks>
+    /// <returns>Always returns <see langword="false"/>.</returns>
     public bool AdvertiseInteraction()
     {
-        if (Globals.Instance.ActionIcon != null)
+        PlayerInteraction playerInteraction = Globals.Instance.PlayerInteraction;
+        DoorAudioVisuals doorVisuals = Globals.Instance.DoorAudioVisuals;
+
+        if (playerInteraction.ActionIcon != null)
         {
-            Globals.Instance.ActionIcon.enabled = true;
+            playerInteraction.ActionIcon.enabled = true;
+        }
+
+        if (doorVisuals.ActionHintMessage != null)
+        {
+            playerInteraction.ActionHintTextMesh.enabled = true;
+            playerInteraction.ActionHintTextMesh.text = GameUtils.ActionNameHint(actionName, this.name, actionHint);
+        }
+
+        return false;
+    }
+
+    public bool AdvertiseInteractio2n()
+    { 
+        if (Globals.Instance.PlayerInteraction.ActionIcon != null)
+        {
+            Globals.Instance.PlayerInteraction.ActionIcon.enabled = true; 
         }
         if (Globals.Instance.DoorAudioVisuals.ActionHintMessage != null)
         {
             Globals.Instance.PlayerInteraction.ActionHintTextMesh.enabled = true;
             Globals.Instance.PlayerInteraction.ActionHintTextMesh.text = GameUtils.ActionNameHint(actionName, this.name, actionHint);
         }
-        return false;
+        return false; 
     }
+
 
     public bool PerformInteraction()
     {

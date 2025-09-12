@@ -6,8 +6,8 @@ using UnityEngine.UI;
 using TMPro;
 public class ScannerInteractionHandler : MonoBehaviour, IActionInterface
 {
-    [SerializeField]
-    [Tooltip("The Significant Event associated with this interaction")]
+    [SerializeField, Tooltip("The Significant Event associated with this interaction")]
+    [SignificantEventDropdown("GetSignificantEvents")]
     private string significantEvent = string.Empty;
 
     [SerializeField]
@@ -22,17 +22,19 @@ public class ScannerInteractionHandler : MonoBehaviour, IActionInterface
     [Tooltip("The audio to play whilst scanning biometrics")]
     private AudioClip audioClip = null;
 
-    [SerializeField]
-    [Tooltip("The icon displayed for this action")]
     private Image actionIcon = null;
 
-    [SerializeField]
-    [Tooltip("The text mesh to display the hint")]
     private TextMeshProUGUI actionHintTextMesh;
 
     [SerializeField]
     [Tooltip("A tooltip about the action")]
     private string actionHintMessage = string.Empty;
+
+    public void Awake()
+    {
+        actionIcon = Globals.Instance.PlayerInteraction.ActionIcon;
+        actionHintTextMesh = Globals.Instance.PlayerInteraction.ActionHintTextMesh;
+    }
 
 
     public bool AdvertiseInteraction()
@@ -42,7 +44,7 @@ public class ScannerInteractionHandler : MonoBehaviour, IActionInterface
         actionHintTextMesh.enabled = true;
 
         // Set the hint message
-        actionHintTextMesh.text = actionHintMessage.Replace("{NAME}", this.name).Replace("{ACTION}", "perform a medical scan");
+        actionHintTextMesh.text = GameUtils.ActionNameHint("Lie on the", this.name, "{ACTION} {NAME}");
 
         // Indicate we need furhter interactions (to indicate we have finished when the animation has stopped playing)
         return (true);

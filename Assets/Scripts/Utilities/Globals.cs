@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.UIElements;
 
 [Serializable]
@@ -71,6 +72,34 @@ public class PlayerInteraction
         set => uiApplicationExited = value;
     }
 
+    [SerializeField, Tooltip("The icon displayed for an action")]
+    private UnityEngine.UI.Image actionIcon = null;
+    public UnityEngine.UI.Image ActionIcon => actionIcon;
+
+    [SerializeField]
+    [Tooltip("The icon to show an action is unknown")]
+    private UnityEngine.UI.Image unknownActionIcon;
+    public UnityEngine.UI.Image UnknownActionIcon { get => unknownActionIcon; }
+
+    [SerializeField]
+    [Tooltip("An description of the action")]
+    private string unknownActionDescription;
+    public string UnknownActionDescription { get => unknownActionDescription; }
+
+    [SerializeField]
+    [Tooltip("The Text Mesh used to display the action description")]
+    private TextMeshProUGUI textMeshActionHint = null;
+    public TextMeshProUGUI TextMeshActionHint { get => textMeshActionHint; }
+
+    [SerializeField, Tooltip("The icon to show a known action is available")]
+    private UnityEngine.UI.Image interactionIndicatorIcon;
+    public UnityEngine.UI.Image InteractionIndicatorIcon { get => interactionIndicatorIcon; }
+
+    [SerializeField]
+    [Tooltip("The key used to trigger object interaction")]
+    private KeyCode primaryInteractionKey = KeyCode.Mouse0;
+    public KeyCode PrimaryInteractionKey { get => primaryInteractionKey; set => primaryInteractionKey = value; }
+
 }
 
 
@@ -97,19 +126,6 @@ public class Globals : Singleton<Globals>
             return questTitles;
         }
     }
-
-    //private List<string> taskTitles = null;
-    //public List<string> TaskTitles
-    //{
-    //    get
-    //    {
-    //        if (taskTitles == null)
-    //        {
-    //            taskTitles = QuestHelper.TaskTitles;
-    //        }
-    //        return taskTitles;
-    //    }
-    //}
 
     private List<string> completionEvents = null;
     public List<string> CompletionEvents
@@ -140,10 +156,6 @@ public class Globals : Singleton<Globals>
     [SerializeField, Tooltip("The icon displayed for an action")]
     private GameObject cursorIcon = null;
     public GameObject CursorIcon => cursorIcon;
-
-    [SerializeField, Tooltip("The icon displayed for an action")]
-    private UnityEngine.UI.Image actionIcon = null;
-    public UnityEngine.UI.Image ActionIcon => actionIcon;
 
     [SerializeField, Tooltip("Used for playing the spoken audio of messages")]
     private AudioSource voiceMessageAudioSource = null;
@@ -208,7 +220,6 @@ public class Globals : Singleton<Globals>
 
 
     public AudioSource CurrentAudioSource { get => currentAudioSource; set => currentAudioSource = value; }
-
     private AudioSource currentAudioSource;
 
     protected override void Awake()
@@ -272,11 +283,11 @@ public class Globals : Singleton<Globals>
                 }
             }
 
-            // --- ActionIcon checks ---
-            if (ActionIcon == null)
-            {
-                GameLog.ErrorMessage(this, "Globals: ActionIcon is not set.");
-            }
+            //// --- ActionIcon checks ---
+            //if (ActionIcon == null)
+            //{
+            //    GameLog.ErrorMessage(this, "Globals: ActionIcon is not set.");
+            //}
             // --- VoiceMessageAudioSource checks ---
             if (VoiceMessageAudioSource == null)
             {

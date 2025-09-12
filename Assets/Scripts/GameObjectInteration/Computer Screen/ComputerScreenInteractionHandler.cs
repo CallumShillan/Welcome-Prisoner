@@ -77,9 +77,9 @@ public class ComputerScreenInteractionHandler : MonoBehaviour, IActionInterface
     /// <returns></returns>
     public bool AdvertiseInteraction()
     {
-        if (Globals.Instance.ActionIcon != null)
+        if (Globals.Instance.PlayerInteraction.ActionIcon != null)
         {
-            Globals.Instance.ActionIcon.enabled = true;
+            Globals.Instance.PlayerInteraction.ActionIcon.enabled = true;
         }
         Globals.Instance.PlayerInteraction.ActionHintTextMesh.enabled = true;
         Globals.Instance.PlayerInteraction.ActionHintTextMesh.text = GameUtils.ActionNameHint("Use", name, "{ACTION} {NAME}");

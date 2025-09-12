@@ -1,0 +1,8 @@
+Movement is:
+	W - Forward
+	A - Left
+	S - Back
+	D - Right
+	Space - Jump
+	Ctrl - Run
+	Mouse - Look around
