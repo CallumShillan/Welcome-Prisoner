@@ -25,8 +25,8 @@ public class PrisonerDigitalAssistantInteractionHandler : MonoBehaviour, IAction
 
     void Awake()
     {
-        actionIcon = Globals.Instance.PlayerInteraction.ActionIcon;
         playerInteraction = Globals.Instance.PlayerInteraction;
+        actionIcon = playerInteraction.ActionIcon;
         actionHintTextMesh = playerInteraction.ActionHintTextMesh;
 
         if (postInteractionMessage.ShowGameMessageAfterInteraction)

@@ -1,7 +1,7 @@
 
+using System.Collections;
 using System.Text.RegularExpressions;
-using System.Xml.Linq;
-using Unity.Burst.CompilerServices;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 public static class GameUtils
@@ -77,4 +77,35 @@ public static class GameUtils
         }
     }
 
+    //public static IEnumerator FadeIn(Material mat, float duration)
+    //{
+    //    // Color is a struct, so modify a copy and then reassign
+    //    Color color = mat.color;
+    //    color.a = 0f;
+    //    mat.color = color;
+
+    //    float elapsed = 0f;
+    //    while (elapsed < duration)
+    //    {
+    //        elapsed += Time.deltaTime;
+    //        color.a = Mathf.Clamp01(elapsed / duration);
+    //        mat.color = color;
+    //        yield return null;
+    //    }
+    //}
+
+    public static void SetLayerRecursively(GameObject root, string newLayer)
+    {
+        int layer = LayerMask.NameToLayer(newLayer);
+        if (layer == -1)
+        {
+            GameLog.WarningMessage($"Layer \"{newLayer}\" does not exist.");
+            return;
+        }
+
+        foreach (Transform t in root.GetComponentsInChildren<Transform>(true))
+        {
+            t.gameObject.layer = layer;
+        }
+    }
 }

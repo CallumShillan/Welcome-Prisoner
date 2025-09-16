@@ -63,7 +63,7 @@ public class PrisonerItems : MonoBehaviour, IActionInterface
 
         StartCoroutine(FadeIn(materialToFadeIn, fadeInDuration));
 
-        SetLayerRecursively(itemToDisplay, "Default");
+        GameUtils.SetLayerRecursively(itemToDisplay, "Default");
 
         // Show the game message
         GameUtils.DisplayInteractionMessage(postInteractionMessage);
@@ -89,19 +89,19 @@ public class PrisonerItems : MonoBehaviour, IActionInterface
         }
     }
 
-    public void SetLayerRecursively(GameObject root, string newLayer)
-    {
-        int layer = LayerMask.NameToLayer(newLayer);
-        if (layer == -1)
-        {
-            Debug.LogWarning($"Layer \"{newLayer}\" does not exist.");
-            return;
-        }
+    //public void SetLayerRecursively(GameObject root, string newLayer)
+    //{
+    //    int layer = LayerMask.NameToLayer(newLayer);
+    //    if (layer == -1)
+    //    {
+    //        Debug.LogWarning($"Layer \"{newLayer}\" does not exist.");
+    //        return;
+    //    }
 
-        foreach (Transform t in root.GetComponentsInChildren<Transform>(true))
-        {
-            t.gameObject.layer = layer;
-        }
-    }
+    //    foreach (Transform t in root.GetComponentsInChildren<Transform>(true))
+    //    {
+    //        t.gameObject.layer = layer;
+    //    }
+    //}
 
 }
