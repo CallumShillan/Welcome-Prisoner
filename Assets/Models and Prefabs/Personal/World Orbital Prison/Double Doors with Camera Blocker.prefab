@@ -270,7 +270,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   doorIsLocked: 0
   doorIsOpen: 0
-  significantEvent: 
+  significantEvent: --IRRELEVANT--
 --- !u!1 &7864364001736010114 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4105342183039036831, guid: c7b83e927128ece4f96ed4fb595ee7eb, type: 3}
