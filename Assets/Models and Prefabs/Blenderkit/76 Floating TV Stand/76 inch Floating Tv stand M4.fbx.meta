@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 8e4368991a55af64aaf50dde79479662
+guid: 2a606a0fcfaa9014698422b1babe21e3
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
@@ -7,33 +7,13 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: TV Screen
-    second: {fileID: 2100000, guid: 794a67cc4aeb4144093c6163f2c7c228, type: 2}
+      name: metal
+    second: {fileID: 2100000, guid: 27483651dfc7dd148924c53784254305, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: TV Screen 2
-    second: {fileID: 2100000, guid: 06bc5f5dae9b1c742b381b3cd76a0332, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: TV_Bolt
-    second: {fileID: 2100000, guid: c4df4b33bca5880438676695644b3f65, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: TV_Led
-    second: {fileID: 2100000, guid: d81386cd08bbdf1428421284bd9d8eda, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: TV_Plastic Base 01
-    second: {fileID: 2100000, guid: 646c57cc4d5f1b1459df896f0682fbd0, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: TV_Screen
-    second: {fileID: 2100000, guid: a942dcbe5f6dd4743ad323b4bada86d2, type: 2}
+      name: wood
+    second: {fileID: 2100000, guid: 6900850d05746364c8484138d8a00aa0, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -102,7 +82,7 @@ ModelImporter:
     strictVertexDataChecks: 0
   tangentSpace:
     normalSmoothAngle: 60
-    normalImportMode: 1
+    normalImportMode: 0
     tangentImportMode: 3
     normalCalculationMode: 4
     legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0

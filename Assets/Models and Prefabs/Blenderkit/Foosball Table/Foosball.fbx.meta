@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 8e4368991a55af64aaf50dde79479662
+guid: 4ad1f441bf9027146bae3eceaee06c19
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
@@ -7,33 +7,58 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: TV Screen
-    second: {fileID: 2100000, guid: 794a67cc4aeb4144093c6163f2c7c228, type: 2}
+      name: Material.001
+    second: {fileID: 2100000, guid: e3c288ff1f1391f46a989f06a8e962fc, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: TV Screen 2
-    second: {fileID: 2100000, guid: 06bc5f5dae9b1c742b381b3cd76a0332, type: 2}
+      name: Material.002
+    second: {fileID: 2100000, guid: 72e8945582ce2ad4e84d594b1a76188c, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: TV_Bolt
-    second: {fileID: 2100000, guid: c4df4b33bca5880438676695644b3f65, type: 2}
+      name: Material.003
+    second: {fileID: 2100000, guid: 38561eefdb117c949933580d9f795fde, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: TV_Led
-    second: {fileID: 2100000, guid: d81386cd08bbdf1428421284bd9d8eda, type: 2}
+      name: Plastic Grey 22
+    second: {fileID: 2100000, guid: f128e5e2fc505e14c906dc9e88beabed, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: TV_Plastic Base 01
-    second: {fileID: 2100000, guid: 646c57cc4d5f1b1459df896f0682fbd0, type: 2}
+      name: Red
+    second: {fileID: 2100000, guid: 7313a6d7fae90d149b124d7a2a21ddd9, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: TV_Screen
-    second: {fileID: 2100000, guid: a942dcbe5f6dd4743ad323b4bada86d2, type: 2}
+      name: Red.001
+    second: {fileID: 2100000, guid: e5d328a3325f2f24283e2283f4f7f86d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Reflactive metal with bump
+    second: {fileID: 2100000, guid: b6ccbaba8c0ca9546b5b87fdc6df25ac, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Reflactive metal with bump.001
+    second: {fileID: 2100000, guid: b0761876886a48543b99b7367b83456b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: black plastic
+    second: {fileID: 2100000, guid: d620bbe8338337e4e9869f79ff9d2131, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: blue
+    second: {fileID: 2100000, guid: aed27dce9d7bdeb43be479938a3d895b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: blue.001
+    second: {fileID: 2100000, guid: f74644f36bb45194a8b4cbacd0ad091e, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -102,7 +127,7 @@ ModelImporter:
     strictVertexDataChecks: 0
   tangentSpace:
     normalSmoothAngle: 60
-    normalImportMode: 1
+    normalImportMode: 0
     tangentImportMode: 3
     normalCalculationMode: 4
     legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
