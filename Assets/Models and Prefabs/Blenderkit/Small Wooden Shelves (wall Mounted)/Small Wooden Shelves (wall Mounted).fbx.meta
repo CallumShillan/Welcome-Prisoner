@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 4ad1f441bf9027146bae3eceaee06c19
+guid: cb6c528124ca08f49b03b4f4475a078f
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
@@ -7,63 +7,8 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Material.001
-    second: {fileID: 2100000, guid: e3c288ff1f1391f46a989f06a8e962fc, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Material.002
-    second: {fileID: 2100000, guid: 72e8945582ce2ad4e84d594b1a76188c, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Material.003
-    second: {fileID: 2100000, guid: 38561eefdb117c949933580d9f795fde, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Material.004
-    second: {fileID: 2100000, guid: 6948965f669c1554389de9cb5a5c84ed, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Plastic Grey 22
-    second: {fileID: 2100000, guid: f128e5e2fc505e14c906dc9e88beabed, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Red
-    second: {fileID: 2100000, guid: 7313a6d7fae90d149b124d7a2a21ddd9, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Red.001
-    second: {fileID: 2100000, guid: e5d328a3325f2f24283e2283f4f7f86d, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Reflactive metal with bump
-    second: {fileID: 2100000, guid: b6ccbaba8c0ca9546b5b87fdc6df25ac, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Reflactive metal with bump.001
-    second: {fileID: 2100000, guid: b0761876886a48543b99b7367b83456b, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: black plastic
-    second: {fileID: 2100000, guid: d620bbe8338337e4e9869f79ff9d2131, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: blue
-    second: {fileID: 2100000, guid: aed27dce9d7bdeb43be479938a3d895b, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: blue.001
-    second: {fileID: 2100000, guid: f74644f36bb45194a8b4cbacd0ad091e, type: 2}
+      name: Shelves.002
+    second: {fileID: 2100000, guid: c924a6eb9aca0294ca6b41bf8010b5b3, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
