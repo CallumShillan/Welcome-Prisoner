@@ -64,6 +64,10 @@ public class PlayerInteraction
     private TextMeshProUGUI actionHintTextMesh = null;
     public TextMeshProUGUI ActionHintTextMesh => actionHintTextMesh;
 
+    [SerializeField, Tooltip("The text mesh to display the hint")]
+    private UnityEngine.UI.Image actionHintBackground = null;
+    public UnityEngine.UI.Image ActionHintBackground => actionHintBackground;
+
     [SerializeField, Tooltip("Whether a world space UI Application has exited")]
     private bool uiApplicationExited = false;
     public bool UiApplicationExited

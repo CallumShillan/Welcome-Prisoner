@@ -75,6 +75,11 @@ public class InteractionController : MonoBehaviour
     // The time when we should next perform a raycast to search for interactive objects
     private float nextRaycastTime = 0f;
     #endregion
+    GameObject player = null;
+    Image interactionIndicatorIcon = null;
+    Image unknownActionIcon = null;
+    TextMeshProUGUI actionHintTextMesh = null;
+    Image actionHintBackground = null;
 
     private void Start()
     {
@@ -140,20 +145,22 @@ public class InteractionController : MonoBehaviour
         }
         #endregion
 
-        HideInteractionCursors();
 
         ticksSinceLastCacheClean = DateTime.Now.Ticks;
 
         Cursor.visible = false;
+        player = Globals.Instance.Player;
+        PlayerInteraction playerInteraction = Globals.Instance.PlayerInteraction;
+        interactionIndicatorIcon = playerInteraction.InteractionIndicatorIcon;
+        unknownActionIcon = playerInteraction.UnknownActionIcon;
+        actionHintTextMesh = playerInteraction.ActionHintTextMesh;
+        actionHintBackground = playerInteraction.ActionHintBackground;
+        HideInteractionCursors();
     }
 
     // Thanks to https://answers.unity.com/questions/411793/selecting-a-game-object-with-a-mouse-click-on-it.html for help with identifying which object has been subject to a mouse-click
     private void Update()
     {
-        GameObject player = Globals.Instance.Player;
-        Image interactionIndicatorIcon = Globals.Instance.PlayerInteraction.InteractionIndicatorIcon;
-        Image unknownActionIcon = Globals.Instance.PlayerInteraction.UnknownActionIcon;
-        TextMeshProUGUI textMeshActionHint = Globals.Instance.PlayerInteraction.ActionHintTextMesh;
 
         unknownActionIcon.enabled = false;
 
@@ -187,7 +194,8 @@ public class InteractionController : MonoBehaviour
                     GameLog.NormalMessage(this, "Continuing user interaction with the object", string.Empty);
                     player.SetActive(false);
                     interactionIndicatorIcon.enabled = false;
-                    textMeshActionHint.enabled = false;
+                    actionHintTextMesh.enabled = false;
+                    actionHintBackground.enabled = false;
                     break;
 
                 case InteractionStatus.ShowPdaHomeScreen:
@@ -246,7 +254,8 @@ public class InteractionController : MonoBehaviour
                     // Advertise the action that can be performed
                     unknownActionIcon.enabled = false;
                     interactionIndicatorIcon.enabled = true;
-                    textMeshActionHint.enabled = true;
+                    actionHintTextMesh.enabled = true;
+                    actionHintBackground.enabled = true;
 
                     // Let the hit object advertise its interaction mechansim as it needs to (e.g., left-click, right-click, press E, and so on)
                     // Also, record whether the object has indicated it is capable of further interactions
@@ -268,7 +277,8 @@ public class InteractionController : MonoBehaviour
                         // As we're doing continued interactions, we need to disable the player so they don't respond to the keystrokes and, say, move around
                         player.SetActive(false);
                         interactionIndicatorIcon.enabled = false;
-                        textMeshActionHint.enabled = false;
+                        actionHintTextMesh.enabled = false;
+                        actionHintBackground.enabled = false;
                         Globals.Instance.CursorIcon.SetActive(false);
                         continuedUserDialogueActionInterface = hitObjectActionInterface;
                     }
@@ -279,8 +289,9 @@ public class InteractionController : MonoBehaviour
                 // Indicate we don't know how to advertise or perform actions
                 interactionIndicatorIcon.enabled = false;
                 unknownActionIcon.enabled = true;
-                textMeshActionHint.text = Globals.Instance.PlayerInteraction.UnknownActionDescription;
-                textMeshActionHint.enabled = true;
+                actionHintTextMesh.text = Globals.Instance.PlayerInteraction.UnknownActionDescription;
+                actionHintTextMesh.enabled = true;
+                actionHintBackground.enabled = true;
             }
 
             if (objectHasOtherInterations)
@@ -301,7 +312,8 @@ public class InteractionController : MonoBehaviour
 
             interactionIndicatorIcon.enabled = false;
             unknownActionIcon.enabled = false;
-            textMeshActionHint.enabled = false;
+            actionHintTextMesh.enabled = false;
+            actionHintBackground.enabled = false;
         }
 
         // Record when "right now" is
@@ -403,7 +415,8 @@ public class InteractionController : MonoBehaviour
     public void HideInteractionCursors()
     {
         Globals.Instance.PlayerInteraction.ActionIcon.enabled = false;
-        Globals.Instance.PlayerInteraction.UnknownActionIcon.enabled = false;
-        Globals.Instance.PlayerInteraction.ActionHintTextMesh.enabled = false;
+        unknownActionIcon.enabled = false;
+        actionHintTextMesh.enabled = false;
+        actionHintBackground.enabled = false;
     }
 }
