@@ -76,6 +76,7 @@ public class InteractionController : MonoBehaviour
     private float nextRaycastTime = 0f;
     #endregion
     GameObject player = null;
+    GameObject cursorIcon = null;
     Image interactionIndicatorIcon = null;
     Image unknownActionIcon = null;
     TextMeshProUGUI actionHintTextMesh = null;
@@ -155,6 +156,7 @@ public class InteractionController : MonoBehaviour
         unknownActionIcon = playerInteraction.UnknownActionIcon;
         actionHintTextMesh = playerInteraction.ActionHintTextMesh;
         actionHintBackground = playerInteraction.ActionHintBackground;
+        cursorIcon = Globals.Instance.CursorIcon;
         HideInteractionCursors();
     }
 
@@ -175,34 +177,7 @@ public class InteractionController : MonoBehaviour
         // If we need to allow continued user interaction to occur, do so
         if (continuedUserDialogueActionInterface is not null)
         {
-            // Continue interaction with the object 
-            InteractionStatus statusOfInteraction = continuedUserDialogueActionInterface.ContinueInteraction();
-            switch (statusOfInteraction)
-            {
-                case InteractionStatus.Completed:
-                    GameLog.NormalMessage(this, "No more continued dialogue needed", string.Empty);
-                    continuedUserDialogueActionInterface = null;
-
-                    // For continued interaction, the player was disabled so they didn't respond to user input and move about
-                    // As the player has finished interacting with the object, we need to re-enable them
-                    Cursor.visible = false;
-                    Globals.Instance.CursorIcon.SetActive(true);
-                    player.SetActive(true);
-                    break;
-
-                case InteractionStatus.Continuing:
-                    GameLog.NormalMessage(this, "Continuing user interaction with the object", string.Empty);
-                    player.SetActive(false);
-                    interactionIndicatorIcon.enabled = false;
-                    actionHintTextMesh.enabled = false;
-                    actionHintBackground.enabled = false;
-                    break;
-
-                case InteractionStatus.ShowPdaHomeScreen:
-                    pdaEventHandler.DisplayPdaApp(PdaAppId.PDAHomePage);
-                    continuedUserDialogueActionInterface = null;
-                    break;
-            }
+            HandleContinuedInteraction(continuedUserDialogueActionInterface);
 
             // The work associated with this Update() has completed, so RETURN and end the processing
             return;
@@ -219,7 +194,7 @@ public class InteractionController : MonoBehaviour
         IActionInterface hitObjectActionInterface = null;
 
         // Whether the hit object has other interactions (e.g., an inventory management system) or if it provides a single-shot interaction (e.g., opening/closing a door, turning a light on/off)
-        bool objectHasOtherInterations = false;
+        bool objectHasOtherInteractions = false;
 
         // Determine the layers we want the raycast to report on
         int interactableGameObjectsLayerMask = 1 << LayerMask.NameToLayer(excludeLayerMaskName) | interactionLayerMask.value;
@@ -228,8 +203,7 @@ public class InteractionController : MonoBehaviour
         RaycastHit raycastHitObject = new RaycastHit();
 
         // Send the ray from the camera through the cursor icon for a certain distance - we only look for Game Objects that have been tagged as being interactable
-        //Ray cameraThroughCursorRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-        Ray cameraThroughCursorRay = Camera.main.ScreenPointToRay(Globals.Instance.CursorIcon.transform.position);
+        Ray cameraThroughCursorRay = Camera.main.ScreenPointToRay(cursorIcon.transform.position);
 
         if (Physics.Raycast(cameraThroughCursorRay, out raycastHitObject, rayDistance, interactableGameObjectsLayerMask))
         {
@@ -248,40 +222,21 @@ public class InteractionController : MonoBehaviour
             hitObjectActionInterface = GetActionInterface(hitObject);
             if (hitObjectActionInterface is not null)
             {
-                // We only want to advertise the action when when the user is looking at something new
+                // We only want to advertise the action when when the user is looking at something they can interact with
                 if (hitObject != lastHitObject)
                 {
                     // Advertise the action that can be performed
-                    unknownActionIcon.enabled = false;
-                    interactionIndicatorIcon.enabled = true;
-                    actionHintTextMesh.enabled = true;
-                    actionHintBackground.enabled = true;
+                    AdvertiseAction();
 
                     // Let the hit object advertise its interaction mechansim as it needs to (e.g., left-click, right-click, press E, and so on)
                     // Also, record whether the object has indicated it is capable of further interactions
-                    objectHasOtherInterations = hitObjectActionInterface.AdvertiseInteraction();
-                }
-                else
-                {
-                    //GameLog.LogMessage(LogType.Log, hitObject,  "No need to advertise the possible actions as these are already being shown");
+                    objectHasOtherInteractions = hitObjectActionInterface.AdvertiseInteraction();
                 }
 
                 // If the user wants to interact with the object
                 if (Input.GetKeyDown(Globals.Instance.PlayerInteraction.PrimaryInteractionKey))
                 {
-                    GameLog.Message(LogType.Warning, hitObject, "Performing primary action");
-                    if (hitObjectActionInterface.PerformInteraction())
-                    {
-                        GameLog.Message(LogType.Warning, hitObject, "Allowing for further interactions");
-
-                        // As we're doing continued interactions, we need to disable the player so they don't respond to the keystrokes and, say, move around
-                        player.SetActive(false);
-                        interactionIndicatorIcon.enabled = false;
-                        actionHintTextMesh.enabled = false;
-                        actionHintBackground.enabled = false;
-                        Globals.Instance.CursorIcon.SetActive(false);
-                        continuedUserDialogueActionInterface = hitObjectActionInterface;
-                    }
+                    PerformPrimaryAction(hitObject, hitObjectActionInterface);
                 }
             }
             else
@@ -294,14 +249,13 @@ public class InteractionController : MonoBehaviour
                 actionHintBackground.enabled = true;
             }
 
-            if (objectHasOtherInterations)
+            if (objectHasOtherInteractions)
             {
-                //GameLog.LogMessage(LogType.Log, hitObject, "Object has other interactions, so setting Last Hit Object to null so that other action advertisement will occur");
+                // Setting Last Hit Object to null so that other action advertisement will occur
                 lastHitObject = null;
             }
             else
             {
-                //GameLog.LogMessage(LogType.Log, hitObject, "Setting Last Hit Object to {0} (id={1})", new object[] { hitObject.name, hitObject.GetInstanceID() });
                 lastHitObject = hitObject;
             }
         }
@@ -314,6 +268,7 @@ public class InteractionController : MonoBehaviour
             unknownActionIcon.enabled = false;
             actionHintTextMesh.enabled = false;
             actionHintBackground.enabled = false;
+            cursorIcon.SetActive(true);
         }
 
         // Record when "right now" is
@@ -328,6 +283,64 @@ public class InteractionController : MonoBehaviour
         }
     }
 
+    private void PerformPrimaryAction(GameObject hitObject, IActionInterface hitObjectActionInterface)
+    {
+        GameLog.Message(LogType.Warning, hitObject, "Performing primary action");
+        if (hitObjectActionInterface.PerformInteraction())
+        {
+            GameLog.Message(LogType.Warning, hitObject, "Allowing for further interactions");
+
+            // As we're doing continued interactions, we need to disable the player so they don't respond to the keystrokes and, say, move around
+            player.SetActive(false);
+            interactionIndicatorIcon.enabled = false;
+            actionHintTextMesh.enabled = false;
+            actionHintBackground.enabled = false;
+            cursorIcon.SetActive(false);
+            continuedUserDialogueActionInterface = hitObjectActionInterface;
+        }
+    }
+
+    private void HandleContinuedInteraction(IActionInterface continuedInteractionInterface)
+    {
+        // Continue interaction with the object 
+        InteractionStatus statusOfInteraction = continuedUserDialogueActionInterface.ContinueInteraction();
+        switch (statusOfInteraction)
+        {
+            case InteractionStatus.Completed:
+                GameLog.NormalMessage(this, "No more continued dialogue needed", string.Empty);
+                continuedUserDialogueActionInterface = null;
+
+                // For continued interaction, the player was disabled so they didn't respond to user input and move about
+                // As the player has finished interacting with the object, we need to re-enable them
+                Cursor.visible = false;
+                cursorIcon.SetActive(true);
+                player.SetActive(true);
+                break;
+
+            case InteractionStatus.Continuing:
+                GameLog.NormalMessage(this, "Continuing user interaction with the object", string.Empty);
+                player.SetActive(false);
+                interactionIndicatorIcon.enabled = false;
+                actionHintTextMesh.enabled = false;
+                actionHintBackground.enabled = false;
+                break;
+
+            case InteractionStatus.ShowPdaHomeScreen:
+                pdaEventHandler.DisplayPdaApp(PdaAppId.PDAHomePage);
+                continuedUserDialogueActionInterface = null;
+                break;
+        }
+    }
+
+    private void AdvertiseAction()
+    {
+        unknownActionIcon.enabled = false;
+        cursorIcon.SetActive(false);
+        interactionIndicatorIcon.enabled = true;
+        actionHintTextMesh.enabled = true;
+        actionHintBackground.enabled = true;
+    }
+
     /// <summary>
     /// Clean the cache of stale items that have lived in the cache for too long
     /// </summary>
@@ -338,7 +351,7 @@ public class InteractionController : MonoBehaviour
 
         // If we remove items from the cache within the FOREACH loop, we modify the collection and the enumeration operation may not execute as expected
         // So we keep a list of all items that need to be remove and do the removal in a later step
-        List<int> cachedItemsToRemove = new List<int>();
+        List<int> itemsToRemove = new List<int>();
 
         foreach (int objectId in actionCache.Keys)
         {
@@ -347,7 +360,7 @@ public class InteractionController : MonoBehaviour
                 if (ticksRightNow > (cachedAction.InsertionTick + (TimeSpan.TicksPerSecond * maximumCacheResidency)))
                 {
                     GameLog.NormalMessage(this, "<color=red>Game Object ID = {0} should be removed from the Action Cache</color>", objectId.ToString());
-                    cachedItemsToRemove.Add(objectId);
+                    itemsToRemove.Add(objectId);
                 }
             }
             else
@@ -357,7 +370,7 @@ public class InteractionController : MonoBehaviour
         }
 
         // Now we can safely delete the items that need to be removed from the cache
-        foreach (int objectId in cachedItemsToRemove)
+        foreach (int objectId in itemsToRemove)
         {
             actionCache.Remove(objectId);
         }

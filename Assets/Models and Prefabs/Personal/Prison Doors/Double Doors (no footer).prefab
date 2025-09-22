@@ -114,6 +114,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 500981093843931169, guid: 2ac070afadb54b14a8ab305fb0618b69, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8048123598074317532}
+    - targetCorrespondingSourceObject: {fileID: 500981093843931169, guid: 2ac070afadb54b14a8ab305fb0618b69, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4346651646615322850}
     - targetCorrespondingSourceObject: {fileID: 4105342183039036831, guid: 2ac070afadb54b14a8ab305fb0618b69, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7876097878318725196}
@@ -219,9 +222,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62872f3fff56ae849a4c451dc7f47f0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  significantEvent: 
   doorIsLocked: 0
   doorIsOpen: 0
+  significantEvent: --IRRELEVANT--
 --- !u!1 &7847956557911384089 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 500981093843931169, guid: 2ac070afadb54b14a8ab305fb0618b69, type: 3}
@@ -240,6 +243,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actionHandlerObject: {fileID: 7411575472809397609}
+--- !u!64 &4346651646615322850
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7847956557911384089}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -7175456531976297356, guid: 2ac070afadb54b14a8ab305fb0618b69, type: 3}
 --- !u!1 &8281257836433116028 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1798815790829697860, guid: 2ac070afadb54b14a8ab305fb0618b69, type: 3}

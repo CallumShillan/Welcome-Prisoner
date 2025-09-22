@@ -1,6 +1,3 @@
-using UnityEngine.UI;
-using TMPro;
-
 public enum InteractionStatus { Completed, Continuing, ShowPdaHomeScreen }
 
 /// <summary>
