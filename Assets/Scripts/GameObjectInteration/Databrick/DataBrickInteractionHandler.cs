@@ -76,8 +76,8 @@ public class DataBrickInteractionHandler : MonoBehaviour, IActionInterface
     /// <returns><see langword="true"/> to indicate that the interaction prompt was successfully displayed.</returns>
     public bool AdvertiseInteraction()
     {
-        actionIcon.enabled = true;
-        actionHintTextMesh.enabled = true;
+        //actionIcon.enabled = true;
+        //actionHintTextMesh.enabled = true;
         actionHintTextMesh.text = actionHintMessage
             .Replace("{NAME}", $"'{name}'")
             .Replace("{ACTION}", "Add to PDA: ");

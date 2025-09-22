@@ -57,6 +57,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -4929653215057044871, guid: 8694ad22a70248647b010c9a85751376, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4929653215057044871, guid: 8694ad22a70248647b010c9a85751376, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
@@ -73,8 +77,16 @@ PrefabInstance:
       value: Doorway
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 8694ad22a70248647b010c9a85751376, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8694ad22a70248647b010c9a85751376, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 3594243245622329198, guid: 8694ad22a70248647b010c9a85751376, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3594243245622329198, guid: 8694ad22a70248647b010c9a85751376, type: 3}
       propertyPath: m_StaticEditorFlags

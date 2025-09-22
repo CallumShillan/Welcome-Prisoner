@@ -18,14 +18,6 @@ public class ElectronicWhiteboardInteractionHandler : MonoBehaviour, IActionInte
     private const string FIELD_SIGNIFICANT_EVENT = "significantEvent";
 
     [SerializeField]
-    [Tooltip("The icon displayed for this action")]
-    private Image actionIcon = null;
-
-    [SerializeField]
-    [Tooltip("The text mesh to display the hint")]
-    private TextMeshProUGUI actionHintTextMesh = null;
-
-    [SerializeField]
     [Tooltip("A tooltip for turning on/off the whiteboard")]
     private string actionMessage = string.Empty;
 
@@ -49,20 +41,12 @@ public class ElectronicWhiteboardInteractionHandler : MonoBehaviour, IActionInte
     [Tooltip("Significant Game Event to raise")]
     private string significantEvent = string.Empty;
 
+    private TextMeshProUGUI actionHintTextMesh = null;
+
     private void Awake()
     {
         bool somethingNeedsToBeFixed = false;
 
-        if (actionIcon == null)
-        {
-            GameLog.ErrorMessage(this, $"Action icon is not assigned. Field: {FIELD_ACTION_ICON}");
-            somethingNeedsToBeFixed = true;
-        }
-        if (actionHintTextMesh == null)
-        {
-            GameLog.ErrorMessage(this, $"Action hint text mesh is not assigned. Field: {FIELD_ACTION_HINT_TEXT_MESH}");
-            somethingNeedsToBeFixed = true;
-        }
         if (string.IsNullOrWhiteSpace(actionMessage))
         {
             GameLog.ErrorMessage(this, $"Action message is not assigned or is empty. Field: {FIELD_ACTION_MESSAGE}");
@@ -120,6 +104,12 @@ public class ElectronicWhiteboardInteractionHandler : MonoBehaviour, IActionInte
         }
     }
 
+    public void Start()
+    {
+        // Locate the action hint text mesh in the scene
+        actionHintTextMesh = Globals.Instance?.PlayerInteraction.ActionHintTextMesh;
+    }
+
     /// <summary>
     /// Displays interaction hints to the user, such as enabling icons and text prompts,  based on the current state of
     /// the electronic whiteboard.
@@ -130,22 +120,7 @@ public class ElectronicWhiteboardInteractionHandler : MonoBehaviour, IActionInte
     /// <returns>Always returns <see langword="false"/>. The return value is reserved for future use or  extended functionality.</returns>
     public bool AdvertiseInteraction()
     {
-        if (actionIcon != null)
-        {
-            actionIcon.enabled = true;
-        }
-        if (actionHintTextMesh != null)
-        {
-            actionHintTextMesh.enabled = true;
-            if (electronicWhiteBoardIsOn)
-            {
-                actionHintTextMesh.text = actionMessage.Replace("{NAME}", this.name).Replace("{ACTION}", "Turn off");
-            }
-            else
-            {
-                actionHintTextMesh.text = actionMessage.Replace("{NAME}", this.name).Replace("{ACTION}", "Turn on");
-            }
-        }
+        actionHintTextMesh.text = actionMessage.Replace("{NAME}", this.name).Replace("{ACTION}", electronicWhiteBoardIsOn ? "Turn off" : "Turn on");
         return false;
     }
 

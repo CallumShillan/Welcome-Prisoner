@@ -3,6 +3,7 @@ using Unity.Burst.CompilerServices;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UIElements;
+using TMPro;
 using static UnityEngine.Rendering.DebugUI;
 
 [RequireComponent(typeof(Collider))]
@@ -32,6 +33,9 @@ public class ComputerScreenInteractionHandler : MonoBehaviour, IActionInterface
 
     private Vector2 cachedPixelPos = new Vector2(float.NaN, float.NaN);
 
+    private PlayerInteraction playerInteraction;
+    private TextMeshProUGUI actionHintTextMesh;
+
     void Awake()
     {
         initializationError = false;
@@ -53,13 +57,13 @@ public class ComputerScreenInteractionHandler : MonoBehaviour, IActionInterface
         }
         if (interactionLayerMask == 0)
         {
-            Debug.LogWarning($"[{nameof(ComputerScreenInteractionHandler)}] InteractionLayerMask is not set on '{gameObject.name}'.");
             // Not fatal, but warn
+            Debug.LogWarning($"[{nameof(ComputerScreenInteractionHandler)}] InteractionLayerMask is not set on '{gameObject.name}'.");
         }
         if (string.IsNullOrWhiteSpace(excludeLayerMaskName))
         {
-            Debug.LogWarning($"[{nameof(ComputerScreenInteractionHandler)}] ExcludeLayerMaskName is not set on '{gameObject.name}'.");
             // Not fatal, but warn
+            Debug.LogWarning($"[{nameof(ComputerScreenInteractionHandler)}] ExcludeLayerMaskName is not set on '{gameObject.name}'.");
         }
 
         root = uiDocument != null ? uiDocument.rootVisualElement : null;
@@ -71,20 +75,32 @@ public class ComputerScreenInteractionHandler : MonoBehaviour, IActionInterface
 
         uiDocument.panelSettings.SetScreenToPanelSpaceFunction((Vector2 screenPosition) => cachedPixelPos);
     }
+
+    public void Start()
+    {
+        playerInteraction = Globals.Instance.PlayerInteraction;
+        if (playerInteraction == null)
+        {
+            Debug.LogError($"[{nameof(ComputerScreenInteractionHandler)}] PlayerInteraction is not found in Globals. Disabling component.");
+            initializationError = true;
+        }
+
+        actionHintTextMesh = playerInteraction.ActionHintTextMesh;
+        if (actionHintTextMesh == null)
+        {
+            Debug.LogError($"[{nameof(ComputerScreenInteractionHandler)}] ActionHintTextMesh is not assigned in PlayerInteraction. Disabling component.");
+            initializationError = true;
+        }
+
+    }
     /// <summary>
     /// 
     /// </summary>
     /// <returns></returns>
     public bool AdvertiseInteraction()
     {
-        if (Globals.Instance.PlayerInteraction.ActionIcon != null)
-        {
-            Globals.Instance.PlayerInteraction.ActionIcon.enabled = true;
-        }
-        Globals.Instance.PlayerInteraction.ActionHintTextMesh.enabled = true;
-        Globals.Instance.PlayerInteraction.ActionHintTextMesh.text = GameUtils.ActionNameHint("Use", name, "{ACTION} {NAME}");
-        Globals.Instance.PlayerInteraction.UiApplicationExited = false;
-        Debug.Log($"[AdvertiseInteraction] UiApplicationExited: {Globals.Instance.PlayerInteraction.UiApplicationExited}");
+        actionHintTextMesh.text = GameUtils.ActionNameHint("Use", name, "{ACTION} {NAME}");
+        playerInteraction.UiApplicationExited = false;
         return true;
     }
 
@@ -97,27 +113,28 @@ public class ComputerScreenInteractionHandler : MonoBehaviour, IActionInterface
             return false;
         }
 
-        int computerScreenLayer = 1 << LayerMask.NameToLayer(excludeLayerMaskName) | interactionLayerMask.value;
-
-        Ray cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-        if (Physics.Raycast(cameraRay, out RaycastHit hit, 5.0f, computerScreenLayer))
-        {
-            Vector2 uv = hit.textureCoord;
-            int pixelX = Mathf.FloorToInt(uv.x * renderTexture.width);
-            int pixelY = Mathf.FloorToInt((1f - uv.y) * renderTexture.height); // Flip Y
-            cachedPixelPos = new Vector2(pixelX, pixelY);
-        }
-        else
-        {
-            cachedPixelPos = new Vector2(float.NaN, float.NaN);
-        }
-        Debug.Log($"[PerformInteraction] UiApplicationExited: {Globals.Instance.PlayerInteraction.UiApplicationExited}");
+        CacheMousePosition();
 
         return true;
     }
 
     public InteractionStatus ContinueInteraction()
+    {
+        CacheMousePosition();
+
+        if (playerInteraction.UiApplicationExited)
+        {
+            UnityEngine.Cursor.visible = false;
+            UnityEngine.Cursor.lockState = CursorLockMode.None;
+            return InteractionStatus.Completed;
+        }
+        else
+        {
+            return InteractionStatus.Continuing;
+        }
+    }
+
+    private void CacheMousePosition()
     {
         int computerScreenLayer = 1 << LayerMask.NameToLayer(excludeLayerMaskName) | interactionLayerMask.value;
 
@@ -133,18 +150,6 @@ public class ComputerScreenInteractionHandler : MonoBehaviour, IActionInterface
         else
         {
             cachedPixelPos = new Vector2(float.NaN, float.NaN);
-        }
-        Debug.Log($"[ContinueInteraction] UiApplicationExited: {Globals.Instance.PlayerInteraction.UiApplicationExited}");
-
-        if (Globals.Instance.PlayerInteraction.UiApplicationExited)
-        {
-            UnityEngine.Cursor.visible = false;
-            UnityEngine.Cursor.lockState = CursorLockMode.None;
-            return InteractionStatus.Completed;
-        }
-        else
-        {
-            return InteractionStatus.Continuing;
         }
     }
 }

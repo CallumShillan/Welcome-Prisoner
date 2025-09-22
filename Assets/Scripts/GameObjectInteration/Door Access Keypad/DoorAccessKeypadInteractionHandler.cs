@@ -25,17 +25,15 @@ public class DoorAccessKeypadInteractionHandler : MonoBehaviour, IActionInterfac
     [SerializeField, Tooltip("The keypad code to unlock / lock the door")]
     private string doorCode = string.Empty;
 
-    [SerializeField, Tooltip("The icon displayed for this action")]
-    private UnityEngine.UI.Image actionIcon = null;
-
-    [SerializeField, Tooltip("The text mesh to display the hint")]
-    private TextMeshProUGUI actionHintTextMesh = null;
 
     [SerializeField, Tooltip("A tooltip about the action")]
     private string actionHintMessage = string.Empty;
 
     // The Interaction Handler for the door that is locked/unlocked by this Security Keypad (used to determine if the door is open/closed and locked/unlocked)
     private DoorInteractionHandler controlledDoorInteractionHandler = null;
+
+    private UnityEngine.UI.Image actionIcon = null;
+    private TextMeshProUGUI actionHintTextMesh = null;
 
     // The Security Keypad
     private SecurityKeypad theSecurityKeypad = null;
@@ -111,6 +109,14 @@ public class DoorAccessKeypadInteractionHandler : MonoBehaviour, IActionInterfac
         }
     }
 
+    public void Start()
+    {
+        // Get the action icon and hint text mesh from the Player's HUD
+        PlayerInteraction playerInteraction = Globals.Instance.PlayerInteraction;
+        actionIcon = playerInteraction.ActionIcon;
+        actionHintTextMesh = playerInteraction.ActionHintTextMesh;
+    }
+
     /// <summary>
     /// Displays interaction hints to the user by enabling associated UI elements.
     /// </summary>
@@ -119,15 +125,7 @@ public class DoorAccessKeypadInteractionHandler : MonoBehaviour, IActionInterfac
     /// <returns><see langword="true"/> to indicate we need to advertise further action.</returns>
     public bool AdvertiseInteraction()
     {
-        if (actionIcon != null)
-        {
-            actionIcon.enabled = true;
-        }
-        if (actionHintTextMesh != null)
-        {
-            actionHintTextMesh.enabled = true;
-            actionHintTextMesh.text = SetActionMessage();
-        }
+        actionHintTextMesh.text = SetActionMessage();
         return true;
     }
 

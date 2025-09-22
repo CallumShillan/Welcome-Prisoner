@@ -23,7 +23,6 @@ public class TriggerNearWorldSpaceUi : MonoBehaviour
         {
             //Globals.Instance.PlayerInteraction.NearWorldSpaceUi = true;
             cursorIconRawImage.color = Color.red; // Change the action icon color to red when near world space UI
-
         }
 
     }

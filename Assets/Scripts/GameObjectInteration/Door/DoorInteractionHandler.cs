@@ -16,6 +16,8 @@ public class DoorInteractionHandler : MonoBehaviour, IActionInterface
     private string significantEvent = string.Empty;
 
     private Animator objectAnimator;
+    private PlayerInteraction playerInteraction;
+    private DoorAudioVisuals doorAudioVisuals;
 
     public bool IsDoorLocked
     {
@@ -46,13 +48,12 @@ public class DoorInteractionHandler : MonoBehaviour, IActionInterface
 
     private void Start()
     {
+        playerInteraction = Globals.Instance?.PlayerInteraction;
+        doorAudioVisuals = Globals.Instance?.DoorAudioVisuals;
         if (doorIsOpen)
         {
             GameLog.Message(LogType.Log, this, "Initial state needs the door open");
-            if (Globals.Instance != null && Globals.Instance.DoorAudioVisuals != null)
-            {
-                objectAnimator?.Play(Globals.Instance.DoorAudioVisuals.OpenAnimation, 0, 0.0f);
-            }
+            objectAnimator?.Play(doorAudioVisuals.OpenAnimation, 0, 0.0f);
         }
     }
 
@@ -62,18 +63,9 @@ public class DoorInteractionHandler : MonoBehaviour, IActionInterface
     /// <returns></returns>
     public bool AdvertiseInteraction()
     {
-        PlayerInteraction playerInteraction = Globals.Instance?.PlayerInteraction;
-        DoorAudioVisuals doorAudioVisuals = Globals.Instance?.DoorAudioVisuals;
-
-        if (playerInteraction.ActionIcon != null)
-        {
-            playerInteraction.ActionIcon.enabled = true;
-        }
-        if (doorAudioVisuals.ActionHintMessage != null)
-        {
-            playerInteraction.ActionHintTextMesh.enabled = true;
-            playerInteraction.ActionHintTextMesh.text = GameUtils.ActionNameHint(doorIsOpen ? "Close" : "Open", name, Globals.Instance.DoorAudioVisuals.ActionHintMessage);
-        }
+        //playerInteraction.ActionIcon.enabled = true;
+        //playerInteraction.ActionHintTextMesh.enabled = true;
+        playerInteraction.ActionHintTextMesh.text = GameUtils.ActionNameHint(doorIsOpen ? "Close" : "Open", name, Globals.Instance.DoorAudioVisuals.ActionHintMessage);
         return false;
     }
 
@@ -87,32 +79,20 @@ public class DoorInteractionHandler : MonoBehaviour, IActionInterface
 
         if (doorIsLocked)
         {
-            PlayAudioClip(Globals.Instance?.DoorAudioVisuals?.LockedDoorRattleSound);
+            PlayAudioClip(doorAudioVisuals.LockedDoorRattleSound);
             return false;
         }
 
-        PlayAudioClip(Globals.Instance?.DoorAudioVisuals?.DoorOpenAndCloseSound);
-
-        if (objectAnimator == null)
-        {
-            GameLog.Message(LogType.Error, this, "Animator not found, cannot animate door.");
-            return false;
-        }
-
-        if (Globals.Instance == null || Globals.Instance.DoorAudioVisuals == null)
-        {
-            GameLog.Message(LogType.Error, this, "Globals.Instance or DoorAudioVisuals is not assigned.");
-            return false;
-        }
+        PlayAudioClip(doorAudioVisuals.DoorOpenAndCloseSound);
 
         if (doorIsOpen)
         {
-            objectAnimator.Play(Globals.Instance.DoorAudioVisuals.CloseAnimation, 0, 0.0f);
+            objectAnimator.Play(doorAudioVisuals.CloseAnimation, 0, 0.0f);
             doorIsOpen = false;
         }
         else
         {
-            objectAnimator.Play(Globals.Instance.DoorAudioVisuals.OpenAnimation, 0, 0.0f);
+            objectAnimator.Play(doorAudioVisuals.OpenAnimation, 0, 0.0f);
             doorIsOpen = true;
         }
 
