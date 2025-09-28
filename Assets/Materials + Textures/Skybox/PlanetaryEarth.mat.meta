@@ -11,5 +11,5 @@ AssetOrigin:
   productId: 103633
   packageName: Skybox Series Free
   packageVersion: 4.3
-  assetPath: Assets/Skybox/PlanetaryEarth.mat
+  assetPath: Assets/Materials + Textures/Skybox/PlanetaryEarth.mat
   uploadId: 472193
