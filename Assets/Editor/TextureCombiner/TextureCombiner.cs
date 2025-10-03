@@ -5,9 +5,9 @@ using System.Text.RegularExpressions;
 
 public class TextureCombiner : EditorWindow
 {
-    Texture2D metallic;
+    Texture2D metallicOrBaseColor;
     Texture2D smoothness;
-    string outputName = "Combined_BaseMap";
+    enum TextureType { Metallic, BaseColor, Unknown }
 
     [MenuItem("Tools/Texture Combiner")]
     public static void ShowWindow()
@@ -17,9 +17,9 @@ public class TextureCombiner : EditorWindow
 
     void OnGUI()
     {
-        GUILayout.Label("Combine Metallic and Smoothness", EditorStyles.boldLabel);
-        metallic = (Texture2D)EditorGUILayout.ObjectField("Metallic Map", metallic, typeof(Texture2D), false);
-        smoothness = (Texture2D)EditorGUILayout.ObjectField("Smoothness Map", smoothness, typeof(Texture2D), false);
+        GUILayout.Label("Combine Metallic/BaseColor and Smoothness", EditorStyles.boldLabel);
+        metallicOrBaseColor = (Texture2D)EditorGUILayout.ObjectField("Metallic or BaseColor texture", metallicOrBaseColor, typeof(Texture2D), false);
+        smoothness = (Texture2D)EditorGUILayout.ObjectField("Smoothness texture", smoothness, typeof(Texture2D), false);
 
         if (GUILayout.Button("Combine"))
         {
@@ -29,49 +29,74 @@ public class TextureCombiner : EditorWindow
 
     void CombineTextures()
     {
-        if (metallic == null || smoothness == null)
+        if (metallicOrBaseColor == null || smoothness == null)
         {
-            Debug.LogError("Both textures must be assigned.");
+            EditorUtility.DisplayDialog("Error", "Both textures must be set", "OK");
             return;
         }
 
-        if (!metallic.isReadable || !smoothness.isReadable)
+        string metallicOrBaseColorPath = AssetDatabase.GetAssetPath(metallicOrBaseColor);
+        string metallicOrBaseColorDir = Path.GetDirectoryName(metallicOrBaseColorPath);
+        string metallicOrBaseColorName = Path.GetFileNameWithoutExtension(metallicOrBaseColorPath);
+        string smoothnessPath = AssetDatabase.GetAssetPath(smoothness);
+
+        TextureType textureType = TextureType.Unknown;
+        if(Regex.IsMatch(metallicOrBaseColorName, "metallic", RegexOptions.IgnoreCase))
         {
-            Debug.LogError("One or both textures are not readable. Enable 'Read/Write' in import settings.");
-            return;
+            textureType = TextureType.Metallic;
+        }
+        else if (Regex.IsMatch(metallicOrBaseColorName, "basecolor|albedo|diffuse", RegexOptions.IgnoreCase))
+        {
+            textureType = TextureType.BaseColor;
+        }
+        else
+        {
+            EditorUtility.DisplayDialog("Warning", "Can't find 'metallic' 'basecolor' 'albedo' 'diffuse' in first texture - will simply append '+smooth' to its name", "OK");
         }
 
-        int width = metallic.width;
-        int height = metallic.height;
+        if (!metallicOrBaseColor.isReadable)// || !smoothness.isReadable)
+        {
+            TextureImporter importer = (TextureImporter)AssetImporter.GetAtPath(metallicOrBaseColorPath);
+            importer.isReadable = true;
+            importer.SaveAndReimport();
+        }
 
+        if (!smoothness.isReadable)
+        {
+            TextureImporter importer = (TextureImporter)AssetImporter.GetAtPath(smoothnessPath);
+            importer.isReadable = true;
+            importer.SaveAndReimport();
+        }
+
+        int width = metallicOrBaseColor.width;
+        int height = metallicOrBaseColor.height;
         Texture2D result = new Texture2D(width, height, TextureFormat.RGBA32, false);
 
-        Color[] metallicPixels = metallic.GetPixels();
+        Color[] metallicOrBaseColorPixels = metallicOrBaseColor.GetPixels();
         Color[] smoothPixels = smoothness.GetPixels();
 
-        for (int i = 0; i < metallicPixels.Length; i++)
+        for (int i = 0; i < metallicOrBaseColorPixels.Length; i++)
         {
-            Color m = metallicPixels[i];
+            Color m = metallicOrBaseColorPixels[i];
             float s = smoothPixels[i].r; // Assuming smoothness is in red channel
-            metallicPixels[i] = new Color(m.r, m.g, m.b, s);
+            metallicOrBaseColorPixels[i] = new Color(m.r, m.g, m.b, s);
         }
 
-        result.SetPixels(metallicPixels);
+        result.SetPixels(metallicOrBaseColorPixels);
         result.Apply();
 
-        string metallicPath = AssetDatabase.GetAssetPath(metallic);
-        string metallicDir = Path.GetDirectoryName(metallicPath);
-        string metallicName = Path.GetFileNameWithoutExtension(metallicPath);
-        string replacedName = Regex.Replace(
-                                    metallicName,
-                                    "metallic",
-                                    "metallic+smooth",
-                                    RegexOptions.IgnoreCase
-                                );
+        string searchPattern = textureType == TextureType.Metallic ? "metallic" :
+                               textureType == TextureType.BaseColor ? "basecolor|albedo|diffuse" : "";
 
+        string replacedName = Regex.Replace(
+                                metallicOrBaseColorName,
+                                searchPattern,
+                                match => match.Value + "+smooth",
+                                RegexOptions.IgnoreCase
+                            );
 
         // Convert to absolute system path
-        string absoluteDir = Path.GetFullPath(metallicDir);
+        string absoluteDir = Path.GetFullPath(metallicOrBaseColorDir);
         string savePath = EditorUtility.SaveFilePanel("Save Combined Texture", absoluteDir, replacedName, "png");
 
         if (!string.IsNullOrEmpty(savePath))
