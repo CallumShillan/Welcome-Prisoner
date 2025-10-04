@@ -8,6 +8,8 @@ public class TextureCombiner : EditorWindow
     Texture2D metallicOrBaseColor;
     Texture2D smoothness;
     enum TextureType { Metallic, BaseColor, Unknown }
+    const string smoothSuffix = "+smooth";
+    const string regexColorPattern = "color|basecolor|albedo|diffuse";
 
     [MenuItem("Tools/Texture Combiner")]
     public static void ShowWindow()
@@ -45,13 +47,13 @@ public class TextureCombiner : EditorWindow
         {
             textureType = TextureType.Metallic;
         }
-        else if (Regex.IsMatch(metallicOrBaseColorName, "basecolor|albedo|diffuse", RegexOptions.IgnoreCase))
+        else if (Regex.IsMatch(metallicOrBaseColorName, regexColorPattern, RegexOptions.IgnoreCase))
         {
             textureType = TextureType.BaseColor;
         }
         else
         {
-            EditorUtility.DisplayDialog("Warning", "Can't find 'metallic' 'basecolor' 'albedo' 'diffuse' in first texture - will simply append '+smooth' to its name", "OK");
+            EditorUtility.DisplayDialog("Warning", $"Can't find 'metallic' 'color' 'basecolor' 'albedo' 'diffuse' in first texture - will simply append '{smoothSuffix}' to its name", "OK");
         }
 
         if (!metallicOrBaseColor.isReadable)// || !smoothness.isReadable)
@@ -86,12 +88,12 @@ public class TextureCombiner : EditorWindow
         result.Apply();
 
         string searchPattern = textureType == TextureType.Metallic ? "metallic" :
-                               textureType == TextureType.BaseColor ? "basecolor|albedo|diffuse" : "";
+                               textureType == TextureType.BaseColor ? regexColorPattern : "";
 
         string replacedName = Regex.Replace(
                                 metallicOrBaseColorName,
                                 searchPattern,
-                                match => match.Value + "+smooth",
+                                match => match.Value + smoothSuffix,
                                 RegexOptions.IgnoreCase
                             );
 
