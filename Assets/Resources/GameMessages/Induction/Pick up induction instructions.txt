@@ -1,7 +1,5 @@
-Please pick up your Prisoner Digital Assistant here on the desk.
+Pick up your Prisoner Digital Assistant here on the desk.
 
-Afterwards, you can view your PDA by pressing the "P" key.
+Afterwards, use your PDA by pressing the "P" key.
 
-In the first instance, you should review the Prisoner Induction Process. You can find this in the TASKS app on your PDA.
-
-Then, make your way to the Security Office to start your Prisoner Induction Process.
+Review the Prisoner Induction Process assigned to you in the Tasks app on your PDA.

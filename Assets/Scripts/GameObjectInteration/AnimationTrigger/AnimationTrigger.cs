@@ -26,6 +26,9 @@ public class AnimationTrigger : MonoBehaviour, IActionInterface
     [SerializeField, Tooltip("Optional game object to initially hide")]
     private GameObject gameObjectToHide = null;
 
+    [SerializeField, Tooltip("Should a Game Message be shown after the interaction?")]
+    private InteractionMessage postInteractionMessage = null;
+
     private Animator theAnimator = null;
 
     /// <summary>
@@ -74,6 +77,14 @@ public class AnimationTrigger : MonoBehaviour, IActionInterface
             gameObjectToHide.SetActive(false);
             GameLog.NormalMessage(this, $"Game object '{gameObjectToHide.name}' has been set not active so as to hide it.");
         }
+
+        if(postInteractionMessage.ShowGameMessageAfterInteraction && string.IsNullOrEmpty(postInteractionMessage.GameMessageTitle))
+        {
+            if (string.IsNullOrWhiteSpace(postInteractionMessage.GameMessageTitle) || postInteractionMessage.SpeakerIconTexture == null)
+            {
+                GameLog.ErrorMessage(this, "'ShowGameMessageAfterInteraction' is true, but 'GameMessageTitle' is not set.");
+            }
+        }
     }
 
     /// <summary>
@@ -100,21 +111,6 @@ public class AnimationTrigger : MonoBehaviour, IActionInterface
 
         return false;
     }
-
-    public bool AdvertiseInteractio2n()
-    { 
-        if (Globals.Instance.PlayerInteraction.ActionIcon != null)
-        {
-            Globals.Instance.PlayerInteraction.ActionIcon.enabled = true; 
-        }
-        if (Globals.Instance.DoorAudioVisuals.ActionHintMessage != null)
-        {
-            Globals.Instance.PlayerInteraction.ActionHintTextMesh.enabled = true;
-            Globals.Instance.PlayerInteraction.ActionHintTextMesh.text = GameUtils.ActionNameHint(actionName, this.name, actionHint);
-        }
-        return false; 
-    }
-
 
     public bool PerformInteraction()
     {
@@ -158,6 +154,11 @@ public class AnimationTrigger : MonoBehaviour, IActionInterface
 
         if (stateInfo.normalizedTime >= 1.0f)
         {
+            if (postInteractionMessage.ShowGameMessageAfterInteraction)
+            {
+                // Show the game message
+                GameUtils.DisplayInteractionMessage(postInteractionMessage);
+            }
             return (InteractionStatus.Completed);
         }
 

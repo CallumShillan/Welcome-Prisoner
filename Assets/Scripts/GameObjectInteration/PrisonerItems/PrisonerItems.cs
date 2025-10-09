@@ -22,9 +22,12 @@ public class PrisonerItems : MonoBehaviour, IActionInterface
     [SerializeField, Tooltip("Should a Game Message be shown after the interaction?")]
     private InteractionMessage postInteractionMessage = null;
 
+    private bool hasInteracted = false;
+
     public void Awake()
     {
         itemToDisplay.SetActive(false);
+        hasInteracted = false;
     }
 
     /// <summary>
@@ -33,12 +36,17 @@ public class PrisonerItems : MonoBehaviour, IActionInterface
     /// <returns></returns>
     public bool AdvertiseInteraction()
     {
+        if (hasInteracted)
+        {
+            return false; // No further interactions needed
+        }
+
         PlayerInteraction playerInteraction = Globals.Instance?.PlayerInteraction;
 
         if (playerInteraction.ActionIcon != null)
         {
-            playerInteraction.ActionIcon.enabled = true;
-            playerInteraction.ActionHintTextMesh.enabled = true;
+            //playerInteraction.ActionIcon.enabled = true;
+            //playerInteraction.ActionHintTextMesh.enabled = true;
             playerInteraction.ActionHintTextMesh.text = GameUtils.ActionNameHint("Drop off", name, actionHintMessage);
         }
         return false;
@@ -46,6 +54,11 @@ public class PrisonerItems : MonoBehaviour, IActionInterface
 
     public bool PerformInteraction()
     {
+        if (hasInteracted)
+        {
+            return false; // No further interactions needed
+        }
+
         Material materialToFadeIn = itemToDisplay.GetComponent<Renderer>().material;
 
         // Color is a struct, so modify a copy and then reassign
@@ -64,9 +77,6 @@ public class PrisonerItems : MonoBehaviour, IActionInterface
         StartCoroutine(FadeIn(materialToFadeIn, fadeInDuration));
 
         GameUtils.SetLayerRecursively(itemToDisplay, "Default");
-
-        // Show the game message
-        GameUtils.DisplayInteractionMessage(postInteractionMessage);
 
         return false; // No further interactions needed
     }
@@ -87,21 +97,13 @@ public class PrisonerItems : MonoBehaviour, IActionInterface
             mat.color = color;
             yield return null;
         }
+
+        hasInteracted = true;
+
+        // Show the game message
+        GameUtils.DisplayInteractionMessage(postInteractionMessage);
+
+        GameUtils.SetLayerRecursively(this.gameObject, "Default");
+
     }
-
-    //public void SetLayerRecursively(GameObject root, string newLayer)
-    //{
-    //    int layer = LayerMask.NameToLayer(newLayer);
-    //    if (layer == -1)
-    //    {
-    //        Debug.LogWarning($"Layer \"{newLayer}\" does not exist.");
-    //        return;
-    //    }
-
-    //    foreach (Transform t in root.GetComponentsInChildren<Transform>(true))
-    //    {
-    //        t.gameObject.layer = layer;
-    //    }
-    //}
-
 }

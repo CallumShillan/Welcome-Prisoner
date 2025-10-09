@@ -77,23 +77,6 @@ public static class GameUtils
         }
     }
 
-    //public static IEnumerator FadeIn(Material mat, float duration)
-    //{
-    //    // Color is a struct, so modify a copy and then reassign
-    //    Color color = mat.color;
-    //    color.a = 0f;
-    //    mat.color = color;
-
-    //    float elapsed = 0f;
-    //    while (elapsed < duration)
-    //    {
-    //        elapsed += Time.deltaTime;
-    //        color.a = Mathf.Clamp01(elapsed / duration);
-    //        mat.color = color;
-    //        yield return null;
-    //    }
-    //}
-
     public static void SetLayerRecursively(GameObject root, string newLayer)
     {
         int layer = LayerMask.NameToLayer(newLayer);

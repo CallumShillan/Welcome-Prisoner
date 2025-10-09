@@ -13,13 +13,15 @@ public class DisplayGameMessage : Singleton<DisplayGameMessage>
     // These constants are used to find the specific UI elements in the UIDocument.
     private const string RootFrameName = "RootFrame";
     private const string SpeakerIconTextureName = "SpeakerIconTexture";
-    private const string SpeakerAndMessageTitleName = "SpeakerAndMessageTitle";
-    private const string MessageName = "Message";
+    private const string SpeakerName = "SpeakerName";
+    private const string MessageTitle = "MessageTitle";
+    private const string Message = "Message";
     private const string DismissButtonName = "DismissButton";
 
     private VisualElement rootVisualElement = null;
     private VisualElement docSpeakerIconTexture = null;
-    private Label docSpeakerAndMessageTitle = null;
+    private Label docSpeakerName = null;
+    private Label docMessageTitle = null;
     private Label docMessage = null;
     private Button docDismissButton = null;
     private EventCallback<ClickEvent> dismissButtonCallback;
@@ -65,8 +67,9 @@ public class DisplayGameMessage : Singleton<DisplayGameMessage>
         }
 
         Instance.docSpeakerIconTexture.style.backgroundImage = new StyleBackground(speakerIconTexture);
+        Instance.docSpeakerName.text = $"{speakerIconTexture.name}";
+        Instance.docMessageTitle.text = $"{gameMessageTitle}";
         Instance.docMessage.text = message.MessageText;
-        Instance.docSpeakerAndMessageTitle.text = $"{speakerIconTexture.name}: {gameMessageTitle}";
 
         var gameMessageDocument = globals.PlayerInteraction.GameMessageDocument;
         if (gameMessageDocument != null && gameMessageDocument.rootVisualElement != null)
@@ -101,42 +104,42 @@ public class DisplayGameMessage : Singleton<DisplayGameMessage>
         if (rootVisualElement == null)
         {
             Debug.Log("No Root Visual Element found in the Game Message Document.");
-            return;
         }
 
         var docRootFrame = rootVisualElement.Q<VisualElement>(RootFrameName);
         if (docRootFrame == null)
         {
             Debug.Log($"Unable to find a Visual Element called '{RootFrameName}' in the Game Message user interface document.");
-            return;
         }
 
         docSpeakerIconTexture = rootVisualElement.Q<VisualElement>(SpeakerIconTextureName);
         if (docSpeakerIconTexture == null)
         {
             Debug.Log($"Unable to find a Visual Element called '{SpeakerIconTextureName}' in the Game Message user interface document.");
-            return;
         }
 
-        docSpeakerAndMessageTitle = docRootFrame.Q<Label>(SpeakerAndMessageTitleName);
-        if (docSpeakerAndMessageTitle == null)
+        docSpeakerName = docRootFrame.Q<Label>(SpeakerName);
+        if (docSpeakerName == null)
         {
-            Debug.Log($"Unable to find a Label called '{SpeakerAndMessageTitleName}' in the Game Message user interface document.");
-            return;
+            Debug.Log($"Unable to find a Label called '{SpeakerName}' in the Game Message user interface document.");
         }
 
-        docMessage = docRootFrame.Q<Label>(MessageName);
+        docMessageTitle = docRootFrame.Q<Label>(MessageTitle);
+        if (docMessageTitle == null)
+        {
+            Debug.Log($"Unable to find a Label called '{MessageTitle}' in the Game Message user interface document.");
+        }
+
+        docMessage = docRootFrame.Q<Label>(Message);
         if (docMessage == null)
         {
-            Debug.Log($"Unable to find a Label called '{MessageName}' in the Game Message user interface document.");
-            return;
+            Debug.Log($"Unable to find a Label called '{Message}' in the Game Message user interface document.");
         }
 
         docDismissButton = docRootFrame.Q<Button>(DismissButtonName);
         if (docDismissButton == null)
         {
             Debug.Log($"Unable to find a Button called '{DismissButtonName}' in the Game Message user interface document.");
-            return;
         }
     }
 

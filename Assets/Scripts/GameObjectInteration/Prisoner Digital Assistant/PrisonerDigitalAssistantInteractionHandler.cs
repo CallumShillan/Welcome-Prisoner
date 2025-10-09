@@ -63,7 +63,10 @@ public class PrisonerDigitalAssistantInteractionHandler : MonoBehaviour, IAction
         this.gameObject.GetComponent<MeshRenderer>().enabled = false;
 
         // Show the game message
-        GameUtils.DisplayInteractionMessage(postInteractionMessage);
+        if(postInteractionMessage.ShowGameMessageAfterInteraction)
+        {
+            GameUtils.DisplayInteractionMessage(postInteractionMessage);
+        }
 
         return (false); // As we DO NOT need further interactions to display the PDA
     }

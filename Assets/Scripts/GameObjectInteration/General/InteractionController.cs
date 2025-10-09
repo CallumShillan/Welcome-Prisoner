@@ -26,30 +26,6 @@ public class InteractionController : MonoBehaviour
     [Tooltip("The name of a layer mask to exclude when looking for interactable objects")]
     private string excludeLayerMaskName;
 
-    //[SerializeField]
-    //[Tooltip("The player's Game Object")]
-    //public GameObject player = null;
-
-    //[SerializeField]
-    //[Tooltip("The key used to trigger object interaction")]
-    //private KeyCode primaryInteractionKey = KeyCode.Mouse0;
-
-    //[SerializeField]
-    //[Tooltip("The icon to show a known action is available")]
-    //private Image interactionIndicatorIcon;
-
-    //[SerializeField]
-    //[Tooltip("The icon to show an action is unknown")]
-    //private Image unknownActionIcon;
-
-    //[SerializeField]
-    //[Tooltip("An description of the action")]
-    //private string unknownActionDescription;
-
-    //[SerializeField]
-    //[Tooltip("The Text Mesh used to display the action description")]
-    //private TextMeshProUGUI textMeshActionHint = null;
-
     [SerializeField]
     [Tooltip("Number of seconds between cache clearances")]
     private int cacheClearanceInterval = 600;
@@ -285,17 +261,12 @@ public class InteractionController : MonoBehaviour
 
     private void PerformPrimaryAction(GameObject hitObject, IActionInterface hitObjectActionInterface)
     {
-        GameLog.Message(LogType.Warning, hitObject, "Performing primary action");
+        HideInteractionCursors();
+
         if (hitObjectActionInterface.PerformInteraction())
         {
-            GameLog.Message(LogType.Warning, hitObject, "Allowing for further interactions");
-
             // As we're doing continued interactions, we need to disable the player so they don't respond to the keystrokes and, say, move around
             player.SetActive(false);
-            interactionIndicatorIcon.enabled = false;
-            actionHintTextMesh.enabled = false;
-            actionHintBackground.enabled = false;
-            cursorIcon.SetActive(false);
             continuedUserDialogueActionInterface = hitObjectActionInterface;
         }
     }
@@ -307,7 +278,6 @@ public class InteractionController : MonoBehaviour
         switch (statusOfInteraction)
         {
             case InteractionStatus.Completed:
-                GameLog.NormalMessage(this, "No more continued dialogue needed", string.Empty);
                 continuedUserDialogueActionInterface = null;
 
                 // For continued interaction, the player was disabled so they didn't respond to user input and move about
@@ -318,7 +288,6 @@ public class InteractionController : MonoBehaviour
                 break;
 
             case InteractionStatus.Continuing:
-                GameLog.NormalMessage(this, "Continuing user interaction with the object", string.Empty);
                 player.SetActive(false);
                 interactionIndicatorIcon.enabled = false;
                 actionHintTextMesh.enabled = false;
@@ -428,8 +397,17 @@ public class InteractionController : MonoBehaviour
     public void HideInteractionCursors()
     {
         Globals.Instance.PlayerInteraction.ActionIcon.enabled = false;
-        unknownActionIcon.enabled = false;
+        interactionIndicatorIcon.enabled = false;
+        unknownActionIcon.enabled = true;
         actionHintTextMesh.enabled = false;
         actionHintBackground.enabled = false;
+    }
+
+    public void ShowInteractionCursors()
+    {
+        Globals.Instance.PlayerInteraction.ActionIcon.enabled = true;
+        interactionIndicatorIcon.enabled = true;
+        actionHintTextMesh.enabled = true;
+        actionHintBackground.enabled = true;
     }
 }
