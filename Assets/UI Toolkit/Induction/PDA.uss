@@ -254,10 +254,10 @@
     opacity: 1;
     background-size: contain;
     background-position-x: center;
-    border-left-color: rgb(255, 255, 255);
-    border-right-color: rgb(255, 255, 255);
-    border-top-color: rgb(255, 255, 255);
-    border-bottom-color: rgb(255, 255, 255);
+    border-left-color: rgb(248, 242, 222);
+    border-right-color: rgb(248, 242, 222);
+    border-top-color: rgb(248, 242, 222);
+    border-bottom-color: rgb(248, 242, 222);
     border-top-width: 10px;
     border-right-width: 10px;
     border-bottom-width: 10px;
