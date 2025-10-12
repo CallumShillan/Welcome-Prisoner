@@ -2,7 +2,7 @@
     width: 80%;
     height: 100%;
     flex-direction: column;
-    background-color: rgb(30, 30, 30);
+    background-color: rgba(30, 30, 30, 0);
     border-radius: 12px;
     padding: 8px;
     align-self: center;
@@ -13,14 +13,14 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    background-color: rgb(220, 220, 220);
+    background-color: rgba(220, 220, 220, 0);
     padding-left: 0;
     padding-right: 0;
     width: 100%;
     padding-top: 0;
     padding-bottom: 0;
     flex-grow: 1;
-    border-bottom-width: 5px;
+    border-bottom-width: 0;
     border-left-color: rgb(0, 0, 0);
     border-right-color: rgb(0, 0, 0);
     border-top-color: rgb(0, 0, 0);
@@ -50,7 +50,7 @@
     display: flex;
     flex-direction: column;
     height: 90%;
-    background-color: rgb(255, 255, 255);
+    background-color: rgba(255, 255, 255, 0);
     padding: 12px;
     overflow: hidden;
     padding-top: 1px;
