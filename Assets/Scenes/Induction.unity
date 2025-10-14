@@ -2530,6 +2530,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7594032350004329459, guid: 4ea562ec95eaea847b12a5f688b1895d, type: 3}
   m_PrefabInstance: {fileID: 387505421}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &390398571 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 598000034550776517, guid: 865966a48c283d04682991bbdd23ce0c, type: 3}
+  m_PrefabInstance: {fileID: 4620110891703621104}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &394146615
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23912,6 +23917,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 6502022397133287776, guid: 865966a48c283d04682991bbdd23ce0c, type: 3}
+      propertyPath: actionHandlerObject
+      value: 
+      objectReference: {fileID: 390398571}
     - target: {fileID: 6590714213908258228, guid: 865966a48c283d04682991bbdd23ce0c, type: 3}
       propertyPath: m_Layer
       value: 3
