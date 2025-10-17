@@ -3,37 +3,37 @@
     <ui:VisualElement name="homepage-root" class="homepage-root" style="background-color: rgb(248, 242, 222);">
         <ui:VisualElement name="topAppGrid" class="app-grid" style="flex-grow: 1; align-items: center; flex-direction: row;">
             <ui:VisualElement class="app-element">
-                <ui:Button name="btn-QuestDetails" tooltip="List of tasks and activities" class="app-icon" style="background-image: url(&quot;project://database/Assets/Materials%20+%20Textures/Personal/Icons/Tasks%20Icon.png?fileID=2800000&amp;guid=fd7d3316872d340429d315fbab4f459d&amp;type=3#Tasks Icon&quot;);" />
+                <ui:Button name="btn-QuestDetails" tooltip="List of tasks and activities" icon-image="project://database/Assets/Materials%20+%20Textures/Personal/PDA/Tasks%20Icon.png?fileID=2800000&amp;guid=fd7d3316872d340429d315fbab4f459d&amp;type=3#Tasks Icon" class="topnav-icon" style="background-color: rgba(188, 188, 188, 0);" />
                 <ui:Label text="Tasks" display-tooltip-when-elided="true" class="homepageLabels" style="flex-grow: 1; width: 100%;" />
             </ui:VisualElement>
             <ui:VisualElement class="app-element">
-                <ui:Button name="btn-EbookReader" tooltip="Library of read documents" class="app-icon" style="background-image: url(&quot;project://database/Assets/Materials%20+%20Textures/Personal/Icons/Library%20Icon.png?fileID=2800000&amp;guid=0992ef11633324444923405a649041a4&amp;type=3#Library Icon&quot;);" />
+                <ui:Button name="btn-EbookReader" tooltip="Library of read documents" class="topnav-icon" style="background-image: url(&quot;project://database/Assets/Materials%20+%20Textures/Personal/PDA/Library%20Icon.png?fileID=2800000&amp;guid=0992ef11633324444923405a649041a4&amp;type=3#Library Icon&quot;);" />
                 <ui:Label text="Library" display-tooltip-when-elided="true" class="lbl-home-screen-icon homepageLabels" style="flex-grow: 1; flex-shrink: 0;" />
             </ui:VisualElement>
             <ui:VisualElement class="app-element">
-                <ui:Button name="btn-MessageReader" tooltip="Personal messages" class="app-icon" style="background-image: url(&quot;project://database/Assets/Materials%20+%20Textures/Personal/Icons/Messages%20Icon.png?fileID=2800000&amp;guid=ae4c4bf84ecee02408d567ea5061cb8d&amp;type=3#Messages Icon&quot;);" />
+                <ui:Button name="btn-MessageReader" tooltip="Personal messages" class="topnav-icon" style="background-image: url(&quot;project://database/Assets/Materials%20+%20Textures/Personal/PDA/Messages%20Icon.png?fileID=2800000&amp;guid=ae4c4bf84ecee02408d567ea5061cb8d&amp;type=3#Messages Icon&quot;);" />
                 <ui:Label text="Messages" display-tooltip-when-elided="true" class="homepageLabels" />
             </ui:VisualElement>
             <ui:VisualElement class="app-element">
-                <ui:Button name="btn-Map" tooltip="Map" class="app-icon" style="background-image: url(&quot;project://database/Assets/Materials%20+%20Textures/Personal/Icons/Map%20Icon.png?fileID=2800000&amp;guid=8b35fda96c753a64e8b06e76f2b53064&amp;type=3#Map Icon&quot;);" />
+                <ui:Button name="btn-Map" tooltip="Map" class="topnav-icon" style="background-image: url(&quot;project://database/Assets/Materials%20+%20Textures/Personal/PDA/Map%20Icon.png?fileID=2800000&amp;guid=8b35fda96c753a64e8b06e76f2b53064&amp;type=3#Map Icon&quot;);" />
                 <ui:Label text="Map" display-tooltip-when-elided="true" class="lbl-home-screen-icon homepageLabels" />
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="bottomAppGrid" class="app-grid" style="flex-grow: 1; align-items: center; flex-direction: row;">
             <ui:VisualElement name="VisualElement" class="app-element">
-                <ui:Button name="btn-ExitGame" tooltip="Hints" class="app-icon" style="background-image: url(&quot;project://database/Assets/Materials%20+%20Textures/Personal/Icons/Exit%20Game%20Icon.png?fileID=2800000&amp;guid=027b34bbf329fae40b4c8025b83a9316&amp;type=3#Exit Game Icon&quot;);" />
+                <ui:Button name="btn-ExitGame" tooltip="Hints" class="topnav-icon" style="background-image: url(&quot;project://database/Assets/Materials%20+%20Textures/Personal/PDA/Exit%20Game%20Icon.png?fileID=2800000&amp;guid=027b34bbf329fae40b4c8025b83a9316&amp;type=3#Exit Game Icon&quot;);" />
                 <ui:Label text="Quit Game" display-tooltip-when-elided="true" class="lbl-home-screen-icon homepageLabels" />
             </ui:VisualElement>
             <ui:VisualElement class="app-element">
-                <ui:Button name="btn-Options" tooltip="Options" class="app-icon" style="background-image: url(&quot;project://database/Assets/Materials%20+%20Textures/Personal/Icons/Options%20Icon.png?fileID=2800000&amp;guid=1073f64d6256bdb45935d6649fc40bf6&amp;type=3#Options Icon&quot;);" />
+                <ui:Button name="btn-Options" tooltip="Options" class="topnav-icon" style="background-image: url(&quot;project://database/Assets/Materials%20+%20Textures/Personal/PDA/Options%20Icon.png?fileID=2800000&amp;guid=1073f64d6256bdb45935d6649fc40bf6&amp;type=3#Options Icon&quot;);" />
                 <ui:Label text="Options" display-tooltip-when-elided="true" class="lbl-home-screen-icon homepageLabels" />
             </ui:VisualElement>
             <ui:VisualElement class="app-element">
-                <ui:Button name="btn-LoadSave" tooltip="Load / Save" class="app-icon" style="background-image: url(&quot;project://database/Assets/Materials%20+%20Textures/Personal/Icons/Load%20Save%20Icon.png?fileID=2800000&amp;guid=e3285c5bc612b7f478b983c6c4e79b7b&amp;type=3#Load Save Icon&quot;);" />
+                <ui:Button name="btn-LoadSave" tooltip="Load / Save" class="topnav-icon" style="background-image: url(&quot;project://database/Assets/Materials%20+%20Textures/Personal/PDA/Load%20Save%20Icon.png?fileID=2800000&amp;guid=e3285c5bc612b7f478b983c6c4e79b7b&amp;type=3#Load Save Icon&quot;);" />
                 <ui:Label text="Load/Save" display-tooltip-when-elided="true" class="lbl-home-screen-icon homepageLabels" />
             </ui:VisualElement>
             <ui:VisualElement class="app-element">
-                <ui:Button name="btn-Credits" tooltip="Load / Save" emoji-fallback-support="false" class="app-icon" style="background-image: url(&quot;project://database/Assets/Materials%20+%20Textures/Personal/Icons/Credits%20Icon.png?fileID=2800000&amp;guid=c690246cb7ade8a49a072f3ab488dfb8&amp;type=3#Credits Icon&quot;);" />
+                <ui:Button name="btn-Credits" tooltip="Load / Save" emoji-fallback-support="false" class="topnav-icon" style="background-image: url(&quot;project://database/Assets/Materials%20+%20Textures/Personal/PDA/Credits%20Icon.png?fileID=2800000&amp;guid=c690246cb7ade8a49a072f3ab488dfb8&amp;type=3#Credits Icon&quot;);" />
                 <ui:Label text="Credits" display-tooltip-when-elided="true" class="lbl-home-screen-icon homepageLabels" />
             </ui:VisualElement>
         </ui:VisualElement>
