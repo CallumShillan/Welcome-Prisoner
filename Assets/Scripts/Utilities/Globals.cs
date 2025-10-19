@@ -12,6 +12,10 @@ public class UiStyles
     private string questButtonClass = "quest-button";
     public string QuestButtonClass => questButtonClass;
 
+    [SerializeField, Tooltip("The USS style class for base text")]
+    private string baseTextClass = "base-text";
+    public string BaseTextClasss => baseTextClass;
+
     [SerializeField, Tooltip("The USS style class for task data label")]
     private string taskLabelClass = "task-label";
     public string TaskLabelClass => taskLabelClass;

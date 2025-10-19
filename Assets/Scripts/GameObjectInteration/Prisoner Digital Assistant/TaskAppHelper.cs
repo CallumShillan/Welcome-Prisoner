@@ -81,7 +81,7 @@ public static class TaskAppHelper
 
             taskTreeview.AddToClassList("tasks-treeview");
             taskTreeview.columns.Add(new Column { title = "Active", width = 100, resizable = true });
-            taskTreeview.columns.Add(new Column { title = "Title", width = 300, resizable = true });
+            taskTreeview.columns.Add(new Column { title = "Title", stretchable=true, minWidth = 10, resizable = true });
             taskTreeview.columns.Add(new Column { title = "Short Description", width = 500, resizable = true });
             taskTreeview.columns.Add(new Column { title = "Status", width = 150, resizable = true });
             taskTreeview.virtualizationMethod = CollectionVirtualizationMethod.DynamicHeight;
@@ -96,7 +96,9 @@ public static class TaskAppHelper
                     VisualElement container = new VisualElement();
 
                     Label taskLabel = new Label();
-                    taskLabel.AddToClassList(Globals.Instance.UiStyles.TaskLabelClass);
+                    //taskLabel.ClearClassList();
+                    //taskLabel.AddToClassList(Globals.Instance.UiStyles.BaseTextClasss);
+                    //taskLabel.AddToClassList(Globals.Instance.UiStyles.TaskLabelClass);
                     taskLabel.name = "taskLabel";
 
                     container.Add(taskLabel);
@@ -114,23 +116,28 @@ public static class TaskAppHelper
                         {
                             case "Active":
                                 label.text = task.IsActive ? "Yes" : "No";
+                                label.tooltip = task.IsActive ? "This task is active" : "This task is not active";
                                 label.userData = task.Title;
                                 break;
                             case "Title":
                                 label.text = GameUtils.SplitPascalCase(task.Title);
+                                label.tooltip = task.Title;
                                 label.userData = task.Title;
                                 break;
                             case "Short Description":
                                 label.text = task.ShortDescription;
+                                label.tooltip = task.ShortDescription;
                                 label.userData = task.Title;
                                 break;
                             case "Status":
                                 label.text = task.State.ToString();
+                                label.tooltip = task.State.ToString();
                                 label.userData = task.Title;
                                 break;
                             default:
-                                label.text = "huh";
-                                label.userData = "huh";
+                                label.text = "Unknown colum";
+                                label.tooltip = "Unkown column";
+                                label.userData = "Unknown column";
                                 break;
                         }
                     }
@@ -149,6 +156,7 @@ public static class TaskAppHelper
                     {
                         ShowTaskDetails(clickedTask);
                     }
+                    taskTreeview.ClearSelection();
                 }
             });
 

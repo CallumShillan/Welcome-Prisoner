@@ -90,7 +90,7 @@
             "GameState": "Pending",
             "CompletionEvent": "IDENTITY_CARD_ACQUIRED",
             "Title": "GetYourIdentityCard",
-            "ShortDescription": "Have your picture taken so your PDAcan be been updated with your security card.",
+            "ShortDescription": "Have your picture taken so your PDA can be been updated with your security card.",
             "LongDescription": "Your PDA's Identity Card is more than just a name tag, it is your lifeline inside these walls.\r\nGuards scan it to verify who you are and where you are allowed to be. It grants access to certain areas, tracks your movements, and affects how staff treat you. Lose it, and you will raise suspicion.\r\nSteal someone else’s, and you might slip past checkpoints—but if you’re caught, expect lockdown. Some inmates forge cards to gain power or escape. Use yours wisely. Whether you play by the rules or bend them, this little piece of plastic could change everything.",
             "IsActive": false
         },

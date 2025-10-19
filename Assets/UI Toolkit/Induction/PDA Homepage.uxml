@@ -4,7 +4,7 @@
         <ui:VisualElement name="topAppGrid" class="app-grid" style="flex-grow: 1; align-items: center; flex-direction: row;">
             <ui:VisualElement class="app-element">
                 <ui:Button name="btn-QuestDetails" tooltip="List of tasks and activities" class="app-icon" style="background-image: url(&quot;project://database/Assets/Materials%20+%20Textures/Personal/PDA/Tasks%20Icon.png?fileID=2800000&amp;guid=fd7d3316872d340429d315fbab4f459d&amp;type=3#Tasks Icon&quot;);" />
-                <ui:Label text="Tasks" display-tooltip-when-elided="true" class="homepageLabels" style="flex-grow: 1; width: 100%;" />
+                <ui:Label text="Tasks" display-tooltip-when-elided="true" class="homepageLabels" style="flex-grow: 1;" />
             </ui:VisualElement>
             <ui:VisualElement class="app-element">
                 <ui:Button name="btn-EbookReader" tooltip="Library of read documents" class="app-icon" style="background-image: url(&quot;project://database/Assets/Materials%20+%20Textures/Personal/PDA/Library%20Icon.png?fileID=2800000&amp;guid=0992ef11633324444923405a649041a4&amp;type=3#Library Icon&quot;);" />

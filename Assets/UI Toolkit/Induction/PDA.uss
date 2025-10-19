@@ -1,34 +1,35 @@
-.pda-root {
-    width: 80%;
-    height: 100%;
+.app-container {
+    display: flex;
     flex-direction: column;
-    background-color: rgba(30, 30, 30, 0);
-    border-radius: 12px;
-    padding: 8px;
-    align-self: center;
-    align-items: center;
-}
-
-.top-nav {
-    flex-direction: row;
-    background-color: rgba(220, 220, 220, 0);
+    height: 72%;
+    background-color: rgb(0, 255, 49);
+    padding: 12px;
+    overflow: hidden;
     width: 90%;
-    flex-grow: 0;
-    flex-shrink: 0;
-    align-content: auto;
-    height: 20%;
-}
-
-.topnav-container {
-    flex-direction: row;
-    width: 50%;
-    height: 100%;
+    margin-bottom: 10%;
     flex-grow: 1;
-    align-items: center;
-    background-color: rgba(207, 42, 42, 0.24);
+    margin-top: 6%;
 }
 
-.topnav-icon {
+.app-element {
+    align-items: center;
+    flex-grow: 0;
+    background-color: rgba(255, 255, 255, 0);
+    flex-direction: column;
+    width: 10%;
+}
+
+.app-grid {
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    width: 100%;
+}
+
+.app-icon {
     width: 96px;
     height: 96px;
     border-top-width: 4px;
@@ -45,11 +46,11 @@
     border-right-color: rgba(0, 0, 0, 0);
     border-top-color: rgba(0, 0, 0, 0);
     border-bottom-color: rgba(0, 0, 0, 0);
-    background-color: rgb(249, 158, 42);
+    background-color: rgb(248, 242, 222);
     background-image: none;
 }
 
-.topnav-icon:hover {
+.app-icon:hover {
     border-top-width: 4px;
     border-right-width: 4px;
     border-bottom-width: 4px;
@@ -69,17 +70,15 @@
     background-color: rgb(230, 216, 184);
 }
 
-.app-container {
-    display: flex;
-    flex-direction: column;
-    height: 72%;
-    background-color: rgb(0, 255, 49);
-    padding: 12px;
-    overflow: hidden;
-    width: 90%;
-    margin-bottom: 10%;
+.base-text {
     flex-grow: 1;
-    margin-top: 6%;
+    flex-direction: column;
+    width: 100%;
+    -unity-text-align: middle-left;
+    color: rgb(48, 57, 62);
+    font-size: 24px;
+    -unity-font-style: normal;
+    text-overflow: ellipsis;
 }
 
 .homepage-root {
@@ -89,22 +88,99 @@
     background-color: rgb(255, 255, 255);
     flex-direction: column;
     width: 100%;
-}
-
-.homepageLabels {
-    flex-grow: 1;
-    flex-direction: column;
-    width: 100%;
-    -unity-text-align: upper-center;
     color: rgb(48, 57, 62);
-    font-size: 24px;
-    -unity-font-style: normal;
 }
 
 .homepage-title {
     font-size: 18px;
     color: white;
     margin-bottom: 12px;
+}
+
+.homepage-Labels {
+    flex-grow: 1;
+    flex-direction: column;
+    width: 100%;
+    -unity-text-align: upper-left;
+    color: rgb(48, 57, 62);
+    font-size: 24px;
+    -unity-font-style: normal;
+}
+
+.message-content__message {
+    padding-left: 1%;
+    padding-right: 1%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    flex-wrap: wrap;
+    white-space: pre-wrap;
+}
+
+.message-content__scroll-view {
+}
+
+.pda-root {
+    width: 80%;
+    height: 100%;
+    flex-direction: column;
+    background-color: rgba(30, 30, 30, 0);
+    border-radius: 12px;
+    padding: 8px;
+    align-self: center;
+    align-items: center;
+}
+
+.quest-button {
+    background-color: rgba(255, 255, 255, 0);
+    font-size: 14px;
+    border-top-width: 2px;
+    border-right-width: 2px;
+    border-bottom-width: 2px;
+    border-left-width: 2px;
+    border-left-color: rgb(48, 57, 62);
+    border-right-color: rgb(48, 57, 62);
+    border-top-color: rgb(48, 57, 62);
+    border-bottom-color: rgb(48, 57, 62);
+    -unity-text-align: middle-center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: rgb(48, 57, 62);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+.quest-button:hover {
+    background-color: rgb(249, 158, 42);
+    font-size: 14px;
+    border-top-width: 2px;
+    border-right-width: 2px;
+    border-bottom-width: 2px;
+    border-left-width: 2px;
+    border-left-color: rgb(48, 57, 62);
+    border-right-color: rgb(48, 57, 62);
+    border-top-color: rgb(48, 57, 62);
+    border-bottom-color: rgb(48, 57, 62);
+    -unity-text-align: middle-center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: rgb(255, 255, 255);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+.quest-listview-item-container {
+    padding-top: 1px;
+    padding-bottom: 1px;
+}
+
+.quest-listview-item-container:hover {
+    background-color: rgba(0, 0, 0, 0);
 }
 
 .root-frame {
@@ -166,36 +242,6 @@
     border-top-right-radius: 0;
     border-bottom-right-radius: 10px;
     border-bottom-left-radius: 10px;
-}
-
-.message-content__scroll-view {
-}
-
-.message-content__message {
-    padding-left: 1%;
-    padding-right: 1%;
-    padding-top: 1%;
-    padding-bottom: 1%;
-    flex-wrap: wrap;
-    white-space: pre-wrap;
-}
-
-.app-grid {
-    flex-wrap: wrap;
-    justify-content: space-around;
-    margin-top: 0;
-    margin-right: 0;
-    margin-bottom: 0;
-    margin-left: 0;
-    width: 100%;
-}
-
-.app-element {
-    align-items: center;
-    flex-grow: 0;
-    background-color: rgba(255, 255, 255, 0);
-    flex-direction: column;
-    width: 10%;
 }
 
 .message-banner__dismiss-button {
@@ -266,55 +312,33 @@
     margin-left: 20px;
 }
 
-.quest-button {
-    background-color: rgb(255, 255, 255);
-    font-size: 24px;
-    border-top-width: 2px;
-    border-right-width: 2px;
-    border-bottom-width: 2px;
-    border-left-width: 2px;
-    border-left-color: rgb(0, 0, 0);
-    border-right-color: rgb(0, 0, 0);
-    border-top-color: rgb(0, 0, 0);
-    border-bottom-color: rgb(0, 0, 0);
-    -unity-text-align: middle-left;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-.quest-button:hover {
-    background-color: rgb(0, 0, 0);
-    color: rgb(255, 255, 255);
-}
-
-.quest-listview-item-container {
-    padding-top: 1px;
-    padding-bottom: 1px;
-}
-
-.quest-listview-item-container:hover {
-    background-color: transparent;
-}
-
-.tasks-treeview .unity-label {
-    font-size: 24px;
-    height: 32px;
+.task-label {
     flex-grow: 1;
+    flex-direction: column;
+    width: 100%;
+    font-size: 20px;
+}
+
+.top-nav {
+    flex-direction: row;
+    background-color: rgba(220, 220, 220, 0);
+    width: 90%;
+    flex-grow: 0;
     flex-shrink: 0;
-    align-self: stretch;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
+    align-content: auto;
+    height: 20%;
 }
 
-.tasks-treeview .unity-multi-column-header__column .unity-label {
-    font-size: 24px;
-    letter-spacing: 2px;
-    -unity-font-style: bold;
+.topnav-container {
+    flex-direction: row;
+    width: 50%;
+    height: 100%;
+    flex-grow: 1;
+    align-items: center;
+    background-color: rgba(207, 42, 42, 0.24);
 }
 
-.app-icon {
+.topnav-icon {
     width: 96px;
     height: 96px;
     border-top-width: 4px;
@@ -331,11 +355,11 @@
     border-right-color: rgba(0, 0, 0, 0);
     border-top-color: rgba(0, 0, 0, 0);
     border-bottom-color: rgba(0, 0, 0, 0);
-    background-color: rgb(248, 242, 222);
+    background-color: rgb(249, 158, 42);
     background-image: none;
 }
 
-.app-icon:hover {
+.topnav-icon:hover {
     border-top-width: 4px;
     border-right-width: 4px;
     border-bottom-width: 4px;
@@ -353,4 +377,33 @@
     width: 96px;
     height: 96px;
     background-color: rgb(230, 216, 184);
+}
+
+.tasks-treeview .unity-label {
+    font-size: 20px;
+    flex-grow: 1;
+    flex-shrink: 0;
+    align-self: stretch;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: normal;
+    color: rgb(48, 57, 62);
+    -unity-text-align: middle-left;
+    flex-wrap: wrap;
+}
+
+.tasks-treeview .unity-multi-column-header__column .unity-label {
+    font-size: 24px;
+    letter-spacing: 2px;
+    -unity-font-style: bold;
+}
+
+.tasks-treeview .unity-tree-view__row {
+    background-color: rgb(230, 216, 184);
+    color: rgb(255, 0, 0);
+}
+
+.tasks-treeview .unity-tree-view__row:hover {
+    background-color: rgb(230, 216, 184);
+    color: rgb(0, 255, 1);
 }
