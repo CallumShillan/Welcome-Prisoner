@@ -29,6 +29,9 @@ public class ScannerInteractionHandler : MonoBehaviour, IActionInterface
     [Tooltip("A tooltip about the action")]
     private string actionHintMessage = string.Empty;
 
+    [SerializeField, Tooltip("Should a Game Message be shown after the interaction?")]
+    private InteractionMessage postInteractionMessage = null;
+
     private Image actionIcon = null;
     private Image unknownActionIcon = null;
     private TextMeshProUGUI actionHintTextMesh;
@@ -57,6 +60,11 @@ public class ScannerInteractionHandler : MonoBehaviour, IActionInterface
             {
                 GameLog.ErrorMessage(this, $"Unable to get the animator for scanner '{name}'. Did you forget to set one in the editor?");
             }
+        }
+
+        if (postInteractionMessage == null)
+        {
+            GameLog.WarningMessage(this, $"Scanner '{name}' does not have an post interaction message assigned. Did you forget to set one in the editor?");
         }
 
         // Hide the scan subject until needed
@@ -127,6 +135,12 @@ public class ScannerInteractionHandler : MonoBehaviour, IActionInterface
         {
             scannerSubject.SetActive(false);
             GameUtils.SetLayerRecursively(this.gameObject, "Default");
+
+            if (postInteractionMessage?.ShowGameMessageAfterInteraction == true)
+            {
+                GameUtils.DisplayInteractionMessage(postInteractionMessage);
+            }
+
             return (InteractionStatus.Completed);
         }
 

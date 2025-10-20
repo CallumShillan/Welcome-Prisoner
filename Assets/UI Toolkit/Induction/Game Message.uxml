@@ -1,17 +1,19 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI%20Toolkit/Induction/PDA.uss?fileID=7433441132597879392&amp;guid=584da900d9e50ca44b91fa341611031a&amp;type=3#PDA" />
-    <ui:GroupBox name="RootFrame" class="root-frame" style="background-color: rgba(159, 152, 152, 0);">
-        <ui:VisualElement name="MessageBanner" class="root-frame__message-banner" style="justify-content: flex-start;">
-            <ui:VisualElement name="SpeakerIconTexture" class="message-banner__speaker-icon-texture" style="flex-grow: 1; margin-top: 2px; margin-right: 2px; margin-bottom: 2px; margin-left: 2px; flex-shrink: 0; width: 15%;" />
-            <ui:VisualElement style="flex-grow: 1; width: 60%;">
-                <ui:Label text="Speaker" name="SpeakerName" class="message-banner__speaker-and-message-title" />
-                <ui:Label text="Message Title" name="MessageTitle" class="message-banner__speaker-and-message-title" />
+    <ui:GroupBox name="RootFrame" class="root-frame" style="background-color: rgba(159, 152, 152, 0); border-left-color: rgb(48, 57, 62); border-right-color: rgb(48, 57, 62); border-top-color: rgb(48, 57, 62); border-bottom-color: rgb(48, 57, 62); border-top-width: 10px; border-right-width: 10px; border-bottom-width: 10px; border-left-width: 10px;">
+        <ui:VisualElement name="MessageBanner" class="root-frame__message-banner" style="justify-content: flex-start; padding-right: 0%; border-left-color: rgba(0, 0, 0, 0); border-right-color: rgba(0, 0, 0, 0); border-top-color: rgba(0, 0, 0, 0); border-bottom-color: rgba(0, 0, 0, 0); background-color: rgb(241, 105, 60);">
+            <ui:VisualElement name="SpeakerIconTexture" class="message-banner__speaker-icon-texture" style="height: 75px; width: 75px; overflow: visible;" />
+            <ui:VisualElement style="flex-grow: 1; width: 60%; justify-content: flex-start; padding-left: 0%; padding-right: 0%; background-color: rgb(241, 105, 60); padding-bottom: 0%; padding-top: 0%;">
+                <ui:Label text="Speaker" name="SpeakerName" style="-unity-font-style: bold; -unity-text-align: middle-left;" />
+                <ui:Label text="Message Title" name="MessageTitle" style="-unity-text-align: upper-left;" />
             </ui:VisualElement>
-            <ui:Button text="Dismiss Message" name="DismissButton" class="message-banner__dismiss-button" style="margin-left: 2px; margin-top: 2px; margin-right: 2px; margin-bottom: 2px;" />
+            <ui:VisualElement style="flex-grow: 1; justify-content: center;">
+                <ui:Button text="Dismiss" name="DismissButton" class="message-banner__dismiss-button" style="width: 100%; height: auto; flex-shrink: 1; flex-grow: 1;" />
+            </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="MessageContent" class="root-frame__message-content root-frame__message-conent">
+        <ui:VisualElement name="MessageContent" class="root-frame__message-content base-text">
             <ui:ScrollView class="message-content__scroll-view">
-                <ui:Label name="Message" class="message-content__message" />
+                <ui:Label name="Message" text="Message" class="message-content__message" />
             </ui:ScrollView>
         </ui:VisualElement>
     </ui:GroupBox>

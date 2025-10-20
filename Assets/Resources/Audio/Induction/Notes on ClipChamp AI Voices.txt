@@ -1,4 +1,2 @@
-Prison Governor: Masaru Multilingual
-Reception Robot: Ryan 
-Voice prompt: Ryan
-Security Robot: Ryan
+Prison Governor: Marcello Multilingual
+Mysterious Helper: Serena Multilingual

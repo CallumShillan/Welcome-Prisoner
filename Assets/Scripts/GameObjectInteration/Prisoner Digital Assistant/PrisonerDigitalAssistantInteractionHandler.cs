@@ -63,7 +63,7 @@ public class PrisonerDigitalAssistantInteractionHandler : MonoBehaviour, IAction
         this.gameObject.GetComponent<MeshRenderer>().enabled = false;
 
         // Show the game message
-        if(postInteractionMessage.ShowGameMessageAfterInteraction)
+        if(postInteractionMessage?.ShowGameMessageAfterInteraction == true)
         {
             GameUtils.DisplayInteractionMessage(postInteractionMessage);
         }
