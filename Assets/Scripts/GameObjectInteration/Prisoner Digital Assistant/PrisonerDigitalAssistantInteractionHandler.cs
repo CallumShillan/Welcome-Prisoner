@@ -42,7 +42,7 @@ public class PrisonerDigitalAssistantInteractionHandler : MonoBehaviour, IAction
     {
         actionIcon.enabled = true;
         actionHintTextMesh.enabled = true;
-        actionHintTextMesh.text = GameUtils.ActionNameHint("Open", this.name, actionHintMessage);
+        actionHintTextMesh.text = GameUtils.ActionNameHint("Pick up the", this.name, actionHintMessage);
 
         return (false);
     }

@@ -31,7 +31,7 @@ public class PdaHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P)) //&& PdaPickedUp)
+        if (Input.GetKeyDown(KeyCode.P) && PdaPickedUp)
         {
             if (pdaIsDisplayed)
             {

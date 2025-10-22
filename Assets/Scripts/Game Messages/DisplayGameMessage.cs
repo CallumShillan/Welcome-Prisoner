@@ -58,13 +58,13 @@ public class DisplayGameMessage : Singleton<DisplayGameMessage>
             return;
         }
 
-        GameMessages.Instance.SetShown(gameMessageTitle);
-
         var player = globals.Player;
         if (player != null)
         {
             player.SetActive(false);
         }
+
+        GameMessages.Instance.SetShown(gameMessageTitle);
 
         Instance.docSpeakerIconTexture.style.backgroundImage = new StyleBackground(speakerIconTexture);
         Instance.docSpeakerName.text = $"{speakerIconTexture.name}";

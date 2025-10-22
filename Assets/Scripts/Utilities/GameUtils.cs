@@ -67,13 +67,10 @@ public static class GameUtils
 
     public static void DisplayInteractionMessage(InteractionMessage theMessage)
     {
-        if(theMessage is not null)
+        if (theMessage?.ShowGameMessageAfterInteraction == true)
         {
-            if (theMessage.ShowGameMessageAfterInteraction)
-            {
-                // Show the game message
-                DisplayGameMessage.Instance.ShowGameMessage(theMessage.SpeakerIconTexture, theMessage.GameMessageTitle);
-            }
+            // Show the game message
+            DisplayGameMessage.Instance.ShowGameMessage(theMessage.SpeakerIconTexture, theMessage.GameMessageTitle);
         }
     }
 

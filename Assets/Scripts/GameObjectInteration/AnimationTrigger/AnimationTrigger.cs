@@ -96,18 +96,14 @@ public class AnimationTrigger : MonoBehaviour, IActionInterface
     public bool AdvertiseInteraction()
     {
         PlayerInteraction playerInteraction = Globals.Instance.PlayerInteraction;
-        DoorAudioVisuals doorVisuals = Globals.Instance.DoorAudioVisuals;
 
-        if (playerInteraction.ActionIcon != null)
+        if (playerInteraction?.ActionIcon != null)
         {
             playerInteraction.ActionIcon.enabled = true;
         }
 
-        if (doorVisuals.ActionHintMessage != null)
-        {
-            playerInteraction.ActionHintTextMesh.enabled = true;
-            playerInteraction.ActionHintTextMesh.text = GameUtils.ActionNameHint(actionName, this.name, actionHint);
-        }
+        playerInteraction.ActionHintTextMesh.enabled = true;
+        playerInteraction.ActionHintTextMesh.text = GameUtils.ActionNameHint(actionName, this.name, actionHint);
 
         return false;
     }
@@ -154,7 +150,7 @@ public class AnimationTrigger : MonoBehaviour, IActionInterface
 
         if (stateInfo.normalizedTime >= 1.0f)
         {
-            if (postInteractionMessage.ShowGameMessageAfterInteraction)
+            if (postInteractionMessage?.ShowGameMessageAfterInteraction == true)
             {
                 // Show the game message
                 GameUtils.DisplayInteractionMessage(postInteractionMessage);
